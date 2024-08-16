@@ -1,0 +1,106 @@
+[versions]
+agp = "8.5.2"
+kotlin = "1.6.21"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.4"
+activityCompose = "1.9.1"
+composeBom = "2024.04.01"
+
+appcompat = '1.1.0'
+#core_ktx = '1.2.0'
+core_testing = '2.1.0'
+constraintlayout = '1.1.3'
+material = "1.1.0"
+moshi = '1.8.0'
+retrofit = '2.7.1'
+okhttp = '4.3.1'
+picasso = '2.71828'
+circleimageview = '3.0.0'
+
+#junit = '4.12'
+mockito = '2.27.0'
+mockito_kotlin = '2.1.0'
+
+test_runner = '1.1.1'
+espresso = '3.1.1'
+
+koinAndroid = "2.0.1"
+
+dagger = "2.23.2"
+#lifecycle = "2.2.0"
+#coroutines = "1.3.3"
+rxjava = "2.2.17"
+rxandroid = "2.1.1"
+core_ktx_test = "1.2.0"
+
+#Serialization
+gson = "2.8.6"
+
+[libraries]
+
+#CORE
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+
+#UI
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+#UI TEST & TOOLING
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+
+#TESTS
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+
+androidxAppcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroid" }
+koin-android-test = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinAndroid" }
+
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+
+rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
+rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofitAdapterRxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit" }
+retrofitConverterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttpMockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
+
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+circleImageView = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
+
+mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockitoKotlin = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockito_kotlin" }
+coreTesting = { group = "androidx.arch.core", name = "core-testing", version.ref = "core_testing" }
+
+testRunner = { group = "androidx.test", name = "runner", version.ref = "test_runner" }
+coreKtxTest = { group = "androidx.test", name = "core-ktx", version.ref = "core_ktx_test" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
