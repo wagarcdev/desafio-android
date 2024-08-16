@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.picpay.desafio.android"
-        minSdk = 21
+        minSdk = 24
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 29
         versionCode = 1
