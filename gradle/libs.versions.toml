@@ -27,7 +27,7 @@ mockito_kotlin = '2.1.0'
 test_runner = '1.1.1'
 espresso = '3.1.1'
 
-koinAndroid = "2.0.1"
+koinAndroid = "3.5.3"
 
 dagger = "2.50"
 #lifecycle = "2.2.0"
