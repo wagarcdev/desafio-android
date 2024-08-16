@@ -6,8 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,7 +21,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val url = "https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/"
 
-    private val gson: Gson by lazy { GsonBuilder().create() }
 
     private val okHttp: OkHttpClient by lazy {
         OkHttpClient.Builder()
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         Retrofit.Builder()
             .baseUrl(url)
             .client(okHttp)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
