@@ -21,7 +21,7 @@ fun ContactsScreen(
 ) {
     LazyColumn(
         modifier = Modifier
-            .padding(24.dp            ),
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         item {
