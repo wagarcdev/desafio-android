@@ -1,5 +1,16 @@
 [versions]
 
+appId = "com.picpay.desafio.android"
+androidApiCompile = "34"
+androidApiTarget = "29"
+androidApiMin = "24"
+appVersionCode = "1"
+appVersionName = "1.0"
+instrumentationTestRunner = "androidx.test.runner.AndroidJUnitRunner"
+java = "1.8"
+kotinExtensionVersion = "1.5.1"
+baseUrl = "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\""
+
 #CORE
 agp = "8.5.2"
 kotlin = "1.9.0"
@@ -30,6 +41,9 @@ rxandroid = "2.1.1"
 #Mocks
 mockito = '5.7.0'
 mockito_kotlin = '2.1.0'
+
+# Serialization
+gson = "2.10.1"
 
 #Tests
 junit = "4.13.2"
@@ -90,6 +104,9 @@ mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "moc
 mockitoKotlin = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockito_kotlin" }
 coreTesting = { group = "androidx.arch.core", name = "core-testing", version.ref = "core_testing" }
 
+#Serialization
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
 #TESTS
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -99,6 +116,7 @@ coreKtxTest = { group = "androidx.test", name = "core-ktx", version.ref = "core_
 
 
 [plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

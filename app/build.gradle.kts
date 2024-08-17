@@ -8,63 +8,61 @@ plugins {
 }
 
 android {
-    namespace = "com.picpay.desafio.android"
-    compileSdk = 34
+    with(libs.versions) {
+        namespace = appId.get()
+        compileSdk = androidApiCompile.get().toInt()
 
-    defaultConfig {
-        applicationId = "com.picpay.desafio.android"
-        minSdk = 24
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk = 29
-        versionCode = 1
-        versionName = "1.0"
+        defaultConfig {
+            applicationId = appId.get()
+            minSdk =  androidApiMin.get().toInt()
+            //noinspection ExpiredTargetSdkVersion
+            targetSdk =  androidApiTarget.get().toInt()
+            versionCode = appVersionCode.get().toInt()
+            versionName = appVersionName.get()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
+            testInstrumentationRunner = instrumentationTestRunner.get()
+            vectorDrawables {
+                useSupportLibrary = true
+            }
         }
-        buildConfigField("String", "BASE_URL", "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\"")
-    }
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        buildTypes {
+            release {
+                isMinifyEnabled = false
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        buildFeatures {
+            compose = true
+            viewBinding = true
+        }
+        composeOptions {
+            kotlinCompilerExtensionVersion = kotinExtensionVersion.get()
+        }
+        packaging {
+            resources {
+                excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            }
+        }
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = java.get()
         }
-    }
-
-    buildFeatures {
-        compose = true
-        viewBinding = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    kotlinOptions {
-        jvmTarget = "17"
     }
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -86,15 +84,15 @@ dependencies {
     implementation(libs.androidxConstraintLayout)
     implementation(libs.material)
 
-    implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.android)
-    implementation(libs.koin.android.test)
-
     implementation(libs.dagger)
     implementation(libs.daggerCompiler)
 
     implementation(libs.rxjava)
     implementation(libs.rxandroid)
+
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.android)
+    implementation(libs.koin.android.test)
 
     implementation(libs.retrofit)
     implementation(libs.retrofitAdapterRxjava2)

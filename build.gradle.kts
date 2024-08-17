@@ -2,6 +2,8 @@
 plugins {
     with(libs.plugins) {
         alias(android.application) apply false
+        alias(android.library) apply false
+
         alias(jetbrains.kotlin.android) apply false
 
         alias(kotlinJvm) apply false

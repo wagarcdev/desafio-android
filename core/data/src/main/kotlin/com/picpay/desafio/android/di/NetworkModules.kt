@@ -1,8 +1,8 @@
 package com.picpay.desafio.android.di
 
 import android.util.Log
-import com.picpay.desafio.android.BuildConfig
-import com.picpay.desafio.android.PicPayService
+import com.picpay.desafio.android.data.remote.PicPayService
+import com.picpay.desafio.android.core.data.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
