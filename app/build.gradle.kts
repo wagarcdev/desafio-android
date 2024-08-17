@@ -23,7 +23,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
+        buildConfigField("String", "BASE_URL", "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\"")
     }
     buildTypes {
         release {
@@ -100,6 +100,7 @@ dependencies {
     implementation(libs.retrofitAdapterRxjava2)
     implementation(libs.retrofitConverterGson)
     implementation(libs.okhttp)
+    implementation(libs.okhttp.interceptor)
     implementation(libs.okhttpMockwebserver)
 
     implementation(libs.picasso)
