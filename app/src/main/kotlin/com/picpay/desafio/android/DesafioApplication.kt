@@ -1,10 +1,8 @@
 package com.picpay.desafio.android
 
 import android.app.Application
-import com.picpay.desafio.android.contacts.di.contactsModule
-import com.picpay.desafio.android.di.okHttpModule
-import com.picpay.desafio.android.di.picPayServiceModule
-import com.picpay.desafio.android.di.retrofitModule
+import com.picpay.desafio.android.data.di.networkModule
+import com.picpay.desafio.android.contacts.di.featureContactsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,10 +15,8 @@ class DesafioApplication: Application() {
             androidLogger()
             androidContext(this@DesafioApplication)
             modules(
-                okHttpModule,
-                retrofitModule,
-                picPayServiceModule,
-                contactsModule
+                networkModule,
+                featureContactsModule
             )
         }
     }

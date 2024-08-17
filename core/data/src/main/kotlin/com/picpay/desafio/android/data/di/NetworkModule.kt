@@ -1,15 +1,16 @@
-package com.picpay.desafio.android.di
+package com.picpay.desafio.android.data.di
 
 import android.util.Log
-import com.picpay.desafio.android.data.remote.PicPayService
 import com.picpay.desafio.android.core.data.BuildConfig
+import com.picpay.desafio.android.data.remote.PicPayService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val okHttpModule = module {
+val networkModule = module {
+
     single {
         OkHttpClient.Builder()
             .addInterceptor(
@@ -19,9 +20,7 @@ val okHttpModule = module {
             )
             .build()
     }
-}
 
-val retrofitModule = module {
     single {
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -29,9 +28,7 @@ val retrofitModule = module {
             .client(get<OkHttpClient>())
             .build()
     }
-}
 
-val picPayServiceModule = module {
     single<PicPayService> {
         get<Retrofit>().create(PicPayService::class.java)
     }
