@@ -7,8 +7,8 @@ androidApiMin = "24"
 appVersionCode = "1"
 appVersionName = "1.0"
 instrumentationTestRunner = "androidx.test.runner.AndroidJUnitRunner"
-java = "1.8"
-kotinExtensionVersion = "1.5.1"
+java = "17"
+kotinExtensionVersion = "1.5.2"
 baseUrl = "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\""
 
 #CORE
@@ -25,6 +25,9 @@ constraintlayout = '2.1.4'
 material = "1.12.0"
 picasso = '2.71828'
 circleimageview = '3.0.0'
+composeNavigation = "2.7.5"
+coil = "2.4.0"
+
 
 #Networking
 retrofit = '2.11.0'
@@ -68,6 +71,9 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
+# Coil
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 #VIEW SYSTEM
 androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
