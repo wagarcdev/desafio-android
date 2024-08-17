@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.data.remote.PicPayService
 import com.picpay.desafio.android.domain.model.User
+import com.picpay.desafio.android.domain.repository.UsersRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ContactsScreenViewModel(
-    private val service: PicPayService
+    private val usersRepository: UsersRepository
 ) : ViewModel() {
 
     var uiState = MutableStateFlow(ContactsScreenUiState())
@@ -24,7 +25,7 @@ class ContactsScreenViewModel(
             setError(null)
             setLoadingTo(true)
             try {
-                val users = service.runCatching { getUsers() }.getOrNull()
+                val users = usersRepository.getContacts()
                 setLoadingTo(false)
                 if (users != null) {
                     updateUserList(users)
