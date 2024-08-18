@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.common.util.ApiResponse
 import com.picpay.desafio.android.domain.model.UserModel
-import com.picpay.desafio.android.domain.usecase.GetUsersUseCase
+import com.picpay.desafio.android.contacts.datasource.usecase.GetUsersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

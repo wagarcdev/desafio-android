@@ -3,6 +3,7 @@ plugins {
         alias(jetbrains.kotlin.android)
         alias(android.library)
     }
+    id("kotlin-parcelize")
 }
 
 android {
@@ -41,7 +42,6 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:design"))
 }

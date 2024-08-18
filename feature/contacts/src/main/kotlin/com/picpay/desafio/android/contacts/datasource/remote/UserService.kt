@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.data.remote
+package com.picpay.desafio.android.contacts.datasource.remote
 
 import retrofit2.Response
 import retrofit2.http.GET

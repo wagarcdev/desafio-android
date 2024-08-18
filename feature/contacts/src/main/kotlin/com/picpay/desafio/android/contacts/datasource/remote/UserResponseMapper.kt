@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.data.remote
+package com.picpay.desafio.android.contacts.datasource.remote
 
 import com.picpay.desafio.android.domain.model.UserModel
 
