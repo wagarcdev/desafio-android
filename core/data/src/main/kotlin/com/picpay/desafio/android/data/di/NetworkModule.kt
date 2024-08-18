@@ -29,7 +29,5 @@ val networkModule = module {
             .build()
     }
 
-    single<UserService> {
-        get<Retrofit>().create(UserService::class.java)
-    }
+
 }
