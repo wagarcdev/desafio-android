@@ -57,6 +57,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":network"))
+
     implementation(project(":core:common"))
 
     implementation(project(":core:data"))
