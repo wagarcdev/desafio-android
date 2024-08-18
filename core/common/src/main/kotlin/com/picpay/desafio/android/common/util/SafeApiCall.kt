@@ -11,15 +11,21 @@ suspend fun <T> safeApiCall(
 ): ApiResponse<T> {
     return withContext(dispatcher) {
         runCatching { apiCall() }
-            .mapCatching { response ->
-                if (response.isSuccessful) {
-                    ApiResponse.Success(response.body()!!)
-                } else {
-                    val errorMessage = response.errorBody()?.string() ?: response.message()
-                    Log.e("safeApiCall", errorMessage)
-                    ApiResponse.Error(response.code(), Throwable(errorMessage))
+            .fold(
+                onSuccess = { response ->
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            ApiResponse.Success(it)
+                        } ?: ApiResponse.Error(response.code(), Throwable("Response body is null"))
+                    } else {
+                        val errorMessage = response.errorBody()?.string() ?: response.message()
+                        ApiResponse.Error(response.code(), Throwable(errorMessage))
+                    }
+                },
+                onFailure = { exception ->
+                    Log.e("safeApiCall", "Exception: ${exception.message}", exception)
+                    ApiResponse.Error(exception.hashCode(), exception)
                 }
-            }
-            .getOrElse { ApiResponse.Error(it.hashCode(), it) }
+            )
     }
 }
