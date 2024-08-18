@@ -20,7 +20,7 @@ class ContactsScreenViewModel(
         fetchUsers()
     }
 
-    private fun fetchUsers() {
+    fun fetchUsers() {
         viewModelScope.launch {
             setLoadingTo(true)
             setError(null)

@@ -1,13 +1,18 @@
 package com.picpay.desafio.android.contacts
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,7 +29,8 @@ import com.picpay.desafio.android.feature.contacts.R
 
 @Composable
 fun ContactsScreen(
-    uiState: ContactsScreenUiState
+    uiState: ContactsScreenUiState,
+    onRetry: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -35,13 +41,19 @@ fun ContactsScreen(
     }
 
     if (uiState.isLoading) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(color = Color.Green)
+        }
+    } else if (uiState.isError != null) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                modifier = Modifier
+                    .clickable { onRetry() },
+                imageVector = Icons.Default.Refresh,
+                contentDescription = "refresh icon"
+            )
         }
     } else {
         LazyColumn(
@@ -66,10 +78,14 @@ fun ContactsScreen(
             }
         }
     }
+
 }
 
 @Preview
 @Composable
 private fun ContactsScreenPreview() {
-    ContactsScreen(ContactsScreenUiState())
+    ContactsScreen(
+        uiState = ContactsScreenUiState(),
+        onRetry = { }
+    )
 }
