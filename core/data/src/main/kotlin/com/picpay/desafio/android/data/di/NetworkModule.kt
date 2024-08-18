@@ -2,7 +2,7 @@ package com.picpay.desafio.android.data.di
 
 import android.util.Log
 import com.picpay.desafio.android.core.data.BuildConfig
-import com.picpay.desafio.android.data.remote.PicPayService
+import com.picpay.desafio.android.data.remote.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -29,7 +29,7 @@ val networkModule = module {
             .build()
     }
 
-    single<PicPayService> {
-        get<Retrofit>().create(PicPayService::class.java)
+    single<UserService> {
+        get<Retrofit>().create(UserService::class.java)
     }
 }

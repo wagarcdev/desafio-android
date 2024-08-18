@@ -3,7 +3,7 @@ package com.picpay.desafio.android.contacts
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.common.util.ApiResponse
-import com.picpay.desafio.android.domain.model.User
+import com.picpay.desafio.android.domain.model.UserModel
 import com.picpay.desafio.android.domain.usecase.GetUsersUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -48,7 +48,7 @@ class ContactsScreenViewModel(
         }
     }
 
-    private fun updateUserList(users: List<User>?) {
+    private fun updateUserList(users: List<UserModel>?) {
         if (users != null) {
             uiState.update {
                 it.copy(

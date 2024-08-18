@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.picpay.desafio.android.domain.model.User
+import com.picpay.desafio.android.domain.model.UserModel
 import com.picpay.desafio.android.ui.theme.colorDetail
 
 @Composable
-fun ContactItem(user: User) {
+fun ContactItem(user: UserModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
