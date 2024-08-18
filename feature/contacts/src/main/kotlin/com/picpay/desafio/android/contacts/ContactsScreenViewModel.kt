@@ -26,7 +26,7 @@ class ContactsScreenViewModel(
             setError(null)
             when(val apiResponse = getUsersUseCase()) {
                 is ApiResponse.Success -> updateUserList(apiResponse.value)
-                is ApiResponse.Error -> setError("Error message: ${apiResponse.error?.message}")
+                is ApiResponse.Error -> setError("Error: ${apiResponse.code} | ${apiResponse.error?.message}")
             }
             setLoadingTo(false)
         }
