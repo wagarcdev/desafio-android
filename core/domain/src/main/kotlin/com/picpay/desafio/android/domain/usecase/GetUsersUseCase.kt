@@ -6,7 +6,6 @@ class GetUsersUseCase(
     private val usersRepository: UsersRepository
 ) {
 
-    suspend operator fun invoke() =
-        usersRepository.runCatching { getContacts() }.getOrNull()
-
+    suspend operator fun invoke() = usersRepository.getContacts()
 }
+
