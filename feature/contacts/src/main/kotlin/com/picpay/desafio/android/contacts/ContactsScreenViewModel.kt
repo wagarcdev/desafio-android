@@ -3,32 +3,99 @@ package com.picpay.desafio.android.contacts
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.common.util.ApiResponse
+import com.picpay.desafio.android.contacts.datasource.usecase.LocalUsersFlowUseCase
+import com.picpay.desafio.android.contacts.datasource.usecase.SyncUsersUseCase
 import com.picpay.desafio.android.domain.model.UserModel
-import com.picpay.desafio.android.contacts.datasource.usecase.GetUsersUseCase
+import com.picpay.desafio.android.network.NetworkMonitor
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ContactsScreenViewModel(
-    private val getUsersUseCase: GetUsersUseCase
+    private val syncUsersUseCase: SyncUsersUseCase,
+    private val localUsersFlowUseCase: LocalUsersFlowUseCase,
+    private val networkMonitor: NetworkMonitor
 ) : ViewModel() {
 
     var uiState = MutableStateFlow(ContactsScreenUiState())
         private set
 
     init {
-        fetchUsers()
+        setLoadingTo(true)
+        watchLocalUsers()
+        watchNetworkStatus()
+        syncUsers()
     }
 
-    fun fetchUsers() {
+    private fun watchNetworkStatus() {
         viewModelScope.launch {
-            setLoadingTo(true)
-            setError(null)
-            when(val apiResponse = getUsersUseCase()) {
-                is ApiResponse.Success -> updateUserList(apiResponse.value)
-                is ApiResponse.Error -> setError("Error: ${apiResponse.code} | ${apiResponse.error?.message}")
+            networkMonitor.networkStatus.collect { netStatus ->
+                uiState.update {
+                    it.copy(
+                        isNetworkAvailable = netStatus
+                    )
+                }
+                syncIfNeeded()
             }
-            setLoadingTo(false)
+        }
+    }
+
+    private fun watchLocalUsers() {
+        viewModelScope.launch {
+            localUsersFlowUseCase.invoke().distinctUntilChanged().collect { users ->
+                uiState.update {
+                    it.copy(
+                        users = users
+                    )
+                }
+                if (uiState.value.users.isNotEmpty()) setLoadingTo(false)
+            }
+        }
+    }
+
+    private fun syncIfNeeded() {
+        if (uiState.value.syncFailed && uiState.value.isNetworkAvailable) {
+            syncUsers()
+        }
+    }
+
+    fun syncUsers() {
+        if (uiState.value.users.isEmpty()) {
+            setSyncFailedStatusTo(false)
+            setLoadingTo(true)
+        }
+        viewModelScope.launch {
+            if (!uiState.value.isNetworkAvailable) {
+                delay(300)
+                setDisplayMessage("              Sem internet\nNão foi possível sincronizar...")
+                setSyncFailedStatusTo(true)
+                setLoadingTo(false)
+                delay(500)
+                setDisplayMessage(null)
+                return@launch
+            }
+
+            setDisplayMessage("Sincronizando...")
+
+            when (val response: ApiResponse<List<UserModel>> = syncUsersUseCase()) {
+                is ApiResponse.Error<List<UserModel>> -> {
+                    setSyncFailedStatusTo(true)
+                    setLoadingTo(false)
+                    setDisplayMessage("Falha ao sincronizar...\nErro: ${response.code} | ${response.error?.message}")
+                    delay(500)
+                    setDisplayMessage("Tentando sicronizar novamente...")
+                    syncUsers()
+                }
+
+                is ApiResponse.Success<List<UserModel>> -> {
+                    setLoadingTo(false)
+                    setSyncFailedStatusTo(false)
+                    delay(300)
+                    setDisplayMessage("Contatos estão atualizados!")
+                }
+            }
         }
     }
 
@@ -40,21 +107,24 @@ class ContactsScreenViewModel(
         }
     }
 
-    private fun setError(message: String?) {
+    private fun setDisplayMessage(message: String?) {
         uiState.update {
             it.copy(
-                isError = message
+                displayMessage = message
             )
         }
     }
 
-    private fun updateUserList(users: List<UserModel>?) {
-        if (users != null) {
-            uiState.update {
-                it.copy(
-                    users = users
-                )
-            }
+    private fun setSyncFailedStatusTo(condition: Boolean) {
+        uiState.update {
+            it.copy(
+                syncFailed = condition
+            )
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        networkMonitor.cleanup()
     }
 }

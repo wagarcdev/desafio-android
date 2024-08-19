@@ -33,7 +33,7 @@ fun RootNavigation(
 
             ContactsScreen(
                 uiState = uiState,
-                onRetry = viewModel::fetchUsers
+                onRetry = viewModel::syncUsers
             )
         }
     }

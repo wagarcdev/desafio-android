@@ -2,12 +2,12 @@ plugins {
     with(libs.plugins) {
         alias(jetbrains.kotlin.android)
         alias(android.library)
+        alias(kotlinKapt)
     }
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".feature.contacts"
+    namespace = libs.versions.appId.get() + ".database"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
@@ -30,18 +30,14 @@ android {
         )
     }
 
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotinExtensionVersion.get()
-    }
+
 }
 
 dependencies {
-    implementation(project(":database"))
     implementation(project(":core:common"))
+
+    api(libs.roomKtx)
+    api(libs.roomRuntime)
     implementation(project(":core:domain"))
-    implementation(project(":core:design"))
-    implementation(project(":network"))
+    kapt(libs.roomCompiler)
 }

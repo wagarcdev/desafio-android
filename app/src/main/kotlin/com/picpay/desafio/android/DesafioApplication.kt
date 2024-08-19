@@ -2,6 +2,7 @@ package com.picpay.desafio.android
 
 import android.app.Application
 import com.picpay.desafio.android.contacts.di.featureContactsModule
+import com.picpay.desafio.android.data.di.databaseModule
 import com.picpay.desafio.android.network.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,6 +17,7 @@ class DesafioApplication: Application() {
             androidContext(this@DesafioApplication)
             modules(
                 networkModule,
+                databaseModule,
                 featureContactsModule
             )
         }
