@@ -48,6 +48,8 @@ fun ContactsScreen(
             .fillMaxSize()
     ) {
         Text(
+            modifier = Modifier
+                .padding(vertical = 24.dp),
             text = stringResource(R.string.contacts_screen_list_header),
             fontSize = 28.sp,
             color = Color.White,
