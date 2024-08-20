@@ -2,16 +2,17 @@ plugins {
     with(libs.plugins) {
         alias(jetbrains.kotlin.android)
         alias(android.library)
-        alias(kotlinKapt)
     }
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".database"
+    namespace = libs.versions.appId.get() + ".core.network"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
+        buildConfigField("String", "BASE_URL", libs.versions.baseUrl.get())
     }
 
     compileOptions {
@@ -35,9 +36,4 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-
-    api(libs.roomKtx)
-    api(libs.roomRuntime)
-    implementation(project(":core:domain"))
-    kapt(libs.roomCompiler)
 }

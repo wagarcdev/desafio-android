@@ -57,8 +57,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":database"))
-    implementation(project(":network"))
+    implementation(project(":core:database"))
+
+    implementation(project(":core:network"))
 
     implementation(project(":core:common"))
 
