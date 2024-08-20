@@ -44,6 +44,7 @@ dependencies {
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.material3)
+    api(libs.androidx.compose.material3.windowSizeClass)
     api(libs.navigation.compose)
     api(libs.coil.compose)
 
