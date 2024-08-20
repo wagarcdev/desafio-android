@@ -6,9 +6,8 @@ import com.picpay.desafio.android.domain.model.UserModel
 
 @Entity(tableName = "user_tbl")
 data class UserEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
-    val externalId: Int,
+    @PrimaryKey
+    val id: Int,
     val img: String,
     val name: String,
     val username: String
@@ -16,7 +15,7 @@ data class UserEntity(
 
 fun UserModel.toEntity() =
     UserEntity(
-        externalId = externalId,
+        id = externalId,
         img = img,
         name = name,
         username = username
@@ -24,7 +23,7 @@ fun UserModel.toEntity() =
 
 fun UserEntity.toModel() =
     UserModel(
-        externalId = externalId,
+        externalId = id,
         img = img,
         name = name,
         username = username
