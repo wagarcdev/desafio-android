@@ -1,7 +1,6 @@
 package com.picpay.desafio.android.contacts
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -31,14 +28,13 @@ import com.picpay.desafio.android.feature.contacts.R
 
 @Composable
 fun ContactsScreen(
-    uiState: ContactsScreenUiState,
-    onRetry: () -> Unit
+    uiState: ContactsScreenUiState
 ) {
     val context = LocalContext.current
 
-    LaunchedEffect(uiState.displayMessage) {
-        if (uiState.displayMessage != null) {
-            Toast.makeText(context, uiState.displayMessage, Toast.LENGTH_SHORT).show()
+    LaunchedEffect(uiState.isSyncing) {
+        if (uiState.isSyncing) {
+            Toast.makeText(context, context.getString(R.string.synchronizing), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -68,39 +64,20 @@ fun ContactsScreen(
                 )
             }
         } else {
-            if (uiState.showRetry) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+            if (uiState.isSyncing && uiState.users.isEmpty()) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clickable { onRetry() },
-                        imageVector = Icons.Default.Refresh,
-                        contentDescription = stringResource(R.string.retry_icon),
-                        tint = Color.White
-                    )
-                    Text(text = stringResource(R.string.retry), color = Color.Gray)
+                    CircularProgressIndicator(color = Color.Green)
                 }
             } else {
-
-                if (uiState.isLoading) {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(color = Color.Green)
-                    }
-                } else {
-                    LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(24.dp)
-                    ) {
-                        items(
-                            items = uiState.users,
-                            key = { it.externalId }
-                        ) { user ->
-                            ContactItem(user)
-                        }
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(24.dp)
+                ) {
+                    items(
+                        items = uiState.users,
+                        key = { it.externalId }
+                    ) { user ->
+                        ContactItem(user)
                     }
                 }
             }
@@ -114,6 +91,6 @@ fun ContactsScreen(
 private fun ContactsScreenPreview() {
     ContactsScreen(
         uiState = ContactsScreenUiState(),
-        onRetry = { }
+//        onRetry = { }
     )
 }

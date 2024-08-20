@@ -30,10 +30,7 @@ fun RootNavigation(
             val viewModel: ContactsScreenViewModel = koinViewModel()
             val uiState by viewModel.uiState.collectAsState()
 
-            ContactsScreen(
-                uiState = uiState,
-                onRetry = viewModel::syncUsers
-            )
+            ContactsScreen(uiState)
         }
     }
 }

@@ -57,15 +57,17 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":core:data"))
     implementation(project(":core:database"))
-
     implementation(project(":core:network"))
-
     implementation(project(":core:common"))
-
     implementation(project(":core:domain"))
     implementation(project(":core:design"))
+
     implementation(project(":feature:contacts"))
+
+    implementation(project(":sync:work"))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }
