@@ -1,8 +1,7 @@
 package com.picpay.desafio.android.network.di
 
-import android.content.Context
-import android.net.ConnectivityManager
-import com.picpay.desafio.android.network.BuildConfig
+import com.picpay.desafio.android.core.network.BuildConfig
+import com.picpay.desafio.android.network.ConnectivityManagerNetworkMonitor
 import com.picpay.desafio.android.network.NetworkMonitor
 import com.picpay.desafio.android.network.di.NetworkClient.retrofitBuilder
 import org.koin.android.ext.koin.androidContext
@@ -12,8 +11,6 @@ val networkModule = module {
 
     single { retrofitBuilder(BuildConfig.BASE_URL) }
 
-    single { androidContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
-
-    single { NetworkMonitor(get()) }
+    single<NetworkMonitor> { ConnectivityManagerNetworkMonitor(androidContext()) }
 
 }

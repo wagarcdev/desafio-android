@@ -31,7 +31,7 @@ class ContactsScreenViewModel(
 
     private fun watchNetworkStatus() {
         viewModelScope.launch {
-            networkMonitor.networkStatus.collect { netStatus ->
+            networkMonitor.isOnline.collect { netStatus ->
                 uiState.update {
                     it.copy(
                         isNetworkAvailable = netStatus
@@ -121,10 +121,5 @@ class ContactsScreenViewModel(
                 syncFailed = condition
             )
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        networkMonitor.cleanup()
     }
 }

@@ -11,4 +11,7 @@ data class ContactsScreenUiState(
 ){
     val showRetry: Boolean
         get() = syncFailed && users.isEmpty()
+
+    val showNoInternet: Boolean
+        get() = showRetry && !isNetworkAvailable
 }

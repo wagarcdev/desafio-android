@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,53 +42,69 @@ fun ContactsScreen(
         }
     }
 
-    if (uiState.showRetry) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                modifier = Modifier
-                    .size(50.dp)
-                    .clickable { onRetry() },
-                imageVector = Icons.Default.Refresh,
-                contentDescription = stringResource(R.string.retry_icon),
-                tint = Color.White
-            )
-            Text(text = stringResource(R.string.retry), color = Color.Gray)
-        }
-    } else {
+    Column(
+        modifier = Modifier
+            .padding(24.dp)
+            .fillMaxSize()
+    ) {
+        Text(
+            text = stringResource(R.string.contacts_screen_list_header),
+            fontSize = 28.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
 
-        if (uiState.isLoading) {
+        if (uiState.showNoInternet) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator(color = Color.Green)
+                Icon(
+                    modifier = Modifier
+                        .size(250.dp),
+                    painter = painterResource(id = R.drawable.no_internet),
+                    contentDescription = "no internet image",
+                    tint = Color.Gray
+                )
             }
         } else {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                item {
-                    Text(
-                        text = stringResource(R.string.contacts_screen_list_header),
-                        fontSize = 28.sp,
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold
+            if (uiState.showRetry) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clickable { onRetry() },
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = stringResource(R.string.retry_icon),
+                        tint = Color.White
                     )
+                    Text(text = stringResource(R.string.retry), color = Color.Gray)
                 }
+            } else {
 
-                items(
-                    items = uiState.users,
-                    key = { it.externalId }
-                ) { user ->
-                    ContactItem(user)
+                if (uiState.isLoading) {
+                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(color = Color.Green)
+                    }
+                } else {
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(24.dp)
+                    ) {
+                        items(
+                            items = uiState.users,
+                            key = { it.externalId }
+                        ) { user ->
+                            ContactItem(user)
+                        }
+                    }
                 }
             }
         }
     }
+
 }
 
 @Preview
