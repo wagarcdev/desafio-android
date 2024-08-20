@@ -7,12 +7,11 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".core.network"
+    namespace = libs.versions.appId.get() + ".core.data"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
-        buildConfigField("String", "BASE_URL", libs.versions.baseUrl.get())
     }
 
     compileOptions {
@@ -36,5 +35,4 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:data"))
 }
