@@ -25,11 +25,12 @@ import com.picpay.desafio.android.ui.theme.picPayGreen
 
 @Composable
 fun ContactItem(
+    modifier: Modifier = Modifier,
     user: UserModel,
     searchString: String
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier then Modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {

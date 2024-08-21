@@ -1,5 +1,7 @@
 package com.picpay.desafio.android.contacts.components
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -15,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.picpay.desafio.android.contacts.viewmodel.ContactUiEvent
@@ -44,6 +47,10 @@ fun ColumnScope.ContactListWithSearchBar(
         }
     )
 
+    val focusManager = LocalFocusManager.current
+    val interaction = remember { MutableInteractionSource() }
+
+
     val listState = rememberLazyListState()
     LaunchedEffect(
         searchUiState.searchQuery,
@@ -59,7 +66,15 @@ fun ColumnScope.ContactListWithSearchBar(
             key = { _, it -> it.externalId }
         ) { index, user ->
 
-            ContactItem(user, searchString)
+            ContactItem(
+                modifier = Modifier
+                    .clickable(
+                        interactionSource = interaction,
+                        indication = null
+                    ) { focusManager.clearFocus() },
+                user = user,
+                searchString = searchString
+            )
 
             if (index == uiState.users.size - 1) {
                 Spacer(modifier = Modifier.height(24.dp))
