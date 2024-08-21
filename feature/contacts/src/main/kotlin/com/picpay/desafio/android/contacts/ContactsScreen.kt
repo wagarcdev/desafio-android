@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.contacts
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,15 +13,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.picpay.desafio.android.contacts.components.ContactListWithSearchBar
 import com.picpay.desafio.android.contacts.components.ContactsScreenTitle
-import com.picpay.desafio.android.contacts.components.NoInternetAlert
 import com.picpay.desafio.android.contacts.viewmodel.ContactUiEvent
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenViewModel
 import com.picpay.desafio.android.contacts.viewmodel.IsLoading
 import com.picpay.desafio.android.contacts.viewmodel.NoInternet
 import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
-import com.picpay.desafio.android.contacts.viewmodel.ShowContacts
+import com.picpay.desafio.android.contacts.viewmodel.ShowContactList
 import com.picpay.desafio.android.feature.contacts.R
+import com.picpay.desafio.android.ui.util.showShortToast
+import com.picpay.desafio.android.ui.widgets.NoInternetAlert
 import com.picpay.desafio.android.ui.widgets.ProgressIndicator
 import org.koin.androidx.compose.koinViewModel
 
@@ -48,23 +48,17 @@ fun ContactsScreenContent(
 ) {
     val context = LocalContext.current
     LaunchedEffect(uiState.isSyncing) {
-        if (uiState.isSyncing) {
-            Toast.makeText(context, context.getString(R.string.synchronizing), Toast.LENGTH_SHORT)
-                .show()
-        }
+        if (uiState.isSyncing) showShortToast(R.string.synchronizing, context)
     }
 
-    Column(
-        modifier = Modifier
-            .padding(horizontal = 24.dp)
-            .fillMaxSize()
-    ) {
+    Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
+
         ContactsScreenTitle()
 
-        when (uiState.showCondition) {
+        when (uiState.condition) {
             NoInternet -> NoInternetAlert()
             IsLoading -> ProgressIndicator(Modifier.fillMaxSize())
-            ShowContacts -> {
+            ShowContactList -> {
                 ContactListWithSearchBar(
                     uiState = uiState,
                     searchUiState = searchUiState,
@@ -74,7 +68,6 @@ fun ContactsScreenContent(
         }
     }
 }
-
 
 @Preview
 @Composable

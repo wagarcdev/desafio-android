@@ -27,7 +27,7 @@ class ContactsScreenViewModel(
         searchLocalUsersFlowUseCase(
             searchQuery = state.searchQuery,
             sortColumn = state.sortedBy.parameter,
-            sortOrder = state.orderingDirection.parameter
+            sortOrder = state.orderDirection.parameter
         )
     }
 
@@ -50,10 +50,10 @@ class ContactsScreenViewModel(
     fun onEvent(event: ContactUiEvent) {
         when(event) {
             is EventOrderChange -> searchUiState
-                .update { it.copy(orderingDirection = event.orderDirection) }
+                .update { it.copy(orderDirection = event.orderDirection) }
 
             is EventSortChange -> searchUiState
-                .update { it.copy(sortedBy = event.sortingParameter) }
+                .update { it.copy(sortedBy = event.sortBy) }
 
             is EventSearchChange -> searchUiState
                 .update { it.copy(searchQuery = event.search.apply { removePrefix("@") }) }

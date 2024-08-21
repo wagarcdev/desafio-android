@@ -1,25 +1,15 @@
 package com.picpay.desafio.android.contacts.components
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.picpay.desafio.android.contacts.components.contactlist.ContactsList
+import com.picpay.desafio.android.contacts.components.searchbar.ContactsSearchBar
 import com.picpay.desafio.android.contacts.viewmodel.ContactUiEvent
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
 import com.picpay.desafio.android.contacts.viewmodel.EventSearchChange
@@ -33,7 +23,7 @@ fun ColumnScope.ContactListWithSearchBar(
 ) {
     var searchString by remember { mutableStateOf("") }
 
-    SearchBar(
+    ContactsSearchBar(
         search = searchString,
         searchUiState = searchUiState,
         onEvent = { event ->
@@ -47,40 +37,11 @@ fun ColumnScope.ContactListWithSearchBar(
         }
     )
 
-    val focusManager = LocalFocusManager.current
-    val interaction = remember { MutableInteractionSource() }
-
-
-    val listState = rememberLazyListState()
-    LaunchedEffect(
-        searchUiState.searchQuery,
-        searchUiState.sortedBy,
-        searchUiState.orderingDirection,
-    ) { listState.scrollToItem(0) }
-    LazyColumn(
-        state = listState,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
-    ) {
-        itemsIndexed(
-            items = uiState.users,
-            key = { _, it -> it.externalId }
-        ) { index, user ->
-
-            ContactItem(
-                modifier = Modifier
-                    .clickable(
-                        interactionSource = interaction,
-                        indication = null
-                    ) { focusManager.clearFocus() },
-                user = user,
-                searchString = searchString
-            )
-
-            if (index == uiState.users.size - 1) {
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-        }
-    }
+    ContactsList(
+        searchUiState = searchUiState,
+        uiState = uiState,
+        searchString = searchString
+    )
 }
 
 @Preview

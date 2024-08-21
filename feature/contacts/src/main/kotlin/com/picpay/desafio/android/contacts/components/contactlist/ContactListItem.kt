@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.contacts.components
+package com.picpay.desafio.android.contacts.components.contactlist
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.picpay.desafio.android.ui.theme.colorDetail
 import com.picpay.desafio.android.ui.theme.picPayGreen
 
 @Composable
-fun ContactItem(
+fun ContactListItem(
     modifier: Modifier = Modifier,
     user: UserModel,
     searchString: String

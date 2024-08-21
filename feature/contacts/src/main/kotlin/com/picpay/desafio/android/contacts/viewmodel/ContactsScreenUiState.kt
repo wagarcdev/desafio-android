@@ -8,7 +8,7 @@ data class ContactsScreenUiState(
     var displayMessage: String? = null,
     var users: List<UserModel> = emptyList(),
 ) {
-    val showCondition: ShowCondition
+    val condition: ContactsUiStateCondition
         get() =
             if (users.isEmpty() && isNetworkAvailable?.not() == true) {
                 NoInternet
@@ -16,12 +16,12 @@ data class ContactsScreenUiState(
                 if (isSyncing && users.isEmpty()) {
                     IsLoading
                 } else {
-                    ShowContacts
+                    ShowContactList
                 }
             }
 }
 
-sealed interface ShowCondition
-data object NoInternet : ShowCondition
-data object IsLoading : ShowCondition
-data object ShowContacts : ShowCondition
+sealed interface ContactsUiStateCondition
+data object NoInternet : ContactsUiStateCondition
+data object IsLoading : ContactsUiStateCondition
+data object ShowContactList : ContactsUiStateCondition

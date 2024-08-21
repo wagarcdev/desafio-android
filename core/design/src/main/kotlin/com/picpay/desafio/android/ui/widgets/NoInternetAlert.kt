@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.contacts.components
+package com.picpay.desafio.android.ui.widgets
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.picpay.desafio.android.feature.contacts.R
+import com.picpay.desafio.android.core.design.R
 
 @Composable
 fun NoInternetAlert() {
