@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
 import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
+import kotlinx.coroutines.delay
 
 @Composable
 fun ContactsList(
@@ -31,7 +32,10 @@ fun ContactsList(
         searchUiState.searchQuery,
         searchUiState.sortedBy,
         searchUiState.orderDirection,
-    ) { listState.scrollToItem(0) }
+    ) {
+        delay(50)
+        listState.scrollToItem(0)
+    }
     LazyColumn(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(24.dp)
