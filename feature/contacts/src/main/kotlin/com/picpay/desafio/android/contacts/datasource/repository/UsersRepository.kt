@@ -1,8 +1,9 @@
 package com.picpay.desafio.android.contacts.datasource.repository
 
 import com.picpay.desafio.android.common.util.ApiResponse
-import com.picpay.desafio.android.data.Syncable
+import com.picpay.desafio.android.data.sync.Syncable
 import com.picpay.desafio.android.domain.model.UserModel
+import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository: Syncable {
@@ -17,10 +18,10 @@ interface UsersRepository: Syncable {
 
     fun getLocalUsers(): Flow<List<UserModel>>
 
-    suspend fun getRemoteUsers(): ApiResponse<List<UserModel>>
+    suspend fun getRemoteUsers(): ApiResponse<List<UserResponse>>
 
-    suspend fun insertLocalUser(user: UserModel)
+    suspend fun insertLocalUser(user: UserResponse)
 
-    suspend fun insertLocalUsers(vararg users: UserModel)
+    suspend fun insertLocalUsers(vararg users: UserResponse): Boolean
 
 }

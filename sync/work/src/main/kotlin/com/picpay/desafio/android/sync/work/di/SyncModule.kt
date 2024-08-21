@@ -2,7 +2,7 @@ package com.picpay.desafio.android.sync.work.di
 
 import android.content.Context
 import androidx.work.WorkerParameters
-import com.picpay.desafio.android.data.SyncManager
+import com.picpay.desafio.android.data.sync.SyncManager
 import com.picpay.desafio.android.sync.work.status.WorkManagerSyncManager
 import com.picpay.desafio.android.sync.work.workers.DelegatingWorker
 import com.picpay.desafio.android.sync.work.workers.KoinWorkerFactory
@@ -27,7 +27,9 @@ val syncModule = module {
             appContext = appContext,
             workerParams = workerParams,
             ioDispatcher = get(),
-            usersRepository = get()
+            usersRepository = get(),
+            preferences = get(),
+            dataSyncManager = get()
         )
     }
 

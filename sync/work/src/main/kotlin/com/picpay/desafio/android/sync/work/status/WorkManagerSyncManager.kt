@@ -5,7 +5,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkInfo.State
 import androidx.work.WorkManager
-import com.picpay.desafio.android.data.SyncManager
+import com.picpay.desafio.android.data.sync.SyncManager
 import com.picpay.desafio.android.sync.work.initializers.SyncWorkName
 import com.picpay.desafio.android.sync.work.workers.SyncWorker
 import kotlinx.coroutines.flow.Flow

@@ -1,7 +1,8 @@
-package com.picpay.desafio.android.contacts.datasource.remote
+package com.picpay.desafio.android.domain.mappers
 
 import com.picpay.desafio.android.data.image.resizeAndCompressImageFromUrl
 import com.picpay.desafio.android.domain.model.UserModel
+import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

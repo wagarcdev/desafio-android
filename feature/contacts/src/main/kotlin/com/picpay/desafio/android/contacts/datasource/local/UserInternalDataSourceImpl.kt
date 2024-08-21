@@ -7,7 +7,6 @@ import com.picpay.desafio.android.data.model.toModel
 import com.picpay.desafio.android.domain.model.UserModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-
 class UserLocalDataSourceImpl(
     private val userDao: UserDao
 ) : UserLocalDataSource {
@@ -28,6 +27,13 @@ class UserLocalDataSourceImpl(
 
     override suspend fun insertUser(user: UserModel) = userDao.insertUser(user.toEntity())
 
-    override suspend fun insertUsers(vararg user: UserModel) = user.forEach { insertUser(it) }
+    override suspend fun insertUsers(vararg user: UserModel): Boolean =
+        runCatching {
+            user.forEach { insertUser(it) }
+        }.fold(
+            onSuccess = { true },
+            onFailure = { false }
+        )
 
 }
+

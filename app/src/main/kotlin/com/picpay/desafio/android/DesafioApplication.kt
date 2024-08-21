@@ -2,7 +2,9 @@ package com.picpay.desafio.android
 
 import android.app.Application
 import com.picpay.desafio.android.contacts.di.featureContactsModule
+import com.picpay.desafio.android.data.di.dataModule
 import com.picpay.desafio.android.data.di.databaseModule
+import com.picpay.desafio.android.datastore.di.dataStoreModule
 import com.picpay.desafio.android.network.di.networkModule
 import com.picpay.desafio.android.sync.work.di.syncModule
 import com.picpay.desafio.android.sync.work.initializers.Sync
@@ -20,6 +22,8 @@ class DesafioApplication: Application() {
             modules(
                 syncModule,
                 networkModule,
+                dataModule,
+                dataStoreModule,
                 databaseModule,
                 featureContactsModule
             )

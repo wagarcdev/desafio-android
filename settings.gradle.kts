@@ -19,6 +19,7 @@ include (":app")
 
 include (":core:network")
 include (":core:data")
+include (":core:datastore")
 include (":core:database")
 include(":core:common")
 include(":core:domain")

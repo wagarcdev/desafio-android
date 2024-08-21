@@ -42,6 +42,7 @@ koinAndroid = "3.5.3"
 
 #Persistence
 room = "2.6.1"
+androidxDataStore = "1.1.1"
 
 #Reactivity
 rxjava = "2.2.21"
@@ -110,6 +111,7 @@ rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = 
 roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-dataStore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
 
 #Networking
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }

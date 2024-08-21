@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".sync.work"
+    namespace = libs.versions.appId.get() + ".core.datastore"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
@@ -35,9 +35,5 @@ android {
 dependencies {
     implementation(project(":core:common"))
 
-    implementation(libs.androidx.work.ktx)
-    implementation(project(":core:data"))
-    implementation(project(":feature:contacts"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:network"))
+    implementation(libs.androidx.dataStore.preferences)
 }

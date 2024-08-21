@@ -2,10 +2,11 @@ package com.picpay.desafio.android.contacts.datasource.repository
 
 import com.picpay.desafio.android.common.util.ApiResponse
 import com.picpay.desafio.android.domain.model.UserModel
+import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface UserRemoteDataSource {
-    suspend fun getUsers(): ApiResponse<List<UserModel>>
+    suspend fun getUsers(): ApiResponse<List<UserResponse>>
 }
 
 interface UserLocalDataSource {
@@ -20,5 +21,5 @@ interface UserLocalDataSource {
 
     suspend fun insertUser(user: UserModel)
 
-    suspend fun insertUsers(vararg user: UserModel)
+    suspend fun insertUsers(vararg user: UserModel): Boolean
 }

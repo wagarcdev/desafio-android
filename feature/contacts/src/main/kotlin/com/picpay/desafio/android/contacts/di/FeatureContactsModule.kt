@@ -2,7 +2,7 @@ package com.picpay.desafio.android.contacts.di
 
 import com.picpay.desafio.android.contacts.datasource.local.UserLocalDataSourceImpl
 import com.picpay.desafio.android.contacts.datasource.remote.UserRemoteDataSourceImpl
-import com.picpay.desafio.android.contacts.datasource.remote.UserService
+import com.picpay.desafio.android.network.services.UserService
 import com.picpay.desafio.android.contacts.datasource.repository.UserLocalDataSource
 import com.picpay.desafio.android.contacts.datasource.repository.UserRemoteDataSource
 import com.picpay.desafio.android.contacts.datasource.repository.UsersRepository
