@@ -44,7 +44,7 @@ fun ContactListItem(
                 modifier = Modifier
                     .size(52.dp)
                     .clip(CircleShape),
-                model = user.img,
+                model = user.imgBytes,
                 contentDescription = "user image",
                 filterQuality = FilterQuality.Low
             )
