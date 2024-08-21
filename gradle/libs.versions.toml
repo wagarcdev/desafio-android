@@ -20,9 +20,10 @@ lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 
 #UI
-composeBom = "2024.06.00"
+#composeBom = "2024.06.00"
+composeUi = "1.7.0-beta07"
 constraintlayout = '2.1.4'
-material = "1.12.0"
+material3 = "1.2.1"
 picasso = '2.71828'
 circleimageview = '3.0.0'
 composeNavigation = "2.7.7"
@@ -72,11 +73,11 @@ androidxAppcompat = { group = "androidx.appcompat", name = "appcompat", version.
 
 #UI
 #COMPOSE
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
+#androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeUi"}
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "composeUi"}
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "material3" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 # Coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
@@ -84,7 +85,7 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 circleImageView = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+#material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 #UI TEST & TOOLING
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }

@@ -38,7 +38,7 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.ktx)
 
     api(libs.androidx.activity.compose)
-    api(platform(libs.androidx.compose.bom))
+//    api(platform(libs.androidx.compose.bom))
 
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
@@ -56,7 +56,7 @@ dependencies {
 
     api(libs.androidxAppcompat)
     api(libs.androidxConstraintLayout)
-    api(libs.material)
+//    api(libs.material)
 
     api(libs.dagger)
     api(libs.daggerCompiler)
