@@ -25,6 +25,16 @@ android {
                 useSupportLibrary = true
             }
         }
+
+        signingConfigs {
+            getByName("debug") {
+                storeFile = File(rootProject.projectDir.toString() + "/key.jks")
+                storePassword = "password"
+                keyAlias = "key0"
+                keyPassword = "password"
+            }
+        }
+
         buildTypes {
             release {
                 isMinifyEnabled = false
@@ -32,6 +42,7 @@ android {
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
+                signingConfig = signingConfigs.getByName("debug")
             }
         }
         compileOptions {
