@@ -7,23 +7,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.picpay.desafio.android.contacts.components.ContactListWithSearchBar
 import com.picpay.desafio.android.contacts.components.ContactsScreenTitle
+import com.picpay.desafio.android.contacts.components.contactlist.ContactsList
+import com.picpay.desafio.android.contacts.components.searchbar.ContactsSearchBar
 import com.picpay.desafio.android.contacts.viewmodel.ContactUiEvent
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenViewModel
+import com.picpay.desafio.android.contacts.viewmodel.EventSearchChange
 import com.picpay.desafio.android.contacts.viewmodel.IsLoading
 import com.picpay.desafio.android.contacts.viewmodel.NoInternet
 import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
 import com.picpay.desafio.android.contacts.viewmodel.ShowContactList
 import com.picpay.desafio.android.feature.contacts.R
 import com.picpay.desafio.android.ui.util.showShortToast
-import com.picpay.desafio.android.ui.widgets.NoInternetAlert
 import com.picpay.desafio.android.ui.widgets.ProgressIndicator
+import com.picpay.desafio.android.ui.widgets.alerts.NoInternetAlert
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -55,14 +60,29 @@ fun ContactsScreenContent(
 
         ContactsScreenTitle()
 
+        var searchString by remember { mutableStateOf("") }
+        ContactsSearchBar(
+            search = searchString,
+            searchUiState = searchUiState,
+            onEvent = { event ->
+                when (event) {
+                    is EventSearchChange -> {
+                        searchString = event.search
+                        onEvent(event)
+                    }
+                    else -> onEvent(event)
+                }
+            }
+        )
+
         when (uiState.condition) {
             NoInternet -> NoInternetAlert()
             IsLoading -> ProgressIndicator(Modifier.fillMaxSize())
             ShowContactList -> {
-                ContactListWithSearchBar(
-                    uiState = uiState,
+                ContactsList(
                     searchUiState = searchUiState,
-                    onEvent = onEvent
+                    uiState = uiState,
+                    searchString = searchString
                 )
             }
         }
