@@ -1,96 +1,87 @@
 package com.picpay.desafio.android.contacts
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.picpay.desafio.android.contacts.components.ContactListWithSearchBar
+import com.picpay.desafio.android.contacts.components.ContactsScreenTitle
+import com.picpay.desafio.android.contacts.components.NoInternetAlert
+import com.picpay.desafio.android.contacts.viewmodel.ContactUiEvent
+import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
+import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenViewModel
+import com.picpay.desafio.android.contacts.viewmodel.IsLoading
+import com.picpay.desafio.android.contacts.viewmodel.NoInternet
+import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
+import com.picpay.desafio.android.contacts.viewmodel.ShowContacts
 import com.picpay.desafio.android.feature.contacts.R
+import com.picpay.desafio.android.ui.widgets.ProgressIndicator
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ContactsScreen(
-    uiState: ContactsScreenUiState
+fun ContactScreen() {
+
+    val viewModel: ContactsScreenViewModel = koinViewModel()
+    val uiState by viewModel.uiState.collectAsState()
+    val searchUiState by viewModel.searchUiState.collectAsState()
+
+    ContactsScreenContent(
+        uiState = uiState,
+        searchUiState = searchUiState,
+        onEvent = viewModel::onEvent
+    )
+}
+
+@Composable
+fun ContactsScreenContent(
+    uiState: ContactsScreenUiState,
+    searchUiState: SearchUiState,
+    onEvent: (ContactUiEvent) -> Unit
 ) {
     val context = LocalContext.current
-
     LaunchedEffect(uiState.isSyncing) {
         if (uiState.isSyncing) {
-            Toast.makeText(context, context.getString(R.string.synchronizing), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.synchronizing), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
     Column(
         modifier = Modifier
-            .padding(24.dp)
+            .padding(horizontal = 24.dp)
             .fillMaxSize()
     ) {
-        Text(
-            modifier = Modifier
-                .padding(vertical = 24.dp),
-            text = stringResource(R.string.contacts_screen_list_header),
-            fontSize = 28.sp,
-            color = Color.White,
-            fontWeight = FontWeight.Bold
-        )
+        ContactsScreenTitle()
 
-        if (uiState.showNoInternet) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .size(250.dp),
-                    painter = painterResource(id = R.drawable.no_internet),
-                    contentDescription = "no internet image",
-                    tint = Color.Gray
+        when (uiState.showCondition) {
+            NoInternet -> NoInternetAlert()
+            IsLoading -> ProgressIndicator(Modifier.fillMaxSize())
+            ShowContacts -> {
+                ContactListWithSearchBar(
+                    uiState = uiState,
+                    searchUiState = searchUiState,
+                    onEvent = onEvent
                 )
-            }
-        } else {
-            if (uiState.isSyncing && uiState.users.isEmpty()) {
-                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = Color.Green)
-                }
-            } else {
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(24.dp)
-                ) {
-                    items(
-                        items = uiState.users,
-                        key = { it.externalId }
-                    ) { user ->
-                        ContactItem(user)
-                    }
-                }
             }
         }
     }
-
 }
+
 
 @Preview
 @Composable
-private fun ContactsScreenPreview() {
-    ContactsScreen(
+private fun ContactsScreenContentPreview() {
+    ContactsScreenContent(
         uiState = ContactsScreenUiState(),
-//        onRetry = { }
+        searchUiState = SearchUiState(),
+        onEvent = { }
     )
 }

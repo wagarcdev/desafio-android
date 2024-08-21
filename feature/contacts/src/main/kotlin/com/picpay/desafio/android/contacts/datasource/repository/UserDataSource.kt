@@ -9,7 +9,16 @@ interface UserRemoteDataSource {
 }
 
 interface UserLocalDataSource {
+
+    fun searchUser(
+        searchQuery: String,
+        sortColumn: String,
+        sortOrder: String
+    ): Flow<List<UserModel>>
+
     fun getUsers(): Flow<List<UserModel>>
+
     suspend fun insertUser(user: UserModel)
+
     suspend fun insertUsers(vararg user: UserModel)
 }

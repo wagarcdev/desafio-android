@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.contacts.di
 
-import com.picpay.desafio.android.contacts.ContactsScreenViewModel
 import com.picpay.desafio.android.contacts.datasource.local.UserLocalDataSourceImpl
 import com.picpay.desafio.android.contacts.datasource.remote.UserRemoteDataSourceImpl
 import com.picpay.desafio.android.contacts.datasource.remote.UserService
@@ -9,6 +8,7 @@ import com.picpay.desafio.android.contacts.datasource.repository.UserRemoteDataS
 import com.picpay.desafio.android.contacts.datasource.repository.UsersRepository
 import com.picpay.desafio.android.contacts.datasource.repository.impl.UsersRepositoryImpl
 import com.picpay.desafio.android.contacts.datasource.usecase.di.featureContactsUseCasesModule
+import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit

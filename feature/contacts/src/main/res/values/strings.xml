@@ -3,4 +3,5 @@
     <string name="contacts_screen_list_header">Contatos</string>
     <string name="retry">Tentar novamente...</string>
     <string name="retry_icon">retry icon</string>
+    <string name="synchronizing">Sincronizando...</string>
 </resources>

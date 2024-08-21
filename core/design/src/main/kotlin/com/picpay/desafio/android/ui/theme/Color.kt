@@ -12,3 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val colorDetail = Color(0x80FFFFFF)
 val colorPrimaryDark = Color(0xFF1D1E20)
+
+val picPayGreen = Color(0xFF2bdd68)

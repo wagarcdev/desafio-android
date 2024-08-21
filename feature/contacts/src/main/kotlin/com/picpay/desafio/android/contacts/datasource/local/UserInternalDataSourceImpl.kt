@@ -12,6 +12,17 @@ class UserLocalDataSourceImpl(
     private val userDao: UserDao
 ) : UserLocalDataSource {
 
+    override fun searchUser(
+        searchQuery: String,
+        sortColumn: String,
+        sortOrder: String
+    ): Flow<List<UserModel>> =
+        userDao.searchUsers(
+            searchQuery = searchQuery,
+            sortColumn = sortColumn,
+            sortOrder = sortOrder
+        ).map { users -> users.map { it.toModel() } }
+
     override fun getUsers(): Flow<List<UserModel>> = userDao.getAllUsers()
         .map { users -> users.map { it.toModel() } }
 

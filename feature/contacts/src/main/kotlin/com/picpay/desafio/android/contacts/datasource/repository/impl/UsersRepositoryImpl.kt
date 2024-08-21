@@ -12,17 +12,16 @@ class UsersRepositoryImpl(
     private val localDataSource: UserLocalDataSource
 ): UsersRepository {
 
-//    override suspend fun syncLocalUsersWithRemote(): ApiResponse<List<UserModel>> {
-//        when (val usersApiResponse = getRemoteUsers()) {
-//
-//            is ApiResponse.Error -> return ApiResponse.Error()
-//
-//            is ApiResponse.Success -> {
-//                insertLocalUsers(*usersApiResponse.value.toTypedArray())
-//                return ApiResponse.Success(emptyList()) //no need to return data
-//            }
-//        }
-//    }
+    override fun searchUser(
+        searchQuery: String,
+        sortColumn: String,
+        sortOrder: String
+    ): Flow<List<UserModel>> =
+        localDataSource.searchUser(
+            searchQuery = searchQuery,
+            sortColumn = sortColumn,
+            sortOrder = sortOrder
+        )
 
     override fun getLocalUsers(): Flow<List<UserModel>>  =
         localDataSource.getUsers()

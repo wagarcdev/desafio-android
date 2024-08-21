@@ -1,10 +1,16 @@
 package com.picpay.desafio.android.data.model
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.picpay.desafio.android.domain.model.UserModel
 
-@Entity(tableName = "user_tbl")
+@Entity(
+    tableName = "user_tbl",
+    indices = [
+        Index(value = ["name"]),
+        Index(value = ["username"])
+    ])
 data class UserEntity(
     @PrimaryKey
     val id: Int,
