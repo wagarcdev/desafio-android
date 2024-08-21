@@ -1,5 +1,6 @@
 package com.picpay.desafio.android.contacts.components.contactlist
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
 import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
 import kotlinx.coroutines.delay
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ContactsList(
     searchUiState: SearchUiState,
@@ -36,6 +38,7 @@ fun ContactsList(
         delay(50)
         listState.scrollToItem(0)
     }
+
     LazyColumn(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(24.dp)
@@ -47,6 +50,7 @@ fun ContactsList(
 
             ContactListItem(
                 modifier = Modifier
+                    .animateItemPlacement()
                     .clickable(
                         interactionSource = interaction,
                         indication = null
