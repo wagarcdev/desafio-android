@@ -1,5 +1,7 @@
 package com.picpay.desafio.android.contacts.components.searchbar.sortmenu
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +12,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,14 +29,19 @@ fun SortMenuButtonMask(
 ) {
     val buttonTextColor = Color.White
     val buttonTextFontSize = 14.sp
-    val buttonLabelColor = Color.Gray
+
     val buttonLabelFontSize = 12.sp
 
+    val color by animateColorAsState(
+        targetValue = if (isMenuExpanded) picPayGreen else Color.Gray
+    )
+
+    val borderWidth by animateDpAsState(
+        targetValue = if (isMenuExpanded) 2.dp else 1.dp
+    )
+
     Card(
-        border = BorderStroke(
-            width = 1.dp,
-            color = if (isMenuExpanded) picPayGreen else Color.Gray
-        ),
+        border = BorderStroke(borderWidth, color),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
         )
@@ -50,9 +58,7 @@ fun SortMenuButtonMask(
             Text(
                 text = label,
                 fontSize = buttonLabelFontSize,
-                color =
-                if (isMenuExpanded) picPayGreen
-                else buttonLabelColor
+                color = color
             )
 
             Text(

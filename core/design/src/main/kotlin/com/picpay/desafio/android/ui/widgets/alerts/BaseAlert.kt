@@ -1,9 +1,9 @@
 package com.picpay.desafio.android.ui.widgets.alerts
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -25,7 +25,6 @@ import com.picpay.desafio.android.core.design.R
 @Composable
 fun BaseAlert(
     modifier: Modifier = Modifier,
-    contentAlignment: Alignment = Alignment.Center,
     iconId: Int,
     iconDescription: String,
     iconSize: Dp = 250.dp,
@@ -38,36 +37,34 @@ fun BaseAlert(
         fontWeight = FontWeight.SemiBold
     )
 ) {
-    Box(
+    Column(
         modifier = modifier then Modifier
+            .imePadding()
             .fillMaxSize(),
-        contentAlignment = contentAlignment
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                modifier = Modifier
-                    .size(iconSize),
-                painter = painterResource(id = iconId),
-                contentDescription = iconDescription,
-                tint = Color.Gray
-            )
+        Icon(
+            modifier = Modifier
+                .size(iconSize),
+            painter = painterResource(id = iconId),
+            contentDescription = iconDescription,
+            tint = Color.Gray
+        )
 
-            optionalAlert.invoke()
+        optionalAlert.invoke()
 
-            Text(
-                modifier = Modifier
-                    .padding(
-                        horizontal = 48.dp,
-                        vertical = 60.dp
-                        ),
-                text = alertText,
-                textAlign = TextAlign.Center,
-                style = alertTextStyle
-            )
-        }
+        Text(
+            modifier = Modifier
+                .padding(
+                    start = 48.dp,
+                    end = 48.dp,
+                    top = 48.dp
+                ),
+            text = alertText,
+            textAlign = TextAlign.Center,
+            style = alertTextStyle
+        )
     }
 }
 

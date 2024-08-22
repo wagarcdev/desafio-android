@@ -3,7 +3,6 @@ package com.picpay.desafio.android.ui.widgets.alerts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -20,7 +19,6 @@ fun NoResultsOnSearchAlert(
     BaseAlert(
         modifier = modifier
             .padding(top = 32.dp),
-        contentAlignment = Alignment.TopCenter,
         iconId = R.drawable.magnifying_glass,
         iconSize = 120.dp,
         iconDescription = "no internet image",
