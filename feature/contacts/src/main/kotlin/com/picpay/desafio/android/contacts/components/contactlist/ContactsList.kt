@@ -17,13 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenUiState
-import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ContactsList(
-    searchUiState: SearchUiState,
     uiState: ContactsScreenUiState,
     searchString: String
 ) {
@@ -32,9 +29,9 @@ fun ContactsList(
 
     val listState = rememberLazyListState()
     LaunchedEffect(
-        searchUiState.searchQuery,
-        searchUiState.sortedBy,
-        searchUiState.orderDirection,
+        uiState.searchUiState.searchQuery,
+        uiState.searchUiState.sortedBy,
+        uiState.searchUiState.orderDirection,
     ) {
         delay(50)
         listState.scrollToItem(0)

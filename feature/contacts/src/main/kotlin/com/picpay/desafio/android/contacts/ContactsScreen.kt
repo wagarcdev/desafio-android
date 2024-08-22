@@ -23,12 +23,13 @@ import com.picpay.desafio.android.contacts.viewmodel.ContactsScreenViewModel
 import com.picpay.desafio.android.contacts.viewmodel.EventSearchChange
 import com.picpay.desafio.android.contacts.viewmodel.IsLoading
 import com.picpay.desafio.android.contacts.viewmodel.NoInternet
-import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
+import com.picpay.desafio.android.contacts.viewmodel.NoResultsOnSearch
 import com.picpay.desafio.android.contacts.viewmodel.ShowContactList
 import com.picpay.desafio.android.feature.contacts.R
 import com.picpay.desafio.android.ui.util.showShortToast
 import com.picpay.desafio.android.ui.widgets.ProgressIndicator
 import com.picpay.desafio.android.ui.widgets.alerts.NoInternetAlert
+import com.picpay.desafio.android.ui.widgets.alerts.NoResultsOnSearchAlert
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -36,11 +37,9 @@ fun ContactScreen() {
 
     val viewModel: ContactsScreenViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsState()
-    val searchUiState by viewModel.searchUiState.collectAsState()
 
     ContactsScreenContent(
         uiState = uiState,
-        searchUiState = searchUiState,
         onEvent = viewModel::onEvent
     )
 }
@@ -48,7 +47,6 @@ fun ContactScreen() {
 @Composable
 fun ContactsScreenContent(
     uiState: ContactsScreenUiState,
-    searchUiState: SearchUiState,
     onEvent: (ContactUiEvent) -> Unit
 ) {
     val context = LocalContext.current
@@ -63,7 +61,7 @@ fun ContactsScreenContent(
         var searchString by remember { mutableStateOf("") }
         ContactsSearchBar(
             search = searchString,
-            searchUiState = searchUiState,
+            searchUiState = uiState.searchUiState,
             onEvent = { event ->
                 when (event) {
                     is EventSearchChange -> {
@@ -78,9 +76,9 @@ fun ContactsScreenContent(
         when (uiState.condition) {
             NoInternet -> NoInternetAlert()
             IsLoading -> ProgressIndicator(Modifier.fillMaxSize())
+            NoResultsOnSearch -> NoResultsOnSearchAlert()
             ShowContactList -> {
                 ContactsList(
-                    searchUiState = searchUiState,
                     uiState = uiState,
                     searchString = searchString
                 )
@@ -94,7 +92,6 @@ fun ContactsScreenContent(
 private fun ContactsScreenContentPreview() {
     ContactsScreenContent(
         uiState = ContactsScreenUiState(),
-        searchUiState = SearchUiState(),
         onEvent = { }
     )
 }

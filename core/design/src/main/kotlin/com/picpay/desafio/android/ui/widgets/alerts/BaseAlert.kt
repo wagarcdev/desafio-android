@@ -25,6 +25,7 @@ import com.picpay.desafio.android.core.design.R
 @Composable
 fun BaseAlert(
     modifier: Modifier = Modifier,
+    contentAlignment: Alignment = Alignment.Center,
     iconId: Int,
     iconDescription: String,
     iconSize: Dp = 250.dp,
@@ -40,7 +41,7 @@ fun BaseAlert(
     Box(
         modifier = modifier then Modifier
             .fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = contentAlignment
     ) {
         Column(
             verticalArrangement = Arrangement.Center,

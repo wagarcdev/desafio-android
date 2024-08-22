@@ -20,8 +20,7 @@ class ContactsScreenViewModel(
     networkMonitor: NetworkMonitor
 ) : ViewModel() {
 
-    var searchUiState = MutableStateFlow(SearchUiState())
-        private set
+    private var searchUiState = MutableStateFlow(SearchUiState())
 
     private val usersFilteredBySearch = searchUiState.flatMapLatest { state ->
         searchLocalUsersFlowUseCase(
@@ -34,12 +33,17 @@ class ContactsScreenViewModel(
     val uiState = combine(
         usersFilteredBySearch,
         networkMonitor.isOnline,
-        syncManager.isSyncing
-    ) { usersFiltered, isOnline, isSyncing ->
+        syncManager.isSyncing,
+        searchUiState
+    ) { usersFiltered,
+        isOnline,
+        isSyncing,
+        searchUiState ->
         ContactsScreenUiState(
             isNetworkAvailable = isOnline,
             users = usersFiltered,
-            isSyncing = isSyncing
+            isSyncing = isSyncing,
+            searchUiState = searchUiState
         )
     }.stateIn(
         viewModelScope,

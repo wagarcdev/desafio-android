@@ -3,6 +3,7 @@ package com.picpay.desafio.android.contacts.viewmodel
 import com.picpay.desafio.android.domain.model.UserModel
 
 data class ContactsScreenUiState(
+    var searchUiState: SearchUiState = SearchUiState(),
     var isSyncing: Boolean = false,
     var isNetworkAvailable: Boolean? = null,
     var displayMessage: String? = null,
@@ -16,7 +17,11 @@ data class ContactsScreenUiState(
                 if (isSyncing && users.isEmpty()) {
                     IsLoading
                 } else {
-                    ShowContactList
+                    if (searchUiState.searchQuery.isNotEmpty() && users.isEmpty()) {
+                        NoResultsOnSearch
+                    } else {
+                        ShowContactList
+                    }
                 }
             }
 }
@@ -25,3 +30,4 @@ sealed interface ContactsUiStateCondition
 data object NoInternet : ContactsUiStateCondition
 data object IsLoading : ContactsUiStateCondition
 data object ShowContactList : ContactsUiStateCondition
+data object NoResultsOnSearch : ContactsUiStateCondition
