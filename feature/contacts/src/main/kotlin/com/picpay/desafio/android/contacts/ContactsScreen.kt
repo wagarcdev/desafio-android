@@ -1,5 +1,7 @@
 package com.picpay.desafio.android.contacts
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -56,15 +59,24 @@ fun ContactsScreenContent(
 
     Column(
         Modifier
+            .animateContentSize()
             .fillMaxSize()
             .padding(horizontal = 24.dp)) {
 
-        ContactsScreenTitle()
+        val isSearchFieldFocused = remember { mutableStateOf(false) }
+
+        val titleIsHidden =
+            isSearchFieldFocused.value || uiState.searchUiState.searchQuery.isNotEmpty()
+
+        AnimatedVisibility(!titleIsHidden) {
+            ContactsScreenTitle()
+        }
 
         var searchString by rememberSaveable { mutableStateOf("") }
         ContactsSearchBar(
             search = searchString,
             searchUiState = uiState.searchUiState,
+            isSearchFieldFocused = isSearchFieldFocused,
             onEvent = { event ->
                 when (event) {
                     is EventSearchChange -> {
