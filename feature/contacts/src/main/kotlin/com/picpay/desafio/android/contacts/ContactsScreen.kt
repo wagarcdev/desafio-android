@@ -8,7 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -54,11 +54,14 @@ fun ContactsScreenContent(
         if (uiState.isSyncing) showShortToast(R.string.synchronizing, context)
     }
 
-    Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp)) {
 
         ContactsScreenTitle()
 
-        var searchString by remember { mutableStateOf("") }
+        var searchString by rememberSaveable { mutableStateOf("") }
         ContactsSearchBar(
             search = searchString,
             searchUiState = uiState.searchUiState,
