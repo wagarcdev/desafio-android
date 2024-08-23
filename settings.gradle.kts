@@ -28,3 +28,4 @@ include(":core:design")
 include(":feature:contacts")
 
 include (":sync:work")
+include (":sync:sync-test")

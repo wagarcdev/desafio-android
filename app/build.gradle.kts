@@ -80,6 +80,7 @@ dependencies {
     implementation(project(":feature:contacts"))
 
     implementation(project(":sync:work"))
+    implementation(project(":sync:sync-test"))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }

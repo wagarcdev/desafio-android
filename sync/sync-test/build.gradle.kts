@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".sync.work"
+    namespace = libs.versions.appId.get() + ".sync"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
@@ -33,9 +33,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":sync:work"))
+
+
     implementation(project(":core:common"))
 
-    api(libs.androidx.work.ktx)
     implementation(project(":core:data"))
     implementation(project(":feature:contacts"))
     implementation(project(":core:datastore"))

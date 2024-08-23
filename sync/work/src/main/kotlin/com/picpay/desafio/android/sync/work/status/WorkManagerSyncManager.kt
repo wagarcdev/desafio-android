@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.map
 
 class WorkManagerSyncManager(
-    private val context: Context,
+    context: Context,
 ) : SyncManager {
     override val isSyncing: Flow<Boolean> =
         WorkManager.getInstance(context).getWorkInfosForUniqueWorkFlow(SyncWorkName)
