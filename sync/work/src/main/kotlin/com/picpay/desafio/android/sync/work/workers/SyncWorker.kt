@@ -47,7 +47,7 @@ class SyncWorker(
         dataSyncManager.hashUserListWithMd5(users)
 
     companion object {
-        fun startUpSyncWork() = OneTimeWorkRequestBuilder<DelegatingWorker>()
+        fun startUpSyncWork() = OneTimeWorkRequestBuilder<SyncWorker>()
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .setConstraints(SyncConstraints)
             .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, Duration.ofSeconds(15))

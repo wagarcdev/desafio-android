@@ -83,6 +83,11 @@ dependencies {
     testApi(libs.mockitoKotlin)
     testApi(libs.coreTesting)
 
+    api(libs.koin.workmanager)
+    testApi(libs.koin.android.test)
+    testApi(libs.koin.androidx.compose)
+    testApi(libs.koin.core)
+
     androidTestApi(libs.testRunner)
     androidTestApi(libs.androidx.espresso.core)
     androidTestApi(libs.coreKtxTest)

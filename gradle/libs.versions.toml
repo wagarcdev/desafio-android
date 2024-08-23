@@ -97,6 +97,9 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 
 #D.I.
+
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koinAndroid" }
+koin-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koinAndroid" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroid" }
 koin-android-test = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinAndroid" }

@@ -1,15 +1,11 @@
 package com.picpay.desafio.android
 
 import android.app.Application
-import com.picpay.desafio.android.contacts.di.featureContactsModule
-import com.picpay.desafio.android.data.di.dataModule
-import com.picpay.desafio.android.data.di.databaseModule
-import com.picpay.desafio.android.datastore.di.dataStoreModule
-import com.picpay.desafio.android.network.di.networkModule
-import com.picpay.desafio.android.sync.work.di.syncModule
+import com.picpay.desafio.android.di.desafioAppModule
 import com.picpay.desafio.android.sync.work.initializers.Sync
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 
 class DesafioApplication: Application() {
@@ -19,14 +15,8 @@ class DesafioApplication: Application() {
         startKoin {
             androidLogger()
             androidContext(this@DesafioApplication)
-            modules(
-                syncModule,
-                networkModule,
-                dataModule,
-                dataStoreModule,
-                databaseModule,
-                featureContactsModule
-            )
+            workManagerFactory()
+            modules(desafioAppModule)
         }
         Sync.initialize(this)
     }
