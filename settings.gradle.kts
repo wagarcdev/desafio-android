@@ -24,6 +24,7 @@ include (":core:database")
 include(":core:common")
 include(":core:domain")
 include(":core:design")
+include(":core:testing")
 
 include(":feature:contacts")
 

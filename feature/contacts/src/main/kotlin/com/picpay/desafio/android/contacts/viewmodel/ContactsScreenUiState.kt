@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.contacts.viewmodel
 
-import com.picpay.desafio.android.domain.model.UserModel
+import com.picpay.desafio.android.database.model.UserModel
 
 data class ContactsScreenUiState(
     var searchUiState: SearchUiState = SearchUiState(),

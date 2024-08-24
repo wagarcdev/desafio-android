@@ -1,12 +1,13 @@
 package com.picpay.desafio.android.contacts.datasource.local
 
-import com.picpay.desafio.android.contacts.datasource.repository.UserLocalDataSource
-import com.picpay.desafio.android.data.dao.UserDao
-import com.picpay.desafio.android.data.model.toEntity
-import com.picpay.desafio.android.data.model.toModel
-import com.picpay.desafio.android.domain.model.UserModel
+import com.picpay.desafio.android.core.database.dao.UserDao
+import com.picpay.desafio.android.core.database.model.toEntity
+import com.picpay.desafio.android.core.database.model.toModel
+import com.picpay.desafio.android.database.model.UserModel
+import com.picpay.desafio.android.database.repository.UserLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+
 class UserLocalDataSourceImpl(
     private val userDao: UserDao
 ) : UserLocalDataSource {

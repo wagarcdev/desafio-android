@@ -66,7 +66,6 @@ dependencies {
 
     api(libs.koin.androidx.compose)
     api(libs.koin.android)
-    api(libs.koin.android.test)
 
     api(libs.retrofit)
     api(libs.retrofitAdapterRxjava2)
@@ -78,17 +77,6 @@ dependencies {
     api(libs.picasso)
     api(libs.circleImageView)
 
-    testApi(libs.junit)
-    testApi(libs.mockitoCore)
-    testApi(libs.mockitoKotlin)
-    testApi(libs.coreTesting)
 
     api(libs.koin.workmanager)
-    testApi(libs.koin.android.test)
-    testApi(libs.koin.androidx.compose)
-    testApi(libs.koin.core)
-
-    androidTestApi(libs.testRunner)
-    androidTestApi(libs.androidx.espresso.core)
-    androidTestApi(libs.coreKtxTest)
 }

@@ -6,7 +6,6 @@ androidApiTarget = "34"
 androidApiMin = "26"
 appVersionCode = "1"
 appVersionName = "1.0"
-instrumentationTestRunner = "androidx.test.runner.AndroidJUnitRunner"
 java = "17"
 kotinExtensionVersion = "1.5.2"
 baseUrl = "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\""
@@ -62,6 +61,7 @@ espressoCore = "3.6.1"
 core_testing = '2.2.0'
 core_ktx_test = "1.6.1"
 test_runner = '1.6.2'
+kotlinxCoroutines = "1.8.1"
 
 
 [libraries]
@@ -93,6 +93,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
+
 #WORK
 androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 
@@ -102,7 +103,6 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koinA
 koin-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koinAndroid" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroid" }
-koin-android-test = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinAndroid" }
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 
@@ -135,9 +135,14 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 #TESTS
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "core_ktx_test" }
+androidx-test-coreKtx = { group = "androidx.test", name = "core-ktx", version.ref = "core_ktx_test" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 testRunner = { group = "androidx.test", name = "runner", version.ref = "test_runner" }
-coreKtxTest = { group = "androidx.test", name = "core-ktx", version.ref = "core_ktx_test" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+koin-android-testJU4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinAndroid" }
+koin-android-test = { module = "io.insert-koin:koin-test", version.ref = "koinAndroid" }
+
 
 
 [plugins]
@@ -146,3 +151,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+android-test = { id = "com.android.test", version.ref = "agp" }

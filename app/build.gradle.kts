@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
+
 plugins {
     with(libs.plugins) {
         alias(jetbrains.kotlin.android)
@@ -20,7 +22,7 @@ android {
             versionCode = appVersionCode.get().toInt()
             versionName = appVersionName.get()
 
-            testInstrumentationRunner = instrumentationTestRunner.get()
+            testInstrumentationRunner = "com.picpay.desafio.android.testing.InstrumentationTestRunner"
             vectorDrawables {
                 useSupportLibrary = true
             }
@@ -76,6 +78,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
     implementation(project(":core:design"))
+    implementation(project(":core:testing"))
 
     implementation(project(":feature:contacts"))
 

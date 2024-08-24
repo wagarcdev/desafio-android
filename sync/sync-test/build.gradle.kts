@@ -37,9 +37,10 @@ dependencies {
 
 
     implementation(project(":core:common"))
-
+    implementation(project(":core:testing"))
     implementation(project(":core:data"))
-    implementation(project(":feature:contacts"))
     implementation(project(":core:datastore"))
     implementation(project(":core:network"))
+
+    implementation(project(":feature:contacts"))
 }

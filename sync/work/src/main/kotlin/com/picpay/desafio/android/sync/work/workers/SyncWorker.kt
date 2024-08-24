@@ -6,9 +6,9 @@ import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkerParameters
-import com.picpay.desafio.android.contacts.datasource.repository.UsersRepository
-import com.picpay.desafio.android.data.sync.DataSyncManager
-import com.picpay.desafio.android.data.sync.Synchronizer
+import com.picpay.desafio.android.database.repository.UsersRepository
+import com.picpay.desafio.android.database.sync.DataSyncManager
+import com.picpay.desafio.android.database.sync.Synchronizer
 import com.picpay.desafio.android.datastore.PreferencesDataSource
 import com.picpay.desafio.android.network.model.UserResponse
 import com.picpay.desafio.android.sync.work.initializers.SyncConstraints

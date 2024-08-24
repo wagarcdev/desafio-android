@@ -2,9 +2,9 @@ package com.picpay.desafio.android.sync.test
 
 import android.content.Context
 import androidx.work.WorkerParameters
-import com.picpay.desafio.android.contacts.datasource.repository.UsersRepository
-import com.picpay.desafio.android.data.sync.DataSyncManager
-import com.picpay.desafio.android.data.sync.SyncManager
+import com.picpay.desafio.android.database.repository.UsersRepository
+import com.picpay.desafio.android.database.sync.DataSyncManager
+import com.picpay.desafio.android.database.sync.SyncManager
 import com.picpay.desafio.android.datastore.PreferencesDataSource
 import com.picpay.desafio.android.sync.work.di.syncModule
 import kotlinx.coroutines.CoroutineDispatcher
