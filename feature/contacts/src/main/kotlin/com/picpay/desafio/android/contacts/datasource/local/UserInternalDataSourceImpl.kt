@@ -3,8 +3,8 @@ package com.picpay.desafio.android.contacts.datasource.local
 import com.picpay.desafio.android.core.database.dao.UserDao
 import com.picpay.desafio.android.core.database.model.toEntity
 import com.picpay.desafio.android.core.database.model.toModel
-import com.picpay.desafio.android.database.model.UserModel
-import com.picpay.desafio.android.database.repository.UserLocalDataSource
+import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

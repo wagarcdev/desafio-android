@@ -1,7 +1,7 @@
-package com.picpay.desafio.android.database.model.mappers
+package com.picpay.desafio.android.core.data.model.mappers
 
-import com.picpay.desafio.android.database.image.resizeAndCompressImageFromUrl
-import com.picpay.desafio.android.database.model.UserModel
+import com.picpay.desafio.android.core.data.image.resizeAndCompressImageFromUrl
+import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

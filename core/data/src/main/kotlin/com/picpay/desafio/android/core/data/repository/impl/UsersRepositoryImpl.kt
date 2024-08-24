@@ -1,13 +1,13 @@
-package com.picpay.desafio.android.database.repository.impl
+package com.picpay.desafio.android.core.data.repository.impl
 
 import com.picpay.desafio.android.common.util.ApiResponse
-import com.picpay.desafio.android.database.model.UserModel
-import com.picpay.desafio.android.database.model.mappers.toDomainModel
-import com.picpay.desafio.android.database.repository.UserLocalDataSource
-import com.picpay.desafio.android.database.repository.UserRemoteDataSource
-import com.picpay.desafio.android.database.repository.UsersRepository
-import com.picpay.desafio.android.database.sync.Synchronizer
-import com.picpay.desafio.android.database.sync.usersSync
+import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
+import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
+import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
+import com.picpay.desafio.android.core.data.repository.UsersRepository
+import com.picpay.desafio.android.core.data.sync.Synchronizer
+import com.picpay.desafio.android.core.data.sync.usersSync
 import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 

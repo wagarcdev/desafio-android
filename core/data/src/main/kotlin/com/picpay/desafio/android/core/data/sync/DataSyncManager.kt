@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.database.sync
+package com.picpay.desafio.android.core.data.sync
 
 import com.picpay.desafio.android.network.model.UserResponse
 import java.security.MessageDigest

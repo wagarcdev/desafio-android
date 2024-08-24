@@ -1,13 +1,13 @@
-package com.picpay.desafio.android.database.repository
+package com.picpay.desafio.android.core.data.repository
 
 import com.picpay.desafio.android.common.util.ApiResponse
-import com.picpay.desafio.android.database.model.UserModel
-import com.picpay.desafio.android.database.sync.Syncable
+import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.data.sync.Syncable
 import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository: Syncable {
-    
+
     fun searchUser(
         searchQuery: String,
         sortColumn: String,

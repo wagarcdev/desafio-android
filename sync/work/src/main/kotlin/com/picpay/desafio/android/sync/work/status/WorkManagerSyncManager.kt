@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.WorkInfo
 import androidx.work.WorkInfo.State
 import androidx.work.WorkManager
-import com.picpay.desafio.android.database.sync.SyncManager
+import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.sync.work.initializers.SyncWorkName
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate

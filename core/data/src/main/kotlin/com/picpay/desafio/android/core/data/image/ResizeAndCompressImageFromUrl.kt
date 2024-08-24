@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.database.image
+package com.picpay.desafio.android.core.data.image
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.sync.work.di
 
-import com.picpay.desafio.android.database.sync.SyncManager
+import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.sync.work.status.WorkManagerSyncManager
 import com.picpay.desafio.android.sync.work.workers.SyncWorker
 import kotlinx.coroutines.CoroutineDispatcher

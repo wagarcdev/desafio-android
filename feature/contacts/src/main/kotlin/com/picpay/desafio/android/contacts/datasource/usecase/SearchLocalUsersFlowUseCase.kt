@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.contacts.datasource.usecase
 
-import com.picpay.desafio.android.database.repository.UsersRepository
+import com.picpay.desafio.android.core.data.repository.UsersRepository
 
 class SearchLocalUsersFlowUseCase(
     private val usersRepository: UsersRepository

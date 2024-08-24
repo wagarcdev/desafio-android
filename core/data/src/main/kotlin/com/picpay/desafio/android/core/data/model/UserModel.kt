@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.database.model
+package com.picpay.desafio.android.core.data.model
 
 data class UserModel(
     val imgBytes: ByteArray,

@@ -3,8 +3,8 @@ package com.picpay.desafio.android.contacts.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.contacts.datasource.usecase.SearchLocalUsersFlowUseCase
-import com.picpay.desafio.android.database.sync.SyncManager
-import com.picpay.desafio.android.network.NetworkMonitor
+import com.picpay.desafio.android.core.data.sync.SyncManager
+import com.picpay.desafio.android.core.data.NetworkMonitor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

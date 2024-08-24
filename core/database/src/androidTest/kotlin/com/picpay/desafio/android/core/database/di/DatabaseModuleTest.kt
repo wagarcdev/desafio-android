@@ -2,6 +2,7 @@ package com.picpay.desafio.android.core.database.di
 
 import androidx.room.RoomDatabase
 import com.picpay.desafio.android.core.database.DesafioDatabase
+import com.picpay.desafio.android.core.database.di.databaseModule
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.test.verify.verify

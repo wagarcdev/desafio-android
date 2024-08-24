@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.database.sync
+package com.picpay.desafio.android.core.data.sync
 
 import kotlinx.coroutines.flow.Flow
 

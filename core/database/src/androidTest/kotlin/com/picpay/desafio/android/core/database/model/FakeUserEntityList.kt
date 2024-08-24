@@ -1,5 +1,7 @@
 package com.picpay.desafio.android.core.database.model
 
+import com.picpay.desafio.android.core.database.model.UserEntity
+
 
 val fakeUserEntityList = listOf(
     UserEntity(
