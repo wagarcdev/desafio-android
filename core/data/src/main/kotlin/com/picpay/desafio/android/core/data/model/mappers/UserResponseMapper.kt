@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.model.mappers
 
-import com.picpay.desafio.android.core.data.image.resizeAndCompressImageFromUrl
+import com.picpay.desafio.android.core.data.image.compressImageFromUrl
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +12,6 @@ suspend fun UserResponse.toDomainModel() =
             externalId = id,
             name = name,
             username = username,
-            imgBytes = resizeAndCompressImageFromUrl(img)
+            imgBytes = compressImageFromUrl(img)
         )
     }
