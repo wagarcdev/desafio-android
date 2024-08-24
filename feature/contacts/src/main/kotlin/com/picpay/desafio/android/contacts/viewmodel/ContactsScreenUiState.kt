@@ -10,21 +10,21 @@ data class ContactsScreenUiState(
     var users: List<UserModel> = emptyList(),
 ) {
     private val isOfflineAndUsersIsEmpty =
-        users.isEmpty() && isNetworkAvailable?.not() == true
+        users.isEmpty() && isNetworkAvailable == false
 
     private val isSyncingButUsersIsEmpty =
         isSyncing && users.isEmpty()
 
     private val noResultsOnSearch =
-        searchUiState.searchQuery.isNotEmpty() && users.isEmpty()
+        searchUiState.searchQuery.isNotEmpty() && users.isEmpty() && isNetworkAvailable == true
 
     val condition: ContactsUiStateCondition
-        get() =
-            if (isOfflineAndUsersIsEmpty) NoInternet
-            else
-                if (isSyncingButUsersIsEmpty) IsLoading
-                else
-                    if (noResultsOnSearch) NoResultsOnSearch else ShowContactList
+        get() = when {
+            isOfflineAndUsersIsEmpty -> NoInternet
+            isSyncingButUsersIsEmpty -> IsLoading
+            noResultsOnSearch -> NoResultsOnSearch
+            else -> ShowContactList
+        }
 }
 
 sealed interface ContactsUiStateCondition

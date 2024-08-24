@@ -7,9 +7,7 @@ import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository: Syncable {
-
-//    suspend fun syncLocalUsersWithRemote(): ApiResponse<List<UserModel>>
-
+    
     fun searchUser(
         searchQuery: String,
         sortColumn: String,
