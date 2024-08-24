@@ -1,20 +1,14 @@
-package com.picpay.desafio.android.core.data.image
+package com.picpay.desafio.android.core.data.image.compressor
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.picpay.desafio.android.core.data.image.ImageCompressor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
+import com.picpay.desafio.android.core.data.image.util.DEFAULT_QUALITY
+import com.picpay.desafio.android.core.data.image.util.toByteArray
 import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.net.URL
 
-class DefaultImageProcessor : ImageProcessor {
-
-    override fun decodeStream(inputStream: InputStream): Pair<ByteArray, ImageSize> {
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-        val byteArray = bitmap.toByteArray()  // This method should be implemented as shown below.
-        return Pair(byteArray, ImageSize(bitmap.width, bitmap.height))
-    }
-
+class DesafioAppImageCompressor: ImageCompressor {
     override fun compressImage(imageData: ByteArray, quality: Int): Pair<ByteArray, ImageSize> {
         val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
         val outputStream = ByteArrayOutputStream()
@@ -27,15 +21,5 @@ class DefaultImageProcessor : ImageProcessor {
         val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, filter)
         return compressImage(scaledBitmap.toByteArray(), DEFAULT_QUALITY)
-    }
-
-    private fun Bitmap.toByteArray(quality: Int = 90): ByteArray =
-        ByteArrayOutputStream().let {
-            this.compress(Bitmap.CompressFormat.JPEG, quality, it)
-            it.toByteArray()
-        }
-
-    override fun openStreamFromUrl(url: String): InputStream {
-        return URL(url).openStream()
     }
 }

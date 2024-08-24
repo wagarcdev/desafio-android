@@ -3,7 +3,9 @@ package com.picpay.desafio.android.core.data.image
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import java.io.InputStream
 
-interface ImageProcessor {
+interface ImageProcessor : ImageCompressor, ImageDecoder
+
+interface ImageDecoder {
 
     /**
      * Decodes an InputStream into an image representation.
@@ -13,6 +15,17 @@ interface ImageProcessor {
      */
     fun decodeStream(inputStream: InputStream): Pair<ByteArray, ImageSize>
 
+
+    /**
+     * Opens an InputStream from a given URL.
+     *
+     * @param url The URL from which to open the InputStream.
+     * @return The InputStream obtained from the URL.
+     */
+    fun openStreamFromUrl(url: String): InputStream
+}
+
+interface ImageCompressor {
     /**
      * Compresses the provided image data and returns the compressed data and its size.
      *
@@ -37,12 +50,4 @@ interface ImageProcessor {
         height: Int,
         filter: Boolean
     ): Pair<ByteArray, ImageSize>
-
-    /**
-     * Opens an InputStream from a given URL.
-     *
-     * @param url The URL from which to open the InputStream.
-     * @return The InputStream obtained from the URL.
-     */
-    fun openStreamFromUrl(url: String): InputStream
 }

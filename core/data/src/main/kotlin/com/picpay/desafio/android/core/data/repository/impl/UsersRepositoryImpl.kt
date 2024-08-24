@@ -1,6 +1,7 @@
 package com.picpay.desafio.android.core.data.repository.impl
 
 import com.picpay.desafio.android.common.util.ApiResponse
+import com.picpay.desafio.android.core.data.image.ImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.Flow
 
 class UsersRepositoryImpl(
     private val remoteDataSource: UserRemoteDataSource,
-    private val localDataSource: UserLocalDataSource
+    private val localDataSource: UserLocalDataSource,
+    private val imageProcessor: ImageProcessor
 ): UsersRepository {
 
     override fun searchUser(
@@ -31,13 +33,13 @@ class UsersRepositoryImpl(
         localDataSource.getUsers()
 
     override suspend fun insertLocalUser(user: UserResponse) =
-        localDataSource.insertUser(user.toDomainModel())
+        localDataSource.insertUser(user.toDomainModel(imageProcessor))
 
     override suspend fun getRemoteUsers() =
         remoteDataSource.getUsers()
 
     override suspend fun insertLocalUsers(vararg users: UserResponse) =
-        localDataSource.insertUsers(*users.map { it.toDomainModel() }.toTypedArray())
+        localDataSource.insertUsers(*users.map { it.toDomainModel(imageProcessor) }.toTypedArray())
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
         synchronizer.usersSync(
