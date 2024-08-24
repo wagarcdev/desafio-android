@@ -1,7 +1,8 @@
 package com.picpay.desafio.android.core.data.model
 
-import com.picpay.desafio.android.core.data.image.FakeImageProcessor
-import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.image.fake.FakeImageCompressor
+import com.picpay.desafio.android.core.data.image.fake.FakeImageDecoder
+import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.network.model.UserResponse
@@ -9,14 +10,12 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
 import java.io.ByteArrayInputStream
 import kotlin.test.assertContentEquals
 
 class UserMapperTest {
 
-    @Mock
-    private lateinit var fakeImageProcessor: ImageProcessor
+    private lateinit var fakeImageProcessor: FakeImageProcessor
 
     private val imageUrl = "https://example.of/false_url_test_image.jpg"
     private val fakeImgBytes = ByteArray(100) { it.toByte() } // Example byte array for image data
@@ -24,15 +23,23 @@ class UserMapperTest {
     @Before
     fun setUp() {
         val fakeOriginalImageData = ByteArray(2000) { it.toByte() }
-        val fakeCompressedImageData = fakeImgBytes // Ensure this matches what you expect
+        val fakeCompressedImageData = fakeImgBytes
         val fakeImageSize = ImageSize(width = 100, height = 100)
         val fakeInputStream = ByteArrayInputStream(fakeOriginalImageData)
 
-        fakeImageProcessor = FakeImageProcessor(
+        val fakeImageDecoder = FakeImageDecoder(
             decodeStreamResult = Pair(fakeOriginalImageData, fakeImageSize),
-            compressImageResult = Pair(fakeCompressedImageData, fakeImageSize),
-            scaleImageResult = Pair(fakeOriginalImageData, fakeImageSize),
             streamResult = fakeInputStream
+        )
+
+        val fakeImageCompressor = FakeImageCompressor(
+            compressImageResult = Pair(fakeCompressedImageData, fakeImageSize),
+            scaleImageResult = Pair(fakeOriginalImageData, fakeImageSize)
+        )
+
+        fakeImageProcessor = FakeImageProcessor(
+            imageCompressor = fakeImageCompressor,
+            imageDecoder = fakeImageDecoder
         )
     }
 

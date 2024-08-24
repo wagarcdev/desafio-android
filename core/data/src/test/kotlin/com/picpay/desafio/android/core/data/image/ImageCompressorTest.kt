@@ -1,43 +1,59 @@
 package com.picpay.desafio.android.core.data.image
 
+import com.picpay.desafio.android.core.data.image.fake.FakeImageCompressor
+import com.picpay.desafio.android.core.data.image.fake.FakeImageDecoder
+import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
-import kotlinx.coroutines.runBlocking
+import com.picpay.desafio.android.core.data.image.util.compressImageFromUrl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Before
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.mockito.MockitoAnnotations
 import java.io.ByteArrayInputStream
-import kotlin.test.assertTrue
+import java.io.InputStream
 
 class ImageCompressorTest {
 
-    private lateinit var fakeImageProcessor: FakeImageProcessor
+    private fun createFakeImageProcessor(
+        decodeStreamResult: Pair<ByteArray, ImageSize>,
+        compressImageResult: Pair<ByteArray, ImageSize>,
+        scaleImageResult: Pair<ByteArray, ImageSize>,
+        streamResult: InputStream
+    ): FakeImageProcessor {
+        val fakeImageDecoder = FakeImageDecoder(
+            decodeStreamResult = decodeStreamResult,
+            streamResult = streamResult
+        )
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.openMocks(this)
+        val fakeImageCompressor = FakeImageCompressor(
+            compressImageResult = compressImageResult,
+            scaleImageResult = scaleImageResult
+        )
 
-        val fakeOriginalImageData = ByteArray(2000) { it.toByte() }
-        val fakeCompressedImageData = ByteArray(800) { it.toByte() }
-        val fakeImageSize = ImageSize(width = 100, height = 100)
-        val fakeInputStream = ByteArrayInputStream(fakeOriginalImageData)
-
-        fakeImageProcessor = FakeImageProcessor(
-            decodeStreamResult = Pair(fakeOriginalImageData, fakeImageSize),
-            compressImageResult = Pair(fakeCompressedImageData, fakeImageSize),
-            scaleImageResult = Pair(fakeOriginalImageData, fakeImageSize),
-            streamResult = fakeInputStream
+        return FakeImageProcessor(
+            imageCompressor = fakeImageCompressor,
+            imageDecoder = fakeImageDecoder
         )
     }
-
 
     @Test
     fun `resizeAndCompressImageFromUrl should compress image if it exceeds max size`() = runTest {
         // Given
         val imageUrl = "https://example.of/false_url_test_image.jpg"
         val maxSizeInBytes = 1000
-        val expectedCompressedSize = fakeImageProcessor.compressImageResult.first.size
+
+        val fakeOriginalImageData = ByteArray(2000) { it.toByte() }
+        val fakeDecodedImageSize = ImageSize(width = 200, height = 200)
+        val fakeCompressedImageData = ByteArray(800) { it.toByte() }
+        val fakeCompressedImageSize = ImageSize(width = 100, height = 100)
+        val fakeInputStream = ByteArrayInputStream(fakeOriginalImageData)
+
+        val fakeImageProcessor = createFakeImageProcessor(
+            decodeStreamResult = Pair(fakeOriginalImageData, fakeDecodedImageSize),
+            compressImageResult = Pair(fakeCompressedImageData, fakeCompressedImageSize),
+            scaleImageResult = Pair(fakeCompressedImageData, fakeCompressedImageSize),
+            streamResult = fakeInputStream
+        )
 
         // When
         val result = compressImageFromUrl(
@@ -50,14 +66,23 @@ class ImageCompressorTest {
 
         // Then
         assertTrue(result.size <= maxSizeInBytes)
-        assertEquals(expectedCompressedSize, result.size)
     }
 
     @Test
-    fun `resizeAndCompressImageFromUrl should not compress image if it is within max size`() = runBlocking {
+    fun `resizeAndCompressImageFromUrl should not compress image if it is within max size`() = runTest {
         // Given
         val imageUrl = "https://example.of/false_url_test_image.jpg"
-        val maxSizeInBytes = 2000
+        val maxSizeInBytes = 1000
+        val fakeImageDataWithinSize = ByteArray(800) { it.toByte() }
+        val fakeImageSizeWithin = ImageSize(width = 200, height = 200)
+        val fakeInputStream = ByteArrayInputStream(fakeImageDataWithinSize)
+
+        val fakeImageProcessor = createFakeImageProcessor(
+            decodeStreamResult = Pair(fakeImageDataWithinSize, fakeImageSizeWithin),
+            compressImageResult = Pair(fakeImageDataWithinSize, fakeImageSizeWithin),
+            scaleImageResult = Pair(fakeImageDataWithinSize, fakeImageSizeWithin),
+            streamResult = fakeInputStream
+        )
 
         // When
         val result = compressImageFromUrl(
@@ -69,8 +94,9 @@ class ImageCompressorTest {
         )
 
         // Then
+        assertEquals(fakeImageDataWithinSize.size, result.size)
         assertTrue(result.size <= maxSizeInBytes)
-        assertEquals(fakeImageProcessor.compressImageResult.first.size, result.size)
+        assertTrue(result.contentEquals(fakeImageDataWithinSize))
     }
 
 }
