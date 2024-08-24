@@ -1,5 +1,6 @@
 package com.picpay.desafio.android.core.data.image
 
+import com.picpay.desafio.android.core.data.image.model.ImageSize
 import java.io.InputStream
 
 class FakeImageProcessor(

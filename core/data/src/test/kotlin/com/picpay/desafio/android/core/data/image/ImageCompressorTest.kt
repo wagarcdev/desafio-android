@@ -18,7 +18,6 @@ class ImageCompressorTest {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
 
-        // Setup fake data for testing
         val fakeOriginalImageData = ByteArray(2000) { it.toByte() }
         val fakeCompressedImageData = ByteArray(800) { it.toByte() }
         val fakeImageSize = ImageSize(width = 100, height = 100)

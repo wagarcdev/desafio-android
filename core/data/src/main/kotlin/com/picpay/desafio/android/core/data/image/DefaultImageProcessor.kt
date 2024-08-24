@@ -2,6 +2,7 @@ package com.picpay.desafio.android.core.data.image
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.picpay.desafio.android.core.data.image.model.ImageSize
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.net.URL
