@@ -1,15 +1,15 @@
 package com.picpay.desafio.android.feature.contacts.di
 
-import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.image.ImageCompressor
 import com.picpay.desafio.android.core.data.image.ImageDecoder
 import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
 import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.SyncManager
-import com.picpay.desafio.android.feature.contacts.datasource.usecase.LocalUsersFlowUseCase
-import com.picpay.desafio.android.feature.contacts.datasource.usecase.SearchLocalUsersFlowUseCase
+import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
+import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCase
 import com.picpay.desafio.android.network.services.UserService
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
