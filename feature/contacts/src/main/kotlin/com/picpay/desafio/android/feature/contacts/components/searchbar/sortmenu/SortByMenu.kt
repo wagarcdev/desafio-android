@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import com.picpay.desafio.android.contacts.viewmodel.ContactUiEvent
-import com.picpay.desafio.android.contacts.viewmodel.EventOrderChange
-import com.picpay.desafio.android.contacts.viewmodel.EventSortChange
-import com.picpay.desafio.android.contacts.viewmodel.OrderDirection
-import com.picpay.desafio.android.contacts.viewmodel.SearchUiState
-import com.picpay.desafio.android.contacts.viewmodel.SortBy
+import com.picpay.desafio.android.core.data.util.OrderDirection
+import com.picpay.desafio.android.core.data.util.SortBy
+import com.picpay.desafio.android.feature.contacts.viewmodel.ContactUiEvent
+import com.picpay.desafio.android.feature.contacts.viewmodel.EventOrderChange
+import com.picpay.desafio.android.feature.contacts.viewmodel.EventSortChange
+import com.picpay.desafio.android.feature.contacts.viewmodel.SearchUiState
 
 @Composable
 fun RowScope.SortByMenu(
