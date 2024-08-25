@@ -2,7 +2,6 @@ package com.picpay.desafio.android.core.data.repository.fake
 
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
-import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserModelList
 import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy
 import kotlinx.coroutines.async
@@ -10,9 +9,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 
-class FakeUserLocalDataSource : UserLocalDataSource {
+class FakeUserLocalDataSource(
+    private val prePopulateList: MutableList<UserModel> = mutableListOf()
+) : UserLocalDataSource {
 
-    private val users = fakeUserModelList.toMutableList()
 
     override fun searchUser(
         searchQuery: String,
@@ -20,7 +20,7 @@ class FakeUserLocalDataSource : UserLocalDataSource {
         sortOrder: String
     ): Flow<List<UserModel>> = flow {
 
-        val filteredUsers = users.filter { user ->
+        val filteredUsers = prePopulateList.filter { user ->
             user.name.contains(searchQuery, ignoreCase = true) ||
                     user.username.contains(searchQuery, ignoreCase = true)
         }
@@ -39,16 +39,16 @@ class FakeUserLocalDataSource : UserLocalDataSource {
     }
 
     override fun getUsers(): Flow<List<UserModel>> = flow {
-        emit(users)
+        emit(prePopulateList)
     }
 
     override suspend fun insertUser(user: UserModel) {
-        users.add(user)
+        prePopulateList.add(user)
     }
 
     override suspend fun insertUsers(vararg user: UserModel): Boolean =
         runBlocking {
-            return@runBlocking async { users.addAll(user) }
+            return@runBlocking async { prePopulateList.addAll(user) }
                 .await()
         }
 }
