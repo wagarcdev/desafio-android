@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.feature.contacts.di
 
-import com.picpay.desafio.android.core.data.NetworkMonitor
+import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.image.ImageCompressor
 import com.picpay.desafio.android.core.data.image.ImageDecoder
 import com.picpay.desafio.android.core.data.image.ImageProcessor

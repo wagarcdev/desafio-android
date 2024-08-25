@@ -1,10 +1,10 @@
-package com.picpay.desafio.android.datastore.test
+package com.picpay.desafio.android.core.datastore.test
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import com.picpay.desafio.android.datastore.DataStoreRepository
-import com.picpay.desafio.android.datastore.PreferencesKeys
+import com.picpay.desafio.android.core.datastore.DataStoreRepository
+import com.picpay.desafio.android.core.datastore.PreferencesKeys
 import kotlinx.coroutines.CoroutineScope
 import org.junit.rules.TemporaryFolder
 import java.io.File

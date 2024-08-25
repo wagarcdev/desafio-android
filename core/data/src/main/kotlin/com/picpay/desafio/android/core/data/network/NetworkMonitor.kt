@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core.data
+package com.picpay.desafio.android.core.data.network
 
 import kotlinx.coroutines.flow.Flow
 

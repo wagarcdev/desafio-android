@@ -16,9 +16,9 @@ import com.picpay.desafio.android.core.data.sync.TestSynchronizer
 import com.picpay.desafio.android.core.data.sync.usersSync
 import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy
-import com.picpay.desafio.android.datastore.DesafioAppPreferencesDataSource
-import com.picpay.desafio.android.datastore.PreferencesDataSource
-import com.picpay.desafio.android.datastore.test.TestPreferencesDataStore
+import com.picpay.desafio.android.core.datastore.DesafioAppPreferencesDataSource
+import com.picpay.desafio.android.core.datastore.PreferencesDataSource
+import com.picpay.desafio.android.core.datastore.test.TestPreferencesDataStore
 import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

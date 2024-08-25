@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.datastore
+package com.picpay.desafio.android.core.datastore
 
 interface DataStoreRepository {
 

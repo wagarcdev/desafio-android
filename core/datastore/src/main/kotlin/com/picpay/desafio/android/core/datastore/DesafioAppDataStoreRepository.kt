@@ -1,11 +1,11 @@
-package com.picpay.desafio.android.datastore
+package com.picpay.desafio.android.core.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.picpay.desafio.android.datastore.PreferencesKeys.SYNC_HASH
+import com.picpay.desafio.android.core.datastore.PreferencesKeys.SYNC_HASH
 import kotlinx.coroutines.flow.first
 
 const val DATA_STORE = "app_preferences"
@@ -13,7 +13,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DAT
 
 class DesafioAppDataStoreRepository(
     private val context: Context
-) : DataStoreRepository  {
+) : DataStoreRepository {
 
     override suspend fun getSyncHash(): String? =
          context.dataStore.data.first()[SYNC_HASH]

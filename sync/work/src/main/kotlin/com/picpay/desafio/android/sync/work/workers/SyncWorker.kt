@@ -9,7 +9,7 @@ import androidx.work.WorkerParameters
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.DataSyncManager
 import com.picpay.desafio.android.core.data.sync.Synchronizer
-import com.picpay.desafio.android.datastore.PreferencesDataSource
+import com.picpay.desafio.android.core.datastore.PreferencesDataSource
 import com.picpay.desafio.android.network.model.UserResponse
 import com.picpay.desafio.android.sync.work.initializers.SyncConstraints
 import kotlinx.coroutines.CoroutineDispatcher

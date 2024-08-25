@@ -1,10 +1,10 @@
 package com.picpay.desafio.android.core.data.di
 
 import android.content.Context
-import com.picpay.desafio.android.core.data.NetworkMonitor
 import com.picpay.desafio.android.core.data.image.ImageCompressor
 import com.picpay.desafio.android.core.data.image.ImageDecoder
 import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI

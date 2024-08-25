@@ -2,7 +2,7 @@ package com.picpay.desafio.android.feature.contacts.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.picpay.desafio.android.core.data.NetworkMonitor
+import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.feature.contacts.datasource.usecase.SearchLocalUsersFlowUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

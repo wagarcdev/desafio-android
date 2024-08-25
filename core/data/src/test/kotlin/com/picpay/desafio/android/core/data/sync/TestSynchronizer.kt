@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.sync
 
-import com.picpay.desafio.android.datastore.PreferencesDataSource
+import com.picpay.desafio.android.core.datastore.PreferencesDataSource
 import com.picpay.desafio.android.network.model.UserResponse
 
 class TestSynchronizer(
