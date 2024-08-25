@@ -16,3 +16,14 @@ suspend fun UserResponse.toDomainModel(processor: ImageProcessor) =
             imgBytes = compressImageFromUrl(img, processor)
         )
     }
+
+suspend fun List<UserResponse>.toDomainModel(processor: ImageProcessor): List<UserModel> =
+    withContext(Dispatchers.IO) {
+
+        val usersModel: MutableList<UserModel> = mutableListOf()
+        this@toDomainModel.forEach {
+            usersModel.add(it.toDomainModel(processor))
+        }
+        return@withContext usersModel
+    }
+
