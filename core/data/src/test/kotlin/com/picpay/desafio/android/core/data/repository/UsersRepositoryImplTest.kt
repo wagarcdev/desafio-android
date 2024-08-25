@@ -3,31 +3,51 @@ package com.picpay.desafio.android.core.data.repository
 import com.picpay.desafio.android.common.util.ApiResponse
 import com.picpay.desafio.android.core.data.image.createFakeImageProcessor
 import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
+import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserLocalDataSource
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserModelList
 import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserResponseList
 import com.picpay.desafio.android.core.data.repository.impl.UsersRepositoryImpl
+import com.picpay.desafio.android.core.data.sync.DataSyncManager
+import com.picpay.desafio.android.core.data.sync.Synchronizer
+import com.picpay.desafio.android.core.data.sync.TestSynchronizer
+import com.picpay.desafio.android.core.data.sync.usersSync
 import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy
+import com.picpay.desafio.android.datastore.DesafioAppPreferencesDataSource
+import com.picpay.desafio.android.datastore.PreferencesDataSource
+import com.picpay.desafio.android.datastore.test.TestPreferencesDataStore
 import com.picpay.desafio.android.network.model.UserResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import kotlin.coroutines.EmptyCoroutineContext
 
 class UsersRepositoryImplTest {
 
     private lateinit var remoteDataSource: FakeUserRemoteDataSource
     private lateinit var localDataSource: FakeUserLocalDataSource
+    private lateinit var prePopulatedLocalDataSource: FakeUserLocalDataSource
     private lateinit var imageProcessor: FakeImageProcessor
-    private lateinit var usersRepository: UsersRepositoryImpl
+    private lateinit var usersRepository: UsersRepository
+    private lateinit var prePopulatedUserRepository: UsersRepository
+    private lateinit var preferences: PreferencesDataSource
+    private lateinit var synchronizer: Synchronizer
+
+    private lateinit var users: MutableList<UserModel>
 
     @Before
     fun setUp() {
+
+        users = fakeUserModelList.toMutableList()
+
         imageProcessor = createFakeImageProcessor()
 
         remoteDataSource = FakeUserRemoteDataSource()
@@ -38,6 +58,39 @@ class UsersRepositoryImplTest {
             localDataSource = localDataSource,
             imageProcessor = imageProcessor
         )
+
+        prePopulatedLocalDataSource = FakeUserLocalDataSource(
+            prePopulateList = users
+        )
+
+        prePopulatedUserRepository = UsersRepositoryImpl(
+            remoteDataSource = remoteDataSource,
+            localDataSource = prePopulatedLocalDataSource,
+            imageProcessor = imageProcessor
+        )
+
+        preferences = DesafioAppPreferencesDataSource(
+            repository = TestPreferencesDataStore()
+        )
+
+        synchronizer = TestSynchronizer(
+            preferences = preferences,
+            dataSyncManager = DataSyncManager()
+        )
+    }
+
+    private suspend fun insertUsers(users: List<UserResponse>) = withContext(EmptyCoroutineContext) {
+        return@withContext localDataSource
+            .insertUsers(*users.map { it.toDomainModel(imageProcessor) }.toTypedArray())
+    }
+
+    private suspend fun fetchUsers() = withContext(EmptyCoroutineContext) {
+        return@withContext kotlin.run {
+            when (val apiResponse = remoteDataSource.getUsers()) {
+                is ApiResponse.Error -> null
+                is ApiResponse.Success -> apiResponse.value
+            }
+        }
     }
 
     @After
@@ -45,9 +98,26 @@ class UsersRepositoryImplTest {
     }
 
     @Test
+    fun `repository sync should persist ApiResponse`() = runTest {
+
+        //When
+        synchronizer.usersSync(
+            usersFetcher = ::fetchUsers,
+            usersPersistence = ::insertUsers
+        )
+
+        val dbUsers: List<UserModel> = localDataSource.getUsers().first()
+        val remoteUsers = fetchUsers()?.toDomainModel(imageProcessor)
+
+        // Then
+        assertEquals(dbUsers, remoteUsers)
+    }
+
+    @Test
     fun `searchUser should return filtered and sorted users`() = runTest {
+
         // When
-        val result = usersRepository.searchUser(
+        val result = prePopulatedUserRepository.searchUser(
             searchQuery = "Annabelle",
             sortColumn = SortBy.NAME.parameter,
             sortOrder = OrderDirection.ASCENDING.parameter
@@ -61,7 +131,7 @@ class UsersRepositoryImplTest {
     @Test
     fun `getLocalUsers should return all local users`() = runTest {
         // When
-        val result = usersRepository.getLocalUsers().first()
+        val result = prePopulatedUserRepository.getLocalUsers().first()
 
         // Then
         assertEquals(fakeUserModelList.size, result.size)
@@ -78,7 +148,7 @@ class UsersRepositoryImplTest {
         )
 
         // When
-        usersRepository.insertLocalUser(newUserResponse)
+        prePopulatedUserRepository.insertLocalUser(newUserResponse)
 
         // Then
         val localUsers = localDataSource.getUsers().first()
@@ -88,7 +158,7 @@ class UsersRepositoryImplTest {
     @Test
     fun `getRemoteUsers should return all remote users`() = runTest {
         // When
-        val result = usersRepository.getRemoteUsers()
+        val result = prePopulatedUserRepository.getRemoteUsers()
 
         // Then
         assertTrue(result is ApiResponse.Success)
@@ -114,7 +184,7 @@ class UsersRepositoryImplTest {
         )
 
         // When
-        usersRepository.insertLocalUsers(*newUsersResponse.toTypedArray())
+        prePopulatedUserRepository.insertLocalUsers(*newUsersResponse.toTypedArray())
 
         // Then
         val localUsers = localDataSource.getUsers().first()
