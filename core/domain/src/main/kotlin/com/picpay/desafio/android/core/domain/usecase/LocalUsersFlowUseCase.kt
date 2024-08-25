@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.feature.contacts.datasource.usecase
+package com.picpay.desafio.android.core.domain.usecase
 
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 
