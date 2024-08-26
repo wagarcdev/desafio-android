@@ -1,24 +1,34 @@
 package com.picpay.desafio.android.core.data.model
 
+import com.picpay.desafio.android.core.data.di.test.testingDataModule
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageCompressor
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageDecoder
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.network.model.UserResponse
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.inject
 import java.io.ByteArrayInputStream
 import kotlin.test.assertContentEquals
 
-class UserMapperTest {
+class UserMapperTest: KoinTest {
+
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        modules(testingDataModule)
+    }
+
+    private val testDispatcher: TestDispatcher by inject()
 
     private lateinit var fakeImageProcessor: FakeAppImageProcessor
-    private lateinit var testDispatcher: TestDispatcher
 
     private val imageUrl = "https://example.of/false_url_test_image.jpg"
     private val fakeImgBytes = ByteArray(100) { it.toByte() } // Example byte array for image data
@@ -45,8 +55,6 @@ class UserMapperTest {
             imageCompressor = fakeImageCompressor,
             imageDecoder = fakeImageDecoder
         )
-
-        testDispatcher = StandardTestDispatcher()
     }
 
     @Test
