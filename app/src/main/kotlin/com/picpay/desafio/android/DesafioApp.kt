@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import com.picpay.desafio.android.navigation.RootNavigation
 import com.picpay.desafio.android.ui.theme.DesafioAppTheme
 import com.picpay.desafio.android.ui.theme.colorPrimaryDark
@@ -21,6 +22,7 @@ fun DesafioApp(
     DesafioAppTheme {
         Scaffold(
             modifier = Modifier
+                .testTag(APP_TEST_TAG)
                 .fillMaxSize(),
             containerColor = colorPrimaryDark
         ) { paddingValues ->
@@ -31,3 +33,5 @@ fun DesafioApp(
         }
     }
 }
+
+const val APP_TEST_TAG = "app"
