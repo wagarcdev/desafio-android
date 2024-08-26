@@ -1,25 +1,28 @@
 package com.picpay.desafio.android.core.data.image
 
+import com.picpay.desafio.android.core.data.di.test.testingDataModule
 import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.image.util.compressImageFromUrl
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.inject
 import java.io.ByteArrayInputStream
 
-class AppImageCompressorTest {
+class AppImageCompressorTest: KoinTest {
 
-    private lateinit var testDispatcher: TestDispatcher
-
-    @Before
-    fun setUp() {
-        testDispatcher = StandardTestDispatcher()
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        modules(testingDataModule)
     }
+
+    private val testDispatcher: TestDispatcher by inject()
 
     @Test
     fun `resizeAndCompressImageFromUrl should compress image if it exceeds max size`() = runTest(testDispatcher) {
@@ -44,7 +47,7 @@ class AppImageCompressorTest {
     }
 
     @Test
-    fun `resizeAndCompressImageFromUrl should not compress image if it is within max size`() = runTest {
+    fun `resizeAndCompressImageFromUrl should not compress image if it is within max size`() = runTest(testDispatcher) {
         // Given
         val imageUrl = "https://example.of/false_url_test_image.jpg"
         val maxSizeInBytes = 1000
