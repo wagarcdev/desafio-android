@@ -40,6 +40,7 @@ dependencies {
 
 
     api(libs.junit)
+    api(libs.mockk)
     api(libs.mockitoCore)
     api(libs.mockitoKotlin)
     api(libs.coreTesting)

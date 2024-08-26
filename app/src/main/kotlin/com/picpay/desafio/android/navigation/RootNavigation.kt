@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.picpay.desafio.android.DesafioAppState
-import com.picpay.desafio.android.contacts.ContactScreen
+import com.picpay.desafio.android.feature.contacts.ContactScreen
 import com.picpay.desafio.android.navigation.RootNavigationRoutes.CONTACTS_SCREEN
 
 @Composable

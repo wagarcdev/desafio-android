@@ -48,6 +48,7 @@ rxjava = "2.2.21"
 rxandroid = "2.1.1"
 
 #Mocks
+mockk = '1.13.5'
 mockito = '5.7.0'
 mockito_kotlin = '2.1.0'
 
@@ -126,6 +127,7 @@ okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercept
 okhttpMockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 
 #Mocks
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 mockitoCore = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
 mockitoKotlin = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockito_kotlin" }
 
