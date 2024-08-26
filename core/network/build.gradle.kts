@@ -27,6 +27,7 @@ android {
             merges += "META-INF/LICENSE-notice.md"
         }
     }
+
     kotlinOptions {
         val warningsAsErrors: String? by project
         allWarningsAsErrors = warningsAsErrors.toBoolean()
@@ -38,7 +39,13 @@ android {
         )
     }
 
-
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
+        }
+    }
 }
 
 dependencies {

@@ -54,6 +54,11 @@ dependencies {
     api(libs.androidx.test.core)
     api(libs.androidx.test.coreKtx)
 
+    api(libs.androidx.junit)
+    api(libs.androidx.espresso.core)
+    api(libs.androidx.ui.test.junit4.android)
+    api(libs.androidx.ui.test.manifest)
+
     api(libs.kotlinx.coroutines.test)
 
     api(libs.koin.android.test)

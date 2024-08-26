@@ -22,7 +22,7 @@ android {
             versionCode = appVersionCode.get().toInt()
             versionName = appVersionName.get()
 
-            testInstrumentationRunner = "com.picpay.desafio.android.testing.InstrumentationTestRunner"
+            testInstrumentationRunner = "com.picpay.desafio.android.core.testing.InstrumentationTestRunner"
             vectorDrawables {
                 useSupportLibrary = true
             }

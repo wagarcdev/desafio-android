@@ -29,6 +29,13 @@ android {
             "-opt-in=kotlin.RequiresOptIn"
         )
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
+        }
+    }
 
 
 }
@@ -45,16 +52,11 @@ dependencies {
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
+    debugApi(libs.androidx.ui.tooling)
     api(libs.androidx.material3)
     api(libs.androidx.compose.material3.windowSizeClass)
     api(libs.navigation.compose)
     api(libs.coil.compose)
-
-    androidTestApi(libs.androidx.junit)
-    androidTestApi(libs.androidx.espresso.core)
-    androidTestApi(libs.androidx.ui.test.junit4)
-    debugApi(libs.androidx.ui.tooling)
-    debugApi(libs.androidx.ui.test.manifest)
 
     api(libs.androidxAppcompat)
     api(libs.androidxConstraintLayout)
