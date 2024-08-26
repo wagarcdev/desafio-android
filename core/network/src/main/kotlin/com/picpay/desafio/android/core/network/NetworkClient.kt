@@ -1,14 +1,19 @@
-package com.picpay.desafio.android.core.network.di
+package com.picpay.desafio.android.core.network
 
 import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+const val TIMEOUT_IN_SECONDS = 6L
 
 object NetworkClient {
 
-    private fun okHttpClientBuilder() = OkHttpClient.Builder()
+    fun okHttpClientBuilder() = OkHttpClient.Builder()
+        .connectTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+        .readTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
         .addInterceptor(
             HttpLoggingInterceptor {
                 Log.d("OKHTTP", it)
