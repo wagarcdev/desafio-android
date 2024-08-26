@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.sync
 
-import com.picpay.desafio.android.network.model.UserResponse
+import com.picpay.desafio.android.core.network.model.UserResponse
 import java.security.MessageDigest
 
 class DataSyncManager {

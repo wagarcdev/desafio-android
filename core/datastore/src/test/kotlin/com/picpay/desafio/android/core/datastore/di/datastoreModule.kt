@@ -12,7 +12,7 @@ import org.koin.test.verify.verify
 class DataStoreModuleTest {
 
     @Test
-    fun checkDataModule() {
+    fun checkDataStoreModule() {
         dataStoreModule.verify(
             extraTypes = listOf(
                 Context::class,

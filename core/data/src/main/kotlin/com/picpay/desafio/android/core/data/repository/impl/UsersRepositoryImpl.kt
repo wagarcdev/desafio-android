@@ -10,6 +10,7 @@ import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.Synchronizer
 import com.picpay.desafio.android.core.data.sync.usersSync
 import com.picpay.desafio.android.network.model.UserResponse
+import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 class UsersRepositoryImpl(

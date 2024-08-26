@@ -1,7 +1,7 @@
 package com.picpay.desafio.android.core.data.sync
 
-import com.picpay.desafio.android.network.model.UserResponse
-import kotlinx.coroutines.Dispatchers
+import com.picpay.desafio.android.core.network.model.UserResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
@@ -25,10 +25,11 @@ interface Syncable {
 }
 
 suspend fun Synchronizer.usersSync(
+    ioDispatcher: CoroutineDispatcher,
     usersFetcher: suspend () -> List<UserResponse>?,
-    usersPersistence: suspend (List<UserResponse>) -> Boolean,
+    usersPersistence: suspend (List<UserResponse>) -> Boolean
 ): Boolean =
-    withContext(Dispatchers.IO) {
+    withContext(ioDispatcher) {
         runCatching {
             usersFetcher()?.let { usersResponse ->
 

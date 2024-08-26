@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.repository.fake.lists
 
-import com.picpay.desafio.android.network.model.UserResponse
+import com.picpay.desafio.android.core.network.model.UserResponse
 
 val fakeUserResponseList = listOf(
     UserResponse(

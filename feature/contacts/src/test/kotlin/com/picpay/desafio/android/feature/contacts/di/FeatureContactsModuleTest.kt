@@ -10,7 +10,7 @@ import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCase
-import com.picpay.desafio.android.network.services.UserService
+import com.picpay.desafio.android.core.network.services.UserService
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.test.verify.verify

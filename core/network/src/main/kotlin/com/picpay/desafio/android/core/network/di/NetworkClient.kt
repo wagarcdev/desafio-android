@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.network.di
+package com.picpay.desafio.android.core.network.di
 
 import android.util.Log
 import okhttp3.OkHttpClient
