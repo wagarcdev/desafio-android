@@ -23,14 +23,13 @@ class AppImageCompressorTest: KoinTest {
     }
 
     private val testDispatcher: TestDispatcher by inject()
+    private val fakeImageProcessor: AppImageProcessor by inject()
 
     @Test
     fun `resizeAndCompressImageFromUrl should compress image if it exceeds max size`() = runTest(testDispatcher) {
         // Given
         val imageUrl = "https://example.of/false_url_test_image.jpg"
         val maxSizeInBytes = 1000
-
-        val fakeImageProcessor = createFakeImageProcessor()
 
         // When
         val result = compressImageFromUrl(

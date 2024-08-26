@@ -2,6 +2,7 @@ package com.picpay.desafio.android.core.data.di.test
 
 import com.picpay.desafio.android.core.data.image.AppImageCompressor
 import com.picpay.desafio.android.core.data.image.AppImageDecoder
+import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageCompressor
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageDecoder
 import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
@@ -23,6 +24,7 @@ import com.picpay.desafio.android.core.datastore.test.FakePreferencesDataStore
 import kotlinx.coroutines.test.StandardTestDispatcher
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 
@@ -42,7 +44,7 @@ val testingDataModule = module {
     singleOf(::FakeAppImageDecoder) { bind<AppImageDecoder>() }
     singleOf(::FakeAppImageCompressor) { bind<AppImageCompressor>() }
 
-    single { createFakeImageProcessor() }
+    single { createFakeImageProcessor() }.bind<AppImageProcessor>()
 
     singleOf(::FakeUserLocalDataSource) { bind<UserLocalDataSource>() }
     singleOf(::FakeUserRemoteDataSource) { bind<UserRemoteDataSource>() }
