@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.core.data.repository.impl
 
-import com.picpay.desafio.android.common.util.ApiResponse
 import com.picpay.desafio.android.core.data.image.ImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
@@ -46,17 +45,9 @@ class UsersRepositoryImpl(
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
         synchronizer.usersSync(
             ioDispatcher = ioDispatcher,
-            usersFetcher = ::provideUsers,
+            usersFetcher = ::getRemoteUsers,
             usersPersistence = ::insertLocalUsers
         )
-
-    private suspend fun provideUsers() =
-        when (val usersApiResponse = getRemoteUsers()) {
-
-            is ApiResponse.Error -> null
-
-            is ApiResponse.Success -> usersApiResponse.value
-        }
 
     private suspend fun insertLocalUsers(users: List<UserResponse>) =
         insertLocalUsers(*users.toTypedArray())

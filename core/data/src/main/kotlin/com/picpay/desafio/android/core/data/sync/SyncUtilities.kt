@@ -1,5 +1,7 @@
 package com.picpay.desafio.android.core.data.sync
 
+import android.util.Log
+import com.picpay.desafio.android.common.util.ApiResponse
 import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
@@ -26,24 +28,33 @@ interface Syncable {
 
 suspend fun Synchronizer.usersSync(
     ioDispatcher: CoroutineDispatcher,
-    usersFetcher: suspend () -> List<UserResponse>?,
+    usersFetcher: suspend () -> ApiResponse<List<UserResponse>>,
     usersPersistence: suspend (List<UserResponse>) -> Boolean
 ): Boolean =
     withContext(ioDispatcher) {
         runCatching {
-            usersFetcher()?.let { usersResponse ->
+            when(val usersResponse = usersFetcher()) {
+                is ApiResponse.Error -> {
+                    //TODO error handling
+                    usersResponse.error?.printStackTrace()
+                    Log.e("APIRESPONSEERROR", "usersSync: Error code?: ${usersResponse.code}", )
+                    false
+                }
 
-                val fetchedUsersHash = hashUserResponseList(usersResponse)
+                is ApiResponse.Success -> {
+                    val fetchedUsersHash = hashUserResponseList(usersResponse.value)
 
-                val dataIsUpToDate = getStoredUsersResponseHash() == fetchedUsersHash
-                if (dataIsUpToDate) return@runCatching true
+                    val dataIsUpToDate = getStoredUsersResponseHash() == fetchedUsersHash
+                    if (dataIsUpToDate) return@runCatching true
 
-                val dataIsPersisted = awaitAll(
-                    async { usersPersistence(usersResponse) }
-                ).all { it }
+                    val dataIsPersisted = awaitAll(
+                        async { usersPersistence(usersResponse.value) }
+                    ).all { it }
 
-                if (dataIsPersisted) saveUsersResponseHash(fetchedUsersHash) else false
-            } ?: false
+                    if (dataIsPersisted) saveUsersResponseHash(fetchedUsersHash)
+                    else false
+                }
+            }
         }.getOrElse { exception ->
             exception.printStackTrace()
             false
