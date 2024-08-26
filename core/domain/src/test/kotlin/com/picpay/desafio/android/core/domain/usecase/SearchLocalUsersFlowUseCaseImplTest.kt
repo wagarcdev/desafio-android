@@ -1,104 +1,66 @@
 package com.picpay.desafio.android.core.domain.usecase
 
-import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
-import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.data.di.test.testingDataModule
+
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserLocalDataSource
-import com.picpay.desafio.android.core.data.repository.fake.FakeUserRemoteDataSource
-import com.picpay.desafio.android.core.data.repository.fake.FakeUsersRepository
 import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserModelList
-import com.picpay.desafio.android.core.data.sync.DataSyncManager
-import com.picpay.desafio.android.core.data.sync.Synchronizer
-import com.picpay.desafio.android.core.data.sync.test.TestSynchronizer
 import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy
-import com.picpay.desafio.android.core.datastore.DesafioAppPreferencesDataSource
-import com.picpay.desafio.android.core.datastore.PreferencesDataSource
-import com.picpay.desafio.android.core.datastore.test.FakePreferencesDataStore
+import com.picpay.desafio.android.core.domain.di.testingDomainModule
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.inject
 
-class SearchLocalUsersFlowUseCaseTest {
+class SearchLocalUsersFlowUseCaseImplTest: KoinTest {
 
-    private lateinit var fakeUserRepository: FakeUsersRepository
-    private lateinit var searchLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase
-    private lateinit var searchPrePopulatedLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase
-    private lateinit var preferences: PreferencesDataSource
-    private lateinit var imageProcessor: FakeAppImageProcessor
-    private lateinit var localDataSource: FakeUserLocalDataSource
-    private lateinit var prePopulatedLocalDataSource: FakeUserLocalDataSource
-    private lateinit var prePopulatedUserRepository: FakeUsersRepository
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        modules(
+            testingDomainModule,
+            testingDataModule
+        )
+    }
 
-    private lateinit var remoteDataSource: FakeUserRemoteDataSource
-    private lateinit var synchronizer: Synchronizer
-    private lateinit var testDispatcher: TestDispatcher
+    private val testDispatcher: TestDispatcher by inject()
 
-    private lateinit var users: MutableList<UserModel>
+    private val searchLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase by inject()
+
+    private val localDataSource: FakeUserLocalDataSource by inject()
+
+
+    private val populatedListOfUsers = fakeUserModelList.toMutableList()
 
 
     @Before
     fun setUp() {
-        testDispatcher = StandardTestDispatcher()
+        localDataSource.users = populatedListOfUsers
+    }
 
-        preferences = DesafioAppPreferencesDataSource(
-            repository = FakePreferencesDataStore()
-        )
-        synchronizer = TestSynchronizer(
-            preferences = preferences,
-            dataSyncManager = DataSyncManager()
-        )
-
-        users = fakeUserModelList.toMutableList()
-
-
-        remoteDataSource = FakeUserRemoteDataSource()
-        localDataSource = FakeUserLocalDataSource()
-
-        imageProcessor = createFakeImageProcessor()
-
-        fakeUserRepository = FakeUsersRepository(
-            remoteDataSource = remoteDataSource,
-            localDataSource = localDataSource,
-            imageProcessor = imageProcessor,
-            ioDispatcher = testDispatcher,
-            testSynchronizer = synchronizer
-        )
-        searchLocalUsersFlowUseCase =
-            SearchLocalUsersFlowUseCase(fakeUserRepository)
-
-        prePopulatedLocalDataSource = FakeUserLocalDataSource(
-            prePopulateList = users
-        )
-
-        prePopulatedUserRepository = FakeUsersRepository(
-            remoteDataSource = remoteDataSource,
-            localDataSource = prePopulatedLocalDataSource,
-            imageProcessor = imageProcessor,
-            ioDispatcher = testDispatcher,
-            testSynchronizer = synchronizer
-        )
-
-        searchPrePopulatedLocalUsersFlowUseCase =
-            SearchLocalUsersFlowUseCase(prePopulatedUserRepository)
-
+    @After
+    fun cleanUp() {
+        localDataSource.users = mutableListOf()
     }
 
     @Test
     fun `invoke searches and sorts users correctly`() = runTest(testDispatcher) {
         // Given
+        localDataSource.users = populatedListOfUsers
         val searchQuery = "John"
         val sortColumn = SortBy.NAME.parameter
         val sortOrder = OrderDirection.ASCENDING.parameter
 
         // When
         val result =
-            searchPrePopulatedLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
+            searchLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
 
         // Then
         val expectedResult =
@@ -115,7 +77,7 @@ class SearchLocalUsersFlowUseCaseTest {
         val sortOrder = OrderDirection.ASCENDING.parameter
 
         // When
-        val result = searchPrePopulatedLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
+        val result = searchLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
 
         // Then
         assertTrue(result.isEmpty())
@@ -129,7 +91,7 @@ class SearchLocalUsersFlowUseCaseTest {
         val sortOrder = OrderDirection.ASCENDING.parameter
 
         // When
-        val result = searchPrePopulatedLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
+        val result = searchLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
 
         // Then
         val expectedResult =
@@ -150,7 +112,7 @@ class SearchLocalUsersFlowUseCaseTest {
         val sortOrder = OrderDirection.DESCENDING.parameter
 
         // When
-        val result = searchPrePopulatedLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
+        val result = searchLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
 
         // Then
         val expectedResult =
@@ -171,7 +133,7 @@ class SearchLocalUsersFlowUseCaseTest {
         val sortOrder = OrderDirection.ASCENDING.parameter
 
         // When
-        val result = searchPrePopulatedLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
+        val result = searchLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
 
         // Then
         val expectedResult =
@@ -194,7 +156,7 @@ class SearchLocalUsersFlowUseCaseTest {
         val sortOrder = OrderDirection.ASCENDING.parameter
 
         // When
-        val result = searchPrePopulatedLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
+        val result = searchLocalUsersFlowUseCase(searchQuery, sortColumn, sortOrder).first()
 
         // Then
         val expectedResult =

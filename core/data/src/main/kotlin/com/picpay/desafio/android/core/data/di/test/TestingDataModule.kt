@@ -41,7 +41,6 @@ val testingDataModule = module {
 
     singleOf(::FakeAppImageDecoder) { bind<AppImageDecoder>() }
     singleOf(::FakeAppImageCompressor) { bind<AppImageCompressor>() }
-//    singleOf(::FakeAppImageProcessor) { bind<AppImageProcessor>() }
 
     single { createFakeImageProcessor() }
 
