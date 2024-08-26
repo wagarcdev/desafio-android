@@ -20,7 +20,7 @@ activityCompose = "1.9.1"
 
 #UI
 #composeBom = "2024.06.00"
-composeUi = "1.7.0-beta07"
+composeUi = "1.7.0-rc01"
 constraintlayout = '2.1.4'
 material3 = "1.2.1"
 picasso = '2.71828'
@@ -64,6 +64,7 @@ core_ktx_test = "1.6.1"
 test_runner = '1.6.2'
 kotlinxCoroutines = "1.8.1"
 datastoreCoreAndroid = "1.1.1"
+#uiTestJunit4Android = "1.6.8"
 
 
 [libraries]
@@ -93,7 +94,7 @@ circleImageView = { group = "de.hdodenhof", name = "circleimageview", version.re
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "composeUi" }
 
 
 #WORK
