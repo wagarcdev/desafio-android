@@ -62,6 +62,8 @@ dependencies {
     api(libs.androidxConstraintLayout)
 //    api(libs.material)
 
+    api(libs.kotlinx.coroutines.android)
+
     api(libs.dagger)
     api(libs.daggerCompiler)
 

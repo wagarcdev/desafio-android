@@ -58,6 +58,7 @@ dependencies {
     api(libs.androidx.espresso.core)
     api(libs.androidx.ui.test.junit4.android)
     api(libs.androidx.ui.test.manifest)
+    api(libs.androidx.navigation.testing)
 
     api(libs.kotlinx.coroutines.test)
 

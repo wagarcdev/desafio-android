@@ -36,7 +36,7 @@ class DesafioAppState(
         }
     }
 
-    private val currentDestination: NavDestination?
+    val currentDestination: NavDestination?
         @Composable
         get() = navController.currentBackStackEntryAsState().value?.destination
 
