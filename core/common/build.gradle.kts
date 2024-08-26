@@ -11,7 +11,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
-        buildConfigField("String", "BASE_URL", libs.versions.baseUrl.get())
     }
 
     compileOptions {
@@ -47,7 +46,6 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.ktx)
 
     api(libs.androidx.activity.compose)
-//    api(platform(libs.androidx.compose.bom))
 
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
@@ -58,31 +56,19 @@ dependencies {
     api(libs.navigation.compose)
     api(libs.coil.compose)
 
-    api(libs.androidxAppcompat)
-    api(libs.androidxConstraintLayout)
-//    api(libs.material)
-
     api(libs.kotlinx.coroutines.android)
 
     api(libs.dagger)
     api(libs.daggerCompiler)
 
-    api(libs.rxjava)
-    api(libs.rxandroid)
-
     api(libs.koin.androidx.compose)
     api(libs.koin.android)
 
     api(libs.retrofit)
-    api(libs.retrofitAdapterRxjava2)
     api(libs.retrofitConverterGson)
     api(libs.okhttp)
     api(libs.okhttp.interceptor)
     api(libs.okhttpMockwebserver)
-
-    api(libs.picasso)
-    api(libs.circleImageView)
-
 
     api(libs.koin.workmanager)
 }

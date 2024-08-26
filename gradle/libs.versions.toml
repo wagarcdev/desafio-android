@@ -14,17 +14,12 @@ baseUrl = "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\""
 agp = "8.5.2"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
-appcompat = '1.7.0'
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 
 #UI
-#composeBom = "2024.06.00"
 composeUi = "1.7.0-rc01"
-constraintlayout = '2.1.4'
 material3 = "1.2.1"
-picasso = '2.71828'
-circleimageview = '3.0.0'
 composeNavigation = "2.7.7"
 coil = "2.4.0"
 
@@ -43,10 +38,6 @@ koinAndroid = "3.5.3"
 room = "2.6.1"
 androidxDataStore = "1.1.1"
 
-#Reactivity
-rxjava = "2.2.21"
-rxandroid = "2.1.1"
-
 #Mocks
 mockk = '1.13.5'
 mockito = '5.7.0'
@@ -64,7 +55,6 @@ core_ktx_test = "1.6.1"
 test_runner = '1.6.2'
 kotlinxCoroutines = "1.8.1"
 datastoreCoreAndroid = "1.1.1"
-#uiTestJunit4Android = "1.6.8"
 
 
 [libraries]
@@ -73,11 +63,9 @@ datastoreCoreAndroid = "1.1.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidxAppcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 #UI
 #COMPOSE
-#androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "composeUi"}
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "composeUi"}
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
@@ -85,11 +73,6 @@ androidx-compose-material3-windowSizeClass = { group = "androidx.compose.materia
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 # Coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-#VIEW SYSTEM
-androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
-circleImageView = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
-#material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 #UI TEST & TOOLING
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -110,10 +93,6 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 
-#Reactivity
-rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
-rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
-
 # Persistence
 roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -122,7 +101,6 @@ androidx-dataStore-preferences = { group = "androidx.datastore", name = "datasto
 
 #Networking
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofitAdapterRxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit" }
 retrofitConverterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp"}
@@ -148,7 +126,6 @@ testRunner = { group = "androidx.test", name = "runner", version.ref = "test_run
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 koin-android-testJU4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinAndroid" }
 koin-android-test = { module = "io.insert-koin:koin-test", version.ref = "koinAndroid" }
-androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 
 
 
