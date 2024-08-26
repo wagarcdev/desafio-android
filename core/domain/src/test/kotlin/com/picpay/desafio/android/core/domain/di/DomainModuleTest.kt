@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core.domain.usecase.di
+package com.picpay.desafio.android.core.domain.di
 
 import android.content.Context
 import com.picpay.desafio.android.core.data.repository.UsersRepository

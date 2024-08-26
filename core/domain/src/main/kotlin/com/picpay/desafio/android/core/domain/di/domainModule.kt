@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core.domain.usecase.di
+package com.picpay.desafio.android.core.domain.di
 
 import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCase

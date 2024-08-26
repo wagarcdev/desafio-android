@@ -1,8 +1,5 @@
-package com.picpay.desafio.android.core.data.image
+package com.picpay.desafio.android.core.data.image.fake
 
-import com.picpay.desafio.android.core.data.image.fake.FakeImageCompressor
-import com.picpay.desafio.android.core.data.image.fake.FakeImageDecoder
-import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import java.io.ByteArrayInputStream
 import java.io.InputStream

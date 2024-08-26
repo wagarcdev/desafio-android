@@ -1,5 +1,7 @@
-package com.picpay.desafio.android.core.data.sync
+package com.picpay.desafio.android.core.data.sync.test
 
+import com.picpay.desafio.android.core.data.sync.DataSyncManager
+import com.picpay.desafio.android.core.data.sync.Synchronizer
 import com.picpay.desafio.android.core.datastore.PreferencesDataSource
 import com.picpay.desafio.android.core.network.model.UserResponse
 

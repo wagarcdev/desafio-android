@@ -1,5 +1,6 @@
 package com.picpay.desafio.android.core.data.image
 
+import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.image.util.compressImageFromUrl
 import kotlinx.coroutines.test.StandardTestDispatcher
