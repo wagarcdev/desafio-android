@@ -6,6 +6,7 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.picpay.desafio.android.navigation.RootNavigation
+import com.picpay.desafio.android.ui.theme.DesafioAppTheme
 import com.picpay.desafio.android.ui.theme.colorPrimaryDark
 import org.koin.compose.koinInject
 
@@ -17,15 +18,16 @@ fun DesafioApp(
         networkMonitor = koinInject()
     )
 ) {
-
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        containerColor = colorPrimaryDark
-    ) { paddingValues ->
-        RootNavigation(
-            paddingValues = paddingValues,
-            appState = appState
-        )
+    DesafioAppTheme {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize(),
+            containerColor = colorPrimaryDark
+        ) { paddingValues ->
+            RootNavigation(
+                paddingValues = paddingValues,
+                appState = appState
+            )
+        }
     }
 }

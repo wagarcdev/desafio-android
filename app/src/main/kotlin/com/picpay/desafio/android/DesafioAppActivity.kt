@@ -6,18 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.view.WindowCompat
-import com.picpay.desafio.android.ui.theme.DesafioAppTheme
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class DesafioAppActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        setContent {
-            DesafioAppTheme {
-                DesafioApp(calculateWindowSizeClass(this))
-            }
-        }
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContent { DesafioApp(calculateWindowSizeClass(this)) }
     }
 }
 
