@@ -12,7 +12,7 @@ class InstrumentationTestRunner : AndroidJUnitRunner() {
     ): Application {
         return super.newApplication(
             cl,
-            className,
+            TestDesafioApplication::class.java.name,
             context
         )
     }

@@ -73,5 +73,6 @@ dependencies {
     androidTestImplementation(project(":core:network"))
     androidTestImplementation(project(":core:common"))
     androidTestImplementation(project(":core:domain"))
+    androidTestImplementation(project(":core:data"))
 
 }

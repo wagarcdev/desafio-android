@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 
-class FakeUserLocalDataSource(
-    private val prePopulateList: MutableList<UserModel> = mutableListOf()
-) : UserLocalDataSource {
+class FakeUserLocalDataSource : UserLocalDataSource {
+
+    var users: MutableList<UserModel> = mutableListOf()
 
 
     override fun searchUser(
@@ -20,7 +20,7 @@ class FakeUserLocalDataSource(
         sortOrder: String
     ): Flow<List<UserModel>> = flow {
 
-        val filteredUsers = prePopulateList.filter { user ->
+        val filteredUsers = users.filter { user ->
             user.name.contains(searchQuery, ignoreCase = true) ||
                     user.username.contains(searchQuery, ignoreCase = true)
         }
@@ -39,16 +39,16 @@ class FakeUserLocalDataSource(
     }
 
     override fun getUsers(): Flow<List<UserModel>> = flow {
-        emit(prePopulateList)
+        emit(users)
     }
 
     override suspend fun insertUser(user: UserModel) {
-        prePopulateList.add(user)
+        users.add(user)
     }
 
     override suspend fun insertUsers(vararg user: UserModel): Boolean =
         runBlocking {
-            return@runBlocking async { prePopulateList.addAll(user) }
+            return@runBlocking async { users.addAll(user) }
                 .await()
         }
 }

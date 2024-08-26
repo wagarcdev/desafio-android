@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.datastore
 
-import com.picpay.desafio.android.core.datastore.test.TestPreferencesDataStore
+import com.picpay.desafio.android.core.datastore.test.FakePreferencesDataStore
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -16,7 +16,7 @@ class DesafioAppPreferencesDataSourceTest {
     @Before
     fun setUp() {
 
-        repository = TestPreferencesDataStore()
+        repository = FakePreferencesDataStore()
 
         dataSource = DesafioAppPreferencesDataSource(
             repository = repository

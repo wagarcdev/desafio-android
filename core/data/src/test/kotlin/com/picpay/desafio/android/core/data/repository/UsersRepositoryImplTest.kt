@@ -1,89 +1,62 @@
 package com.picpay.desafio.android.core.data.repository
 
 import com.picpay.desafio.android.core.common.util.ApiResponse
-import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
-import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
+import com.picpay.desafio.android.core.data.di.test.testingDataModule
+import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserLocalDataSource
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserRemoteDataSource
-import com.picpay.desafio.android.core.data.repository.fake.FakeUserRepository
+import com.picpay.desafio.android.core.data.repository.fake.FakeUsersRepository
 import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserModelList
 import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserResponseList
-import com.picpay.desafio.android.core.data.sync.DataSyncManager
 import com.picpay.desafio.android.core.data.sync.Synchronizer
-import com.picpay.desafio.android.core.data.sync.test.TestSynchronizer
 import com.picpay.desafio.android.core.data.sync.usersSync
 import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy
-import com.picpay.desafio.android.core.datastore.DesafioAppPreferencesDataSource
-import com.picpay.desafio.android.core.datastore.PreferencesDataSource
-import com.picpay.desafio.android.core.datastore.test.TestPreferencesDataStore
 import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.inject
 
-class UsersRepositoryImplTest {
+class UsersRepositoryImplTest: KoinTest {
 
-    private lateinit var remoteDataSource: FakeUserRemoteDataSource
-    private lateinit var localDataSource: FakeUserLocalDataSource
-    private lateinit var imageProcessor: FakeImageProcessor
-    private lateinit var usersRepository: FakeUserRepository
-    private lateinit var prePopulatedLocalDataSource: FakeUserLocalDataSource
-    private lateinit var prePopulatedUserRepository: FakeUserRepository
-    private lateinit var preferences: PreferencesDataSource
-    private lateinit var synchronizer: Synchronizer
-    private lateinit var testDispatcher: TestDispatcher
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        modules(testingDataModule)
+    }
 
-    private lateinit var users: MutableList<UserModel>
+    private val synchronizer: Synchronizer by inject()
+
+    private val testDispatcher: TestDispatcher by inject()
+
+    private val imageProcessor: FakeAppImageProcessor by inject()
+
+    private val usersRepository: FakeUsersRepository by inject()
+    private val remoteDataSource: FakeUserRemoteDataSource by inject()
+    private val localDataSource: FakeUserLocalDataSource by inject()
+
+
+    private val populatedListOfUsers = fakeUserModelList.toMutableList()
 
     @Before
     fun setUp() {
+        localDataSource.users = mutableListOf()
+    }
 
-        testDispatcher = StandardTestDispatcher()
-
-        preferences = DesafioAppPreferencesDataSource(
-            repository = TestPreferencesDataStore()
-        )
-
-        synchronizer = TestSynchronizer(
-            preferences = preferences,
-            dataSyncManager = DataSyncManager()
-        )
-
-        users = fakeUserModelList.toMutableList()
-
-        imageProcessor = createFakeImageProcessor()
-
-        remoteDataSource = FakeUserRemoteDataSource()
-        localDataSource = FakeUserLocalDataSource()
-
-        usersRepository = FakeUserRepository(
-            remoteDataSource = remoteDataSource,
-            localDataSource = localDataSource,
-            imageProcessor = imageProcessor,
-            ioDispatcher = testDispatcher,
-            testSynchronizer = synchronizer
-        )
-
-        prePopulatedLocalDataSource = FakeUserLocalDataSource(
-            prePopulateList = users
-        )
-
-        prePopulatedUserRepository = FakeUserRepository(
-            remoteDataSource = remoteDataSource,
-            localDataSource = prePopulatedLocalDataSource,
-            imageProcessor = imageProcessor,
-            ioDispatcher = testDispatcher,
-            testSynchronizer = synchronizer
-        )
+    @After
+    fun cleanUp() {
+        localDataSource.users = mutableListOf()
     }
 
     private suspend fun fetchUsers() = withContext(testDispatcher) {
@@ -113,9 +86,9 @@ class UsersRepositoryImplTest {
 
     @Test
     fun `searchUser should return filtered and sorted users`() = runTest {
-
         // When
-        val result = prePopulatedUserRepository.searchUser(
+        localDataSource.users = populatedListOfUsers
+        val result = usersRepository.searchUser(
             searchQuery = "Annabelle",
             sortColumn = SortBy.NAME.parameter,
             sortOrder = OrderDirection.ASCENDING.parameter
@@ -129,7 +102,8 @@ class UsersRepositoryImplTest {
     @Test
     fun `getLocalUsers should return all local users`() = runTest {
         // When
-        val result = prePopulatedUserRepository.getLocalUsers().first()
+        localDataSource.users = populatedListOfUsers
+        val result = usersRepository.getLocalUsers().first()
 
         // Then
         assertEquals(fakeUserModelList.size, result.size)
@@ -156,7 +130,8 @@ class UsersRepositoryImplTest {
     @Test
     fun `getRemoteUsers should return all remote users`() = runTest {
         // When
-        val result = prePopulatedUserRepository.getRemoteUsers()
+        localDataSource.users = populatedListOfUsers
+        val result = usersRepository.getRemoteUsers()
 
         // Then
         assertTrue(result is ApiResponse.Success)

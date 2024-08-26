@@ -1,9 +1,9 @@
 package com.picpay.desafio.android.core.data.di
 
 import android.content.Context
-import com.picpay.desafio.android.core.data.image.ImageCompressor
-import com.picpay.desafio.android.core.data.image.ImageDecoder
-import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.image.AppImageCompressor
+import com.picpay.desafio.android.core.data.image.AppImageDecoder
+import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import org.junit.Test
@@ -21,9 +21,9 @@ class DataModuleTest {
                 Context::class,
                 SyncManager::class,
                 NetworkMonitor::class,
-                ImageProcessor::class,
-                ImageDecoder::class,
-                ImageCompressor::class
+                AppImageProcessor::class,
+                AppImageDecoder::class,
+                AppImageCompressor::class
             )
         )
     }
