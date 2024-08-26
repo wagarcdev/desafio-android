@@ -2,13 +2,13 @@ package com.picpay.desafio.android.core.data.image.compressor
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.picpay.desafio.android.core.data.image.ImageCompressor
+import com.picpay.desafio.android.core.data.image.AppImageCompressor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.image.util.DEFAULT_QUALITY
 import com.picpay.desafio.android.core.data.image.util.toByteArray
 import java.io.ByteArrayOutputStream
 
-class DesafioAppImageCompressor: ImageCompressor {
+class DesafioAppImageCompressor: AppImageCompressor {
     override fun compressImage(imageData: ByteArray, quality: Int): Pair<ByteArray, ImageSize> {
         val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
         val outputStream = ByteArrayOutputStream()

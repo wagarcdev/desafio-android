@@ -1,7 +1,7 @@
 package com.picpay.desafio.android.core.data.repository.fake
 
 import com.picpay.desafio.android.core.common.util.ApiResponse
-import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
+import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.UsersRepository
@@ -11,10 +11,10 @@ import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.TestDispatcher
 
-class FakeUserRepository(
+class FakeUsersRepository(
     private val remoteDataSource: FakeUserRemoteDataSource,
     private val localDataSource: FakeUserLocalDataSource,
-    private val imageProcessor: FakeImageProcessor,
+    private val imageProcessor: FakeAppImageProcessor,
     private val ioDispatcher: TestDispatcher,
     private val testSynchronizer: Synchronizer
 ): UsersRepository {

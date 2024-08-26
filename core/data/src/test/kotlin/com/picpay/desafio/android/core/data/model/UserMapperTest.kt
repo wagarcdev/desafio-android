@@ -1,8 +1,8 @@
 package com.picpay.desafio.android.core.data.model
 
-import com.picpay.desafio.android.core.data.image.fake.FakeImageCompressor
-import com.picpay.desafio.android.core.data.image.fake.FakeImageDecoder
-import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
+import com.picpay.desafio.android.core.data.image.fake.FakeAppImageCompressor
+import com.picpay.desafio.android.core.data.image.fake.FakeAppImageDecoder
+import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.network.model.UserResponse
@@ -17,7 +17,7 @@ import kotlin.test.assertContentEquals
 
 class UserMapperTest {
 
-    private lateinit var fakeImageProcessor: FakeImageProcessor
+    private lateinit var fakeImageProcessor: FakeAppImageProcessor
     private lateinit var testDispatcher: TestDispatcher
 
     private val imageUrl = "https://example.of/false_url_test_image.jpg"
@@ -31,17 +31,17 @@ class UserMapperTest {
         val fakeImageSize = ImageSize(width = 100, height = 100)
         val fakeInputStream = ByteArrayInputStream(fakeOriginalImageData)
 
-        val fakeImageDecoder = FakeImageDecoder(
+        val fakeImageDecoder = FakeAppImageDecoder(
             decodeStreamResult = Pair(fakeOriginalImageData, fakeImageSize),
             streamResult = fakeInputStream
         )
 
-        val fakeImageCompressor = FakeImageCompressor(
+        val fakeImageCompressor = FakeAppImageCompressor(
             compressImageResult = Pair(fakeCompressedImageData, fakeImageSize),
             scaleImageResult = Pair(fakeOriginalImageData, fakeImageSize)
         )
 
-        fakeImageProcessor = FakeImageProcessor(
+        fakeImageProcessor = FakeAppImageProcessor(
             imageCompressor = fakeImageCompressor,
             imageDecoder = fakeImageDecoder
         )

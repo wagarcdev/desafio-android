@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.image.util
 
-import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -10,7 +10,7 @@ const val DEFAULT_QUALITY = 75
 
 suspend fun compressImageFromUrl(
     imageUrl: String,
-    imageProcessor: ImageProcessor,
+    imageProcessor: AppImageProcessor,
     ioDispatcher: CoroutineDispatcher,
     targetWidth: Int = DEFAULT_IMAGE_TARGET_SIZE,
     targetHeight: Int = DEFAULT_IMAGE_TARGET_SIZE,
@@ -47,7 +47,7 @@ suspend fun compressImageFromUrl(
 
 private suspend fun compressImageFurther(
     imageData: ByteArray,
-    processor: ImageProcessor,
+    processor: AppImageProcessor,
     ioDispatcher: CoroutineDispatcher,
     quality: Int = DEFAULT_QUALITY
 ): ByteArray = withContext(ioDispatcher) {

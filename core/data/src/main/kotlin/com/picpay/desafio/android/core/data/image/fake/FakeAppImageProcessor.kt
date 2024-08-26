@@ -1,13 +1,13 @@
 package com.picpay.desafio.android.core.data.image.fake
 
-import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import java.io.InputStream
 
-class FakeImageProcessor(
-    private val imageDecoder: FakeImageDecoder,
-    private val imageCompressor: FakeImageCompressor
-) : ImageProcessor {
+class FakeAppImageProcessor(
+    private val imageDecoder: FakeAppImageDecoder,
+    private val imageCompressor: FakeAppImageCompressor
+) : AppImageProcessor {
 
     override fun decodeStream(inputStream: InputStream): Pair<ByteArray, ImageSize> =
         imageDecoder.decodeStream(inputStream)

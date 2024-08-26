@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.model.mappers
 
-import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.image.util.compressImageFromUrl
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.network.model.UserResponse
@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 suspend fun UserResponse.toDomainModel(
-    processor: ImageProcessor,
+    processor: AppImageProcessor,
     ioDispatcher: CoroutineDispatcher
 ) =
     withContext(ioDispatcher) {
@@ -21,7 +21,7 @@ suspend fun UserResponse.toDomainModel(
     }
 
 suspend fun List<UserResponse>.toDomainModel(
-    processor: ImageProcessor,
+    processor: AppImageProcessor,
     ioDispatcher: CoroutineDispatcher
 ): List<UserModel> =
     withContext(ioDispatcher) {

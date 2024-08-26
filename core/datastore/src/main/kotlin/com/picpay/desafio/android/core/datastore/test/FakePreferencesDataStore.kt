@@ -18,7 +18,7 @@ fun TemporaryFolder.testPreferencesDataStore(
     produceFile = { producerFile }
 )
 
-class TestPreferencesDataStore : DataStoreRepository {
+class FakePreferencesDataStore : DataStoreRepository {
     private val dataStore = mutableMapOf<String, String?>()
 
     override suspend fun getSyncHash(): String? {

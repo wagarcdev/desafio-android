@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.repository.impl
 
-import com.picpay.desafio.android.core.data.image.ImageProcessor
+import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 class UsersRepositoryImpl(
     private val remoteDataSource: UserRemoteDataSource,
     private val localDataSource: UserLocalDataSource,
-    private val imageProcessor: ImageProcessor,
+    private val imageProcessor: AppImageProcessor,
     private val ioDispatcher: CoroutineDispatcher,
 ): UsersRepository {
 

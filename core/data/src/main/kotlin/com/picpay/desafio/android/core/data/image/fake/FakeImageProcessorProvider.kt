@@ -15,18 +15,18 @@ fun createFakeImageProcessor(
     streamResult: InputStream = fakeInputStream,
     compressImageResult: Pair<ByteArray, ImageSize> = Pair(fakeCompressedImageData, fakeCompressedImageSize),
     scaleImageResult: Pair<ByteArray, ImageSize> = Pair(fakeCompressedImageData, fakeCompressedImageSize)
-): FakeImageProcessor {
-    val fakeImageDecoder = FakeImageDecoder(
+): FakeAppImageProcessor {
+    val fakeImageDecoder = FakeAppImageDecoder(
         decodeStreamResult = decodeStreamResult,
         streamResult = streamResult
     )
 
-    val fakeImageCompressor = FakeImageCompressor(
+    val fakeImageCompressor = FakeAppImageCompressor(
         compressImageResult = compressImageResult,
         scaleImageResult = scaleImageResult
     )
 
-    return FakeImageProcessor(
+    return FakeAppImageProcessor(
         imageCompressor = fakeImageCompressor,
         imageDecoder = fakeImageDecoder
     )

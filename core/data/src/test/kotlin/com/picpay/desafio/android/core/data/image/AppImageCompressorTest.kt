@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import java.io.ByteArrayInputStream
 
-class ImageCompressorTest {
+class AppImageCompressorTest {
 
     private lateinit var testDispatcher: TestDispatcher
 

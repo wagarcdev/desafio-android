@@ -12,7 +12,7 @@ import java.io.InputStream
 class DesafioAppImageProcessor(
     private val imageCompressor: DesafioAppImageCompressor,
     private val imageDecoder: DesafioAppImageDecoder
-) : ImageProcessor {
+) : AppImageProcessor {
 
     override fun decodeStream(inputStream: InputStream): Pair<ByteArray, ImageSize> =
         imageDecoder.decodeStream(inputStream)

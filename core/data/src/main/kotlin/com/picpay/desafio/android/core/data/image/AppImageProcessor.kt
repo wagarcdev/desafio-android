@@ -3,9 +3,9 @@ package com.picpay.desafio.android.core.data.image
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import java.io.InputStream
 
-interface ImageProcessor : ImageCompressor, ImageDecoder
+interface AppImageProcessor : AppImageCompressor, AppImageDecoder
 
-interface ImageDecoder {
+interface AppImageDecoder {
 
     /**
      * Decodes an InputStream into an image representation.
@@ -25,7 +25,7 @@ interface ImageDecoder {
     fun openStreamFromUrl(url: String): InputStream
 }
 
-interface ImageCompressor {
+interface AppImageCompressor {
     /**
      * Compresses the provided image data and returns the compressed data and its size.
      *

@@ -1,11 +1,11 @@
 package com.picpay.desafio.android.core.domain.usecase
 
-import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
+import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserLocalDataSource
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserRemoteDataSource
-import com.picpay.desafio.android.core.data.repository.fake.FakeUserRepository
+import com.picpay.desafio.android.core.data.repository.fake.FakeUsersRepository
 import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserModelList
 import com.picpay.desafio.android.core.data.sync.DataSyncManager
 import com.picpay.desafio.android.core.data.sync.Synchronizer
@@ -14,7 +14,7 @@ import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy
 import com.picpay.desafio.android.core.datastore.DesafioAppPreferencesDataSource
 import com.picpay.desafio.android.core.datastore.PreferencesDataSource
-import com.picpay.desafio.android.core.datastore.test.TestPreferencesDataStore
+import com.picpay.desafio.android.core.datastore.test.FakePreferencesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
@@ -26,14 +26,14 @@ import org.junit.Test
 
 class SearchLocalUsersFlowUseCaseTest {
 
-    private lateinit var fakeUserRepository: FakeUserRepository
+    private lateinit var fakeUserRepository: FakeUsersRepository
     private lateinit var searchLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase
     private lateinit var searchPrePopulatedLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase
     private lateinit var preferences: PreferencesDataSource
-    private lateinit var imageProcessor: FakeImageProcessor
+    private lateinit var imageProcessor: FakeAppImageProcessor
     private lateinit var localDataSource: FakeUserLocalDataSource
     private lateinit var prePopulatedLocalDataSource: FakeUserLocalDataSource
-    private lateinit var prePopulatedUserRepository: FakeUserRepository
+    private lateinit var prePopulatedUserRepository: FakeUsersRepository
 
     private lateinit var remoteDataSource: FakeUserRemoteDataSource
     private lateinit var synchronizer: Synchronizer
@@ -47,7 +47,7 @@ class SearchLocalUsersFlowUseCaseTest {
         testDispatcher = StandardTestDispatcher()
 
         preferences = DesafioAppPreferencesDataSource(
-            repository = TestPreferencesDataStore()
+            repository = FakePreferencesDataStore()
         )
         synchronizer = TestSynchronizer(
             preferences = preferences,
@@ -62,7 +62,7 @@ class SearchLocalUsersFlowUseCaseTest {
 
         imageProcessor = createFakeImageProcessor()
 
-        fakeUserRepository = FakeUserRepository(
+        fakeUserRepository = FakeUsersRepository(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
             imageProcessor = imageProcessor,
@@ -76,7 +76,7 @@ class SearchLocalUsersFlowUseCaseTest {
             prePopulateList = users
         )
 
-        prePopulatedUserRepository = FakeUserRepository(
+        prePopulatedUserRepository = FakeUsersRepository(
             remoteDataSource = remoteDataSource,
             localDataSource = prePopulatedLocalDataSource,
             imageProcessor = imageProcessor,
