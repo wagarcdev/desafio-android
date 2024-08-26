@@ -1,17 +1,13 @@
 package com.picpay.desafio.android.core.domain.usecase
 
-import com.picpay.desafio.android.core.data.repository.UsersRepository
+import com.picpay.desafio.android.core.data.model.UserModel
+import kotlinx.coroutines.flow.Flow
 
-class SearchLocalUsersFlowUseCase(
-    private val usersRepository: UsersRepository
-) {
+interface SearchLocalUsersFlowUseCase {
     operator fun invoke(
         searchQuery: String,
         sortColumn: String,
         sortOrder: String
-    ) = usersRepository.searchUser(
-        searchQuery = searchQuery,
-        sortColumn = sortColumn,
-        sortOrder = sortOrder
-    )
+    ): Flow<List<UserModel>>
+
 }
