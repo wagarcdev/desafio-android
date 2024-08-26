@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.common.util
+package com.picpay.desafio.android.core.common.util
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher

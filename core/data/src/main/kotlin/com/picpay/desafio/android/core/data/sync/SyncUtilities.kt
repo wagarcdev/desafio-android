@@ -1,7 +1,7 @@
 package com.picpay.desafio.android.core.data.sync
 
 import android.util.Log
-import com.picpay.desafio.android.common.util.ApiResponse
+import com.picpay.desafio.android.core.common.util.ApiResponse
 import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async

@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.common.util
+package com.picpay.desafio.android.core.common.util
 
 sealed class ApiResponse<out T> {
     data class Success<out T>(val value: T) : ApiResponse<T>()

@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.repository
 
-import com.picpay.desafio.android.common.util.ApiResponse
+import com.picpay.desafio.android.core.common.util.ApiResponse
 import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
 import com.picpay.desafio.android.core.data.image.fake.createFakeImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
