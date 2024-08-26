@@ -1,7 +1,7 @@
 package com.picpay.desafio.android.core.data.image.util
 
 import com.picpay.desafio.android.core.data.image.ImageProcessor
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 const val DEFAULT_IMAGE_TARGET_SIZE = 100 // Width || Height
@@ -11,10 +11,11 @@ const val DEFAULT_QUALITY = 75
 suspend fun compressImageFromUrl(
     imageUrl: String,
     imageProcessor: ImageProcessor,
+    ioDispatcher: CoroutineDispatcher,
     targetWidth: Int = DEFAULT_IMAGE_TARGET_SIZE,
     targetHeight: Int = DEFAULT_IMAGE_TARGET_SIZE,
     maxSizeInBytes: Int = DEFAULT_MAX_BYTES_SIZE
-): ByteArray = withContext(Dispatchers.IO) {
+): ByteArray = withContext(ioDispatcher) {
     runCatching {
         val inputStream = imageProcessor.openStreamFromUrl(imageUrl)
         val (originalImageData, originalSize) = imageProcessor.decodeStream(inputStream)
@@ -36,7 +37,7 @@ suspend fun compressImageFromUrl(
 
         compressedImageData
             .takeUnless { itNeedFurtherCompression }
-            ?: compressImageFurther(compressedImageData, imageProcessor)
+            ?: compressImageFurther(compressedImageData, imageProcessor, ioDispatcher)
 
     }.getOrElse { exception ->
         exception.printStackTrace()
@@ -47,8 +48,9 @@ suspend fun compressImageFromUrl(
 private suspend fun compressImageFurther(
     imageData: ByteArray,
     processor: ImageProcessor,
+    ioDispatcher: CoroutineDispatcher,
     quality: Int = DEFAULT_QUALITY
-): ByteArray = withContext(Dispatchers.IO) {
+): ByteArray = withContext(ioDispatcher) {
     val (compressedImageData, _) = processor.compressImage(imageData, quality)
     compressedImageData
 }

@@ -9,14 +9,15 @@ import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.Synchronizer
 import com.picpay.desafio.android.core.data.sync.usersSync
-import com.picpay.desafio.android.network.model.UserResponse
 import com.picpay.desafio.android.core.network.model.UserResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
 class UsersRepositoryImpl(
     private val remoteDataSource: UserRemoteDataSource,
     private val localDataSource: UserLocalDataSource,
-    private val imageProcessor: ImageProcessor
+    private val imageProcessor: ImageProcessor,
+    private val ioDispatcher: CoroutineDispatcher,
 ): UsersRepository {
 
     override fun searchUser(
@@ -34,16 +35,17 @@ class UsersRepositoryImpl(
         localDataSource.getUsers()
 
     override suspend fun insertLocalUser(user: UserResponse) =
-        localDataSource.insertUser(user.toDomainModel(imageProcessor))
+        localDataSource.insertUser(user.toDomainModel(imageProcessor, ioDispatcher))
 
     override suspend fun getRemoteUsers() =
         remoteDataSource.getUsers()
 
     override suspend fun insertLocalUsers(vararg users: UserResponse) =
-        localDataSource.insertUsers(*users.map { it.toDomainModel(imageProcessor) }.toTypedArray())
+        localDataSource.insertUsers(*users.map { it.toDomainModel(imageProcessor, ioDispatcher) }.toTypedArray())
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
         synchronizer.usersSync(
+            ioDispatcher = ioDispatcher,
             usersFetcher = ::provideUsers,
             usersPersistence = ::insertLocalUsers
         )

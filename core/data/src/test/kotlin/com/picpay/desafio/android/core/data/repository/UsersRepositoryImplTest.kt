@@ -21,6 +21,8 @@ import com.picpay.desafio.android.core.datastore.PreferencesDataSource
 import com.picpay.desafio.android.core.datastore.test.TestPreferencesDataStore
 import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.After
@@ -40,11 +42,14 @@ class UsersRepositoryImplTest {
     private lateinit var prePopulatedUserRepository: UsersRepository
     private lateinit var preferences: PreferencesDataSource
     private lateinit var synchronizer: Synchronizer
+    private lateinit var testDispatcher: TestDispatcher
 
     private lateinit var users: MutableList<UserModel>
 
     @Before
     fun setUp() {
+
+        testDispatcher = StandardTestDispatcher()
 
         users = fakeUserModelList.toMutableList()
 
@@ -56,7 +61,8 @@ class UsersRepositoryImplTest {
         usersRepository = UsersRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
-            imageProcessor = imageProcessor
+            imageProcessor = imageProcessor,
+            ioDispatcher = testDispatcher
         )
 
         prePopulatedLocalDataSource = FakeUserLocalDataSource(
@@ -66,7 +72,8 @@ class UsersRepositoryImplTest {
         prePopulatedUserRepository = UsersRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = prePopulatedLocalDataSource,
-            imageProcessor = imageProcessor
+            imageProcessor = imageProcessor,
+            ioDispatcher = testDispatcher
         )
 
         preferences = DesafioAppPreferencesDataSource(
@@ -81,7 +88,7 @@ class UsersRepositoryImplTest {
 
     private suspend fun insertUsers(users: List<UserResponse>) = withContext(EmptyCoroutineContext) {
         return@withContext localDataSource
-            .insertUsers(*users.map { it.toDomainModel(imageProcessor) }.toTypedArray())
+            .insertUsers(*users.map { it.toDomainModel(imageProcessor, testDispatcher) }.toTypedArray())
     }
 
     private suspend fun fetchUsers() = withContext(EmptyCoroutineContext) {
@@ -102,12 +109,13 @@ class UsersRepositoryImplTest {
 
         //When
         synchronizer.usersSync(
+            ioDispatcher = testDispatcher,
             usersFetcher = ::fetchUsers,
             usersPersistence = ::insertUsers
         )
 
         val dbUsers: List<UserModel> = localDataSource.getUsers().first()
-        val remoteUsers = fetchUsers()?.toDomainModel(imageProcessor)
+        val remoteUsers = fetchUsers()?.toDomainModel(imageProcessor, testDispatcher)
 
         // Then
         assertEquals(dbUsers, remoteUsers)

@@ -5,7 +5,9 @@ import com.picpay.desafio.android.core.data.image.fake.FakeImageDecoder
 import com.picpay.desafio.android.core.data.image.fake.FakeImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
-import com.picpay.desafio.android.network.model.UserResponse
+import com.picpay.desafio.android.core.network.model.UserResponse
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -16,9 +18,11 @@ import kotlin.test.assertContentEquals
 class UserMapperTest {
 
     private lateinit var fakeImageProcessor: FakeImageProcessor
+    private lateinit var testDispatcher: TestDispatcher
 
     private val imageUrl = "https://example.of/false_url_test_image.jpg"
     private val fakeImgBytes = ByteArray(100) { it.toByte() } // Example byte array for image data
+
 
     @Before
     fun setUp() {
@@ -41,10 +45,12 @@ class UserMapperTest {
             imageCompressor = fakeImageCompressor,
             imageDecoder = fakeImageDecoder
         )
+
+        testDispatcher = StandardTestDispatcher()
     }
 
     @Test
-    fun `toDomainModel should convert UserResponse to UserModel correctly`() = runTest {
+    fun `toDomainModel should convert UserResponse to UserModel correctly`() = runTest(testDispatcher) {
         // Given
         val userResponse = UserResponse(
             img = imageUrl,
@@ -54,7 +60,7 @@ class UserMapperTest {
         )
 
         // When
-        val result = userResponse.toDomainModel(fakeImageProcessor)
+        val result = userResponse.toDomainModel(fakeImageProcessor, testDispatcher)
 
         // Then
         assertEquals(userResponse.id, result.externalId)

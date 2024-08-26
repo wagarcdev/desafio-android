@@ -2,16 +2,26 @@ package com.picpay.desafio.android.core.data.image
 
 import com.picpay.desafio.android.core.data.image.model.ImageSize
 import com.picpay.desafio.android.core.data.image.util.compressImageFromUrl
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import java.io.ByteArrayInputStream
 
 class ImageCompressorTest {
 
+    private lateinit var testDispatcher: TestDispatcher
+
+    @Before
+    fun setUp() {
+        testDispatcher = StandardTestDispatcher()
+    }
+
     @Test
-    fun `resizeAndCompressImageFromUrl should compress image if it exceeds max size`() = runTest {
+    fun `resizeAndCompressImageFromUrl should compress image if it exceeds max size`() = runTest(testDispatcher) {
         // Given
         val imageUrl = "https://example.of/false_url_test_image.jpg"
         val maxSizeInBytes = 1000
@@ -24,7 +34,8 @@ class ImageCompressorTest {
             imageProcessor = fakeImageProcessor,
             targetWidth = 100,
             targetHeight = 100,
-            maxSizeInBytes = maxSizeInBytes
+            maxSizeInBytes = maxSizeInBytes,
+            ioDispatcher = testDispatcher
         )
 
         // Then
@@ -53,7 +64,8 @@ class ImageCompressorTest {
             imageProcessor = fakeImageProcessor,
             targetWidth = 100,
             targetHeight = 100,
-            maxSizeInBytes = maxSizeInBytes
+            maxSizeInBytes = maxSizeInBytes,
+            ioDispatcher = testDispatcher
         )
 
         // Then
