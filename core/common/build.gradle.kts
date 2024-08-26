@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:testing"))
+
     api(libs.androidx.core.ktx)
     api(libs.androidx.lifecycle.runtime.ktx)
 

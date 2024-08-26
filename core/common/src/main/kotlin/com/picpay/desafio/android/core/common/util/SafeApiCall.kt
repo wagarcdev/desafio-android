@@ -1,6 +1,5 @@
 package com.picpay.desafio.android.core.common.util
 
-import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -23,7 +22,6 @@ suspend fun <T> safeApiCall(
                     }
                 },
                 onFailure = { exception ->
-                    Log.e("safeApiCall", "Exception: ${exception.message}", exception)
                     ApiResponse.Error(exception.hashCode(), exception)
                 }
             )
