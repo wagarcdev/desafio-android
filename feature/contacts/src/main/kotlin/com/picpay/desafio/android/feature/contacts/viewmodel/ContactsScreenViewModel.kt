@@ -61,7 +61,7 @@ class ContactsScreenViewModel(
                 .update { it.copy(sortedBy = event.sortBy) }
 
             is EventSearchChange -> searchUiState
-                .update { it.copy(searchQuery = event.search.apply { removePrefix("@") }) }
+                .update { it.copy(searchQuery = event.search.run { removePrefix("@") }) }
         }
     }
 }
