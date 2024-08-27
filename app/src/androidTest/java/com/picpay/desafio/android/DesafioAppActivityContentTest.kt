@@ -7,7 +7,6 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.test.core.app.launchActivity
 import androidx.test.platform.app.InstrumentationRegistry
 import com.picpay.desafio.android.core.database.di.testingDatabaseModule
 import com.picpay.desafio.android.core.testing.DesafioAppKoinTestRule
@@ -17,7 +16,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.compose.KoinContext
@@ -28,7 +26,7 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import kotlin.test.assertFalse
 
-class DesafioAppActivityTest : KoinTest {
+class DesafioAppActivityContentTest: KoinTest {
 
     private lateinit var activity: Activity
 
@@ -37,12 +35,22 @@ class DesafioAppActivityTest : KoinTest {
         modules = listOf(testingModules)
     )
 
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<DesafioAppActivity>()
+
+    @Before
+    fun setUp() {
+        activity = composeTestRule.activity
+    }
+
     @Test
-    fun asserts_DecorFitsSystemWindows_isSet_to_False() {
-        launchActivity<DesafioAppActivity>().use { scenario ->
-            scenario.onActivity { activity ->
-                assertFalse(activity.window.decorView.fitsSystemWindows)
-            }
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    fun testActivityContent() {
+        composeTestRule.activity.setContent {
+                DesafioApp(calculateWindowSizeClass(activity))
         }
+
+        composeTestRule.onNodeWithTag(APP_TEST_TAG)
+            .assertIsDisplayed()
     }
 }
