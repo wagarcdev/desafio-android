@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.sync.work.test
+package com.picpay.desafio.android.core.data.sync.test
 
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -23,6 +23,7 @@ class FakeSyncWorker(
     override suspend fun hashUserResponseList(users: List<UserResponse>): String =
         HASH
 
+    companion object {
+        const val HASH = "HASH"
+    }
 }
-
-private const val HASH = "HASH"

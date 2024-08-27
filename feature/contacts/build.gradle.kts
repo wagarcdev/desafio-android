@@ -12,6 +12,7 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
+        testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
     }
 
     compileOptions {
@@ -55,4 +56,5 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:data"))
     implementation(project(":core:testing"))
+    androidTestImplementation(project(":core:testing"))
 }

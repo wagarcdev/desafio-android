@@ -1,6 +1,5 @@
-package com.picpay.desafio.android.sync.work.test
+package com.picpay.desafio.android.core.data.sync.test
 
-import android.content.Context
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
