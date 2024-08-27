@@ -52,6 +52,5 @@ dependencies {
     api(libs.roomKtx)
     api(libs.roomRuntime)
     implementation(project(":core:data"))
-    androidTestImplementation(project(":core:data"))
     kapt(libs.roomCompiler)
 }

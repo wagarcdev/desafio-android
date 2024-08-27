@@ -1,38 +1,42 @@
 package com.picpay.desafio.android.core.database.dao
 
-import android.content.Context
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
+import com.picpay.desafio.android.core.data.di.test.testingDataModule
 import com.picpay.desafio.android.core.database.DesafioDatabase
+import com.picpay.desafio.android.core.database.di.testingDatabaseModule
+import com.picpay.desafio.android.core.database.fake.FakeDatabase
 import com.picpay.desafio.android.core.database.model.UserEntity
+import com.picpay.desafio.android.core.testing.DesafioAppKoinTestRule
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.koin.core.context.unloadKoinModules
+import org.koin.test.KoinTest
+import org.koin.test.inject
 import kotlin.test.assertEquals
 
-class UserDaoTest {
+class UserDaoTest: KoinTest {
 
     private lateinit var userDao: UserDao
-    private lateinit var dataBase: DesafioDatabase
+    private val dataBase: FakeDatabase by inject()
+
+    @get:Rule
+    val testRule = DesafioAppKoinTestRule(
+        modules = listOf(testingDatabaseModule)
+    )
 
     @Before
     fun createDatabase() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-
-        dataBase = Room.inMemoryDatabaseBuilder(
-            context,
-            DesafioDatabase::class.java
-        ).build()
-
         userDao = dataBase.usersDao()
     }
 
     @After
     fun tearDown() {
         dataBase.close()
+        unloadKoinModules(testingDatabaseModule)
     }
 
     @Test

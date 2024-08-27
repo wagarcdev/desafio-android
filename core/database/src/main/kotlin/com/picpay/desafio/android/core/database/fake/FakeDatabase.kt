@@ -24,7 +24,7 @@ abstract class FakeDatabase : RoomDatabase() {
         fun roomDatabaseBuilder(context: Context) =
             Room.inMemoryDatabaseBuilder(
                 context,
-                DesafioDatabase::class.java
+                FakeDatabase::class.java
             ).build()
     }
 }
