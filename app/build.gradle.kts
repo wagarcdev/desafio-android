@@ -22,7 +22,7 @@ android {
             versionCode = appVersionCode.get().toInt()
             versionName = appVersionName.get()
 
-            testInstrumentationRunner = "com.picpay.desafio.android.core.testing.InstrumentationTestRunner"
+            testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
             vectorDrawables {
                 useSupportLibrary = true
             }
@@ -30,7 +30,7 @@ android {
 
         signingConfigs {
             getByName("debug") {
-                storeFile = File(rootProject.projectDir.toString() + "/key.jks")
+                storeFile = File(rootProject.projectDir.toString() + "/app/key.jks")
                 storePassword = "password"
                 keyAlias = "key0"
                 keyPassword = "password"

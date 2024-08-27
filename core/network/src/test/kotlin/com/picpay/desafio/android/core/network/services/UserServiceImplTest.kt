@@ -12,9 +12,9 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
 
-class UserServiceTest {
+class UserServiceImplTest {
 
-    private lateinit var userService: UserService
+    private lateinit var userService: UserServiceImpl
 
     @Before
     fun setUp() {

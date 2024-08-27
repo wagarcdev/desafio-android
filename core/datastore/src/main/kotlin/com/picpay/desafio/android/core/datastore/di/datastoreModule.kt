@@ -10,8 +10,6 @@ import org.koin.dsl.module
 
 val dataStoreModule = module {
 
-    singleOf(::DesafioAppDataStoreRepository)
-
     singleOf(::DesafioAppPreferencesDataSource) { bind<PreferencesDataSource>() }
 
     singleOf(::DesafioAppDataStoreRepository) { bind<DataStoreRepository>() }

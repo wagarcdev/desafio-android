@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.sync.SyncManager
+import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCase
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCaseImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.update
 @OptIn(ExperimentalCoroutinesApi::class)
 class ContactsScreenViewModel(
     syncManager: SyncManager,
-    searchLocalUsersFlowUseCase: SearchLocalUsersFlowUseCaseImpl,
+    searchLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase,
     networkMonitor: NetworkMonitor
 ) : ViewModel() {
 

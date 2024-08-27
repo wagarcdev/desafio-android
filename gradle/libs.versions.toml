@@ -9,6 +9,7 @@ appVersionName = "1.0"
 java = "17"
 kotinExtensionVersion = "1.5.2"
 baseUrl = "\"https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/\""
+testInstrumentationRunner = "com.picpay.desafio.android.InstrumentationTestRunner"
 
 #CORE
 agp = "8.5.2"

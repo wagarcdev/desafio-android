@@ -17,10 +17,10 @@ import java.io.IOException
 import java.net.ConnectException
 import java.util.concurrent.TimeUnit
 
-class UserServiceInstrumentedTest {
+class UserServiceImplInstrumentedTest {
 
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var userService: UserService
+    private lateinit var userService: UserServiceImpl
     private lateinit var okHttpClient: OkHttpClient
 
     @Before
@@ -36,7 +36,7 @@ class UserServiceInstrumentedTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        userService = retrofit.create(UserService::class.java)
+        userService = retrofit.create(UserServiceImpl::class.java)
     }
 
     @After

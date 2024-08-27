@@ -11,9 +11,10 @@ android {
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
+        buildFeatures.buildConfig = true
         minSdk = libs.versions.androidApiMin.get().toInt()
         buildConfigField("String", "BASE_URL", libs.versions.baseUrl.get())
-        testInstrumentationRunner = "com.picpay.desafio.android.core.testing.InstrumentationTestRunner"
+        testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
     }
 
     compileOptions {

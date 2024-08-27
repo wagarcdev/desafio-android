@@ -10,7 +10,7 @@ import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCaseImpl
-import com.picpay.desafio.android.core.network.services.UserService
+import com.picpay.desafio.android.core.network.services.UserServiceImpl
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.test.verify.verify
@@ -24,7 +24,7 @@ class FeatureContactsModuleTest {
         featureContactsModule.verify(
             extraTypes = listOf(
                 Retrofit::class,
-                UserService::class,
+                UserServiceImpl::class,
                 LocalUsersFlowUseCase::class,
                 SearchLocalUsersFlowUseCaseImpl::class,
                 UserLocalDataSource::class,

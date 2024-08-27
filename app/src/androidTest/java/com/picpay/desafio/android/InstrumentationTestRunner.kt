@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core.testing
+package com.picpay.desafio.android
 
 import android.app.Application
 import android.content.Context

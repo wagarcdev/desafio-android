@@ -23,4 +23,6 @@ val dataModule = module {
     singleOf(::DesafioAppImageCompressor){ bind<AppImageCompressor>() }
     singleOf(::DesafioAppImageProcessor) { bind<AppImageProcessor>() }
 
+
+
 }

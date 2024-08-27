@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
 
-        testInstrumentationRunner = "com.picpay.desafio.android.core.testing.InstrumentationTestRunner"
+        testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
 
     }
 
