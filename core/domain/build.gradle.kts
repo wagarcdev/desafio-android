@@ -48,4 +48,7 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
+
+    testImplementation(project(":core:testing"))
+    testImplementation(project(":core:datastore"))
 }

@@ -10,3 +10,15 @@ plugins {
         alias(kotlinKapt) apply false
     }
 }
+
+subprojects {
+    tasks.withType<Test> {
+        testLogging {
+            events("passed", "skipped", "failed")
+            showStandardStreams = true
+        }
+        reports {
+            junitXml.isOutputPerTestCase = true
+        }
+    }
+}
