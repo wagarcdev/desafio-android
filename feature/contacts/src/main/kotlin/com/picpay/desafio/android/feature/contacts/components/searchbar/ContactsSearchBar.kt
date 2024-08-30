@@ -33,7 +33,7 @@ fun ContactsSearchBar(
             modifier = Modifier.weight(0.6f),
             isSearchFieldFocused = isSearchFieldFocused,
             search = search,
-            onEvent = onEvent,
+            onEvent = onEvent
         )
 
         Spacer(modifier = Modifier.weight(spacerWeigh))

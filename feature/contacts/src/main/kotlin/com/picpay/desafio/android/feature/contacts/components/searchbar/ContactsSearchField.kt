@@ -21,9 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.picpay.desafio.android.feature.contacts.R
 import com.picpay.desafio.android.feature.contacts.viewmodel.ContactUiEvent
 import com.picpay.desafio.android.feature.contacts.viewmodel.EventSearchChange
 import com.picpay.desafio.android.ui.theme.colorDetail
@@ -39,44 +41,58 @@ fun RowScope.ContactsSearchField(
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
-        shape = RoundedCornerShape(10.dp),
-        modifier = modifier then Modifier
-            .onFocusChanged { focusState -> isSearchFieldFocused.value = focusState.isFocused }
-            .height(70.dp)
-            .padding(bottom = 12.dp),
         value = search,
-        onValueChange = { onEvent(EventSearchChange(it)) },
         textStyle = TextStyle(color = Color.White),
-        placeholder = { Text(text = "Pesquisar", color = colorDetail) },
-        singleLine = true,
-        keyboardActions = KeyboardActions(
-            onSearch = { focusManager.clearFocus() }
-        ),
-        keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Search
-        ),
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
-            disabledContainerColor = Color.Transparent,
-            focusedIndicatorColor = picPayGreen,
-            unfocusedIndicatorColor = colorDetail,
-            cursorColor = picPayGreen,
-        ),
-        trailingIcon = {
-            if (search.isNotEmpty() && isSearchFieldFocused.value) {
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
-                    modifier = Modifier
-                        .clickable { onEvent(EventSearchChange("")) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = "clear search",
-                        tint = Color.Gray
-                    )
-                }
-            }
-        }
+        onValueChange = { onEvent(EventSearchChange(it)) },
+        modifier = modifier then Modifier
+            .height(70.dp)
+            .padding(bottom = 12.dp)
+            .onFocusChanged { focusState -> isSearchFieldFocused.value = focusState.isFocused },
+        shape = RoundedCornerShape(10.dp),
+        colors = searchFieldColors(),
+        placeholder = { SearchFieldPlaceholder() },
+        trailingIcon = { SearchFieldTrailingIcon(search, isSearchFieldFocused, onEvent) },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
+        singleLine = true
     )
 }
+
+@Composable
+private fun SearchFieldTrailingIcon(
+    search: String,
+    isSearchFieldFocused: MutableState<Boolean>,
+    onEvent: (ContactUiEvent) -> Unit
+) {
+    if (search.isNotEmpty() && isSearchFieldFocused.value) {
+        Card(
+            colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
+            modifier = Modifier
+                .clickable { onEvent(EventSearchChange("")) }
+        ) {
+            Icon(
+                imageVector = Icons.Default.Clear,
+                contentDescription = "clear search",
+                tint = Color.Gray
+            )
+        }
+    }
+}
+
+@Composable
+private fun SearchFieldPlaceholder() {
+    Text(
+        text = stringResource(R.string.contacts_searchfield_placeholder),
+        color = colorDetail
+    )
+}
+
+@Composable
+fun searchFieldColors() = TextFieldDefaults.colors(
+    focusedContainerColor = Color.Transparent,
+    unfocusedContainerColor = Color.Transparent,
+    disabledContainerColor = Color.Transparent,
+    focusedIndicatorColor = picPayGreen,
+    unfocusedIndicatorColor = colorDetail,
+    cursorColor = picPayGreen,
+)

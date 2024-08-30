@@ -1,76 +1,217 @@
 package com.picpay.desafio.android.feature.contacts
 
-import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.printToLog
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.picpay.desafio.android.core.data.network.test.TestNetworkMonitor
+import com.picpay.desafio.android.core.data.repository.fake.lists.fakeUserModelList
 import com.picpay.desafio.android.core.testing.DesafioAppKoinTestRule
 import com.picpay.desafio.android.feature.contacts.di.test.testingFeatureContactsModule
-import com.picpay.desafio.android.feature.contacts.viewmodel.ContactsScreenViewModel
+import com.picpay.desafio.android.feature.contacts.viewmodel.ContactsScreenUiState
+import com.picpay.desafio.android.feature.contacts.viewmodel.SearchUiState
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.test.KoinTest
-import org.koin.test.inject
+import org.junit.rules.TestRule
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 
-class ContactScreenTest: KoinTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
+class ContactScreenTest {
 
     @get:Rule
-    val testRule = DesafioAppKoinTestRule(
-        listOf(testingFeatureContactsModule)
-    )
+    var rule = ContactsScreenComposeRule()
 
-    private val viewModel: ContactsScreenViewModel by inject()
+    private lateinit var networkMonitor: TestNetworkMonitor
 
+    @Before
+    fun setUp() {
+        networkMonitor = TestNetworkMonitor()
+    }
 
-//    @Test
-//    fun testContactScreen_displaysTitleInitially() {
-//        composeTestRule.setContent {
-//            ContactScreen()
-//        }
-//
-//        composeTestRule
-//            .onNodeWithTag(TITLE_TEST_TAG)
-//            .assertIsDisplayed()
-//    }
-
+    private val titleMatcher by lazy {
+        hasText(
+            rule.compose.activity.resources
+                .getString(R.string.contacts_screen_list_header)
+        )
+    }
     @Test
-    fun testContactScreen_initialState_shouldDisplay_SearchField() {
-        composeTestRule.setContent {
+    fun testContactScreen_displaysTitleInitially() {
+        rule.compose.setContent {
             ContactScreen()
         }
 
-        Log.w("TESTTTT", "isSyncing ? = ${viewModel.uiState.value.isSyncing}" )
-        Log.w("TESTTTT", "condition ? = ${viewModel.uiState.value.condition}" )
-
-        composeTestRule.onRoot().printToLog("TESTTTT TAG")
-
-        composeTestRule.waitForIdle()
-        composeTestRule.runOnIdle {
-            Log.w("TESTTTT ON IDLE", "isSyncing ? = ${viewModel.uiState.value.isSyncing}" )
-            Log.w("TESTTTT ON IDLE", "condition ? = ${viewModel.uiState.value.condition}" )
-        }
-
-        composeTestRule
-            .onNodeWithText("Pesquisar")
+        rule.compose
+            .onNode(titleMatcher)
             .assertIsDisplayed()
-
 
     }
 
-//    @Test
-//    fun testContactScreen_initialState_shouldDisplay_ContactList() {
-//        composeTestRule.setContent {
-//            ContactScreen()
-//        }
-//
-//        composeTestRule
-//            .onNodeWithText(CONTACT_LIST_TEST_TAG)
-//            .assertIsDisplayed()
-//    }
+    private val searchFieldMatcher by lazy {
+        hasText(
+            rule.compose.activity.resources
+                .getString(R.string.contacts_searchfield_placeholder)
+        )
+    }
+    @Test
+    fun testContactScreen_initialState_shouldDisplay_SearchField() {
+        rule.compose.setContent {
+            ContactScreen()
+        }
+
+        rule.compose
+            .onNode(searchFieldMatcher)
+            .assertIsDisplayed()
+
+    }
+
+    private val noInternetMatcher by lazy {
+        hasText(
+            rule.compose.activity.resources
+                .getString(com.picpay.desafio.android.core.design.R.string.no_internet_image)
+        )
+    }
+    @Test
+    fun testContactScreen_noInternet_And_userListIsEmpty_shouldDisplay_noInternet() = runTest {
+        // Given
+        val uiState = ContactsScreenUiState(
+            users = emptyList(),
+            isNetworkAvailable = false
+        )
+
+        //When
+        rule.compose.setContent {
+            ContactsScreenContent(
+                uiState = uiState,
+                onEvent = { }
+            )
+        }
+
+        backgroundScope.launch {
+            networkMonitor.setConnected(false)
+
+
+            //Then
+            rule.compose
+                .onNode(noInternetMatcher)
+                .assertIsDisplayed()
+        }
+    }
+
+    private val progressIndicatorMatcher by lazy {
+        hasText(
+            rule.compose.activity.resources
+                .getString(com.picpay.desafio.android.core.design.R.string.circularprogressindicator_text)
+        )
+    }
+    @Test
+    fun testContactScreen_isSyncing_And_userListIsEmpty_shouldDisplay_progressIndicator() {
+        // Given
+        val uiState = ContactsScreenUiState(
+            users = emptyList(),
+            isNetworkAvailable = true,
+            isSyncing = true
+        )
+
+        //When
+        rule.compose.setContent {
+            ContactsScreenContent(
+                uiState = uiState,
+                onEvent = { }
+            )
+        }
+
+        //Then
+        rule.compose
+            .onNode(progressIndicatorMatcher)
+            .assertIsDisplayed()
+    }
+
+    private val noResultsOnSearchMatcher by lazy {
+        hasText(
+            rule.compose.activity.resources
+                .getString(com.picpay.desafio.android.core.design.R.string.no_results_sorry)
+        )
+    }
+    @Test
+    fun testContactScreen_hasInternet_searchIsNotEmpty_And_userListIsEmpty_shouldDisplay_noResults() {
+        // Given
+        val uiState = ContactsScreenUiState(
+            users = emptyList(), // assuming search would make the list empty
+            isNetworkAvailable = true,
+            isSyncing = false,
+            searchUiState = SearchUiState(searchQuery = "bla bla bla")
+        )
+
+        //When
+        rule.compose.setContent {
+            ContactsScreenContent(
+                uiState = uiState,
+                onEvent = { }
+            )
+        }
+
+        //Then
+        rule.compose
+            .onNode(noResultsOnSearchMatcher)
+            .assertIsDisplayed()
+    }
+
+    private val contactListLastItemMatcher by lazy {
+        hasText(
+            rule.compose.activity.resources
+                .getString(R.string.all_items_are_loaded)
+        )
+    }
+    @Test
+    fun testContactScreen_initialState_hasInternet_And_userListIsNotEmpty_shouldDisplay_contactList() {
+        // Given
+        val uiState = ContactsScreenUiState(
+            users = fakeUserModelList, // assuming search would make the list empty
+            isNetworkAvailable = true,
+            isSyncing = false,
+        )
+
+        //When
+        rule.compose.setContent {
+            ContactsScreenContent(
+                uiState = uiState,
+                onEvent = { }
+            )
+        }
+
+        //Then
+        rule.compose
+            .onNode(contactListLastItemMatcher)
+            .assertIsDisplayed()
+    }
 }
+
+class ContactsScreenComposeRule : TestRule {
+
+    @JvmField
+    @Rule(order = 0)
+    var testRule: DesafioAppKoinTestRule =
+        DesafioAppKoinTestRule(listOf(testingFeatureContactsModule))
+
+    @JvmField
+    @Rule(order = 1)
+    var compose: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> =
+        createAndroidComposeRule<ComponentActivity>()
+
+
+    override fun apply(base: Statement, description: Description?): Statement {
+        return if (description != null) {
+            var statement: Statement = compose.apply(base, description)
+            statement = testRule.apply(statement, description)
+            statement
+        } else {
+            base
+        }
+    }
+}
+
