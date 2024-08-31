@@ -72,7 +72,7 @@ class ContactScreenTest {
     private val noInternetMatcher by lazy {
         hasText(
             rule.compose.activity.resources
-                .getString(com.picpay.desafio.android.core.design.R.string.no_internet_image)
+                .getString(R.string.contacts_searchfield_placeholder)
         )
     }
     @Test
@@ -143,6 +143,7 @@ class ContactScreenTest {
     fun testContactScreen_hasInternet_searchIsNotEmpty_And_userListIsEmpty_shouldDisplay_noResults() {
         // Given
         val uiState = ContactsScreenUiState(
+            users = fakeUserModelList,
             filteredUsers = emptyList(), // assuming search would make the list empty
             isNetworkAvailable = true,
             isSyncing = false,
@@ -174,7 +175,7 @@ class ContactScreenTest {
     fun testContactScreen_initialState_hasInternet_And_userListIsNotEmpty_shouldDisplay_contactList() {
         // Given
         val uiState = ContactsScreenUiState(
-            filteredUsers = fakeUserModelList, // assuming search would make the list empty
+            filteredUsers = fakeUserModelList,
             isNetworkAvailable = true,
             isSyncing = false,
         )
