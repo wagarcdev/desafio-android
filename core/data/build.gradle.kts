@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:testing"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:model"))
     testImplementation(project(":core:datastore"))
     testImplementation(project(":core:database"))
 }

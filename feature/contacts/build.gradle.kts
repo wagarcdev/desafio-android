@@ -56,5 +56,6 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:data"))
     implementation(project(":core:testing"))
+    implementation(project(":core:model"))
     androidTestImplementation(project(":core:testing"))
 }

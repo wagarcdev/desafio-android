@@ -2,19 +2,17 @@ plugins {
     with(libs.plugins) {
         alias(jetbrains.kotlin.android)
         alias(android.library)
-        alias(kotlinKapt)
     }
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".core.database"
+    namespace = libs.versions.appId.get() + ".core.model"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
-
         testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
-
     }
 
     compileOptions {
@@ -46,12 +44,9 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
+    implementation(project(":core:network"))
     implementation(project(":core:testing"))
-
-    api(libs.roomKtx)
-    api(libs.roomRuntime)
-    implementation(project(":core:data"))
-    implementation(project(":core:model"))
-    kapt(libs.roomCompiler)
+    implementation(project(":core:datastore"))
+    testImplementation(project(":core:datastore"))
+    testImplementation(project(":core:database"))
 }

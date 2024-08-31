@@ -2,7 +2,7 @@ package com.picpay.desafio.android.core.data.repository.impl
 
 import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
-import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
+import com.picpay.desafio.android.core.data.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
 import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.UsersRepository

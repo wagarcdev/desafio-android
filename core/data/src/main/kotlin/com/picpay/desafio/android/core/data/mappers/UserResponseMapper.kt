@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.core.data.model.mappers
+package com.picpay.desafio.android.core.data.mappers
 
 import com.picpay.desafio.android.core.data.image.AppImageProcessor
 import com.picpay.desafio.android.core.data.image.util.compressImageFromUrl

@@ -4,7 +4,7 @@ import com.picpay.desafio.android.core.common.util.ApiResponse
 import com.picpay.desafio.android.core.data.di.test.testingDataModule
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.model.UserModel
-import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
+import com.picpay.desafio.android.core.data.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserLocalDataSource
 import com.picpay.desafio.android.core.data.repository.fake.FakeUserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.fake.FakeUsersRepository
