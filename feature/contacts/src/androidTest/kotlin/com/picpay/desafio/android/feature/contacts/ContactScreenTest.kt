@@ -79,7 +79,7 @@ class ContactScreenTest {
     fun testContactScreen_noInternet_And_userListIsEmpty_shouldDisplay_noInternet() = runTest {
         // Given
         val uiState = ContactsScreenUiState(
-            users = emptyList(),
+            filteredUsers = emptyList(),
             isNetworkAvailable = false
         )
 
@@ -113,7 +113,7 @@ class ContactScreenTest {
     fun testContactScreen_isSyncing_And_userListIsEmpty_shouldDisplay_progressIndicator() {
         // Given
         val uiState = ContactsScreenUiState(
-            users = emptyList(),
+            filteredUsers = emptyList(),
             isNetworkAvailable = true,
             isSyncing = true
         )
@@ -143,7 +143,7 @@ class ContactScreenTest {
     fun testContactScreen_hasInternet_searchIsNotEmpty_And_userListIsEmpty_shouldDisplay_noResults() {
         // Given
         val uiState = ContactsScreenUiState(
-            users = emptyList(), // assuming search would make the list empty
+            filteredUsers = emptyList(), // assuming search would make the list empty
             isNetworkAvailable = true,
             isSyncing = false,
             searchUiState = SearchUiState(searchQuery = "bla bla bla")
@@ -174,7 +174,7 @@ class ContactScreenTest {
     fun testContactScreen_initialState_hasInternet_And_userListIsNotEmpty_shouldDisplay_contactList() {
         // Given
         val uiState = ContactsScreenUiState(
-            users = fakeUserModelList, // assuming search would make the list empty
+            filteredUsers = fakeUserModelList, // assuming search would make the list empty
             isNetworkAvailable = true,
             isSyncing = false,
         )
