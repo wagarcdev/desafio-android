@@ -1,5 +1,3 @@
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
-
 plugins {
     with(libs.plugins) {
         alias(jetbrains.kotlin.android)
@@ -83,6 +81,7 @@ dependencies {
     implementation(project(":core:testing"))
 
     implementation(project(":feature:contacts"))
+    implementation(project(":feature:dinogame"))
 
     implementation(project(":sync:work"))
     implementation(project(":sync:sync-test"))

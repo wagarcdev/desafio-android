@@ -8,7 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.picpay.desafio.android.DesafioAppState
 import com.picpay.desafio.android.feature.contacts.ContactScreen
+import com.picpay.desafio.android.feature.dinogame.StartGameLoop
 import com.picpay.desafio.android.navigation.RootNavigationRoutes.CONTACTS_SCREEN
+import com.picpay.desafio.android.navigation.RootNavigationRoutes.GAME_SCREEN
 
 @Composable
 fun RootNavigation(
@@ -21,11 +23,28 @@ fun RootNavigation(
         startDestination = CONTACTS_SCREEN
     ) {
 
-        composable(CONTACTS_SCREEN) { ContactScreen() }
+        composable(CONTACTS_SCREEN) {
+            ContactScreen(
+                launchGame = {
+                    appState
+                        .clearBackAndNavigateFromTo(CONTACTS_SCREEN, GAME_SCREEN)
+                }
+            )
+        }
+
+        composable(GAME_SCREEN) {
+
+            StartGameLoop(
+                navToContacts = {
+                    appState
+                        .clearBackAndNavigateFromTo(GAME_SCREEN, CONTACTS_SCREEN) }
+            )
+        }
 
     }
 }
 
 object RootNavigationRoutes {
     const val CONTACTS_SCREEN = "CONTACTS_SCREEN"
+    const val GAME_SCREEN = "GAME_SCREEN"
 }

@@ -19,6 +19,7 @@ fun DesafioApp(
         networkMonitor = koinInject()
     )
 ) {
+
     DesafioAppTheme {
         Scaffold(
             modifier = Modifier
@@ -32,6 +33,7 @@ fun DesafioApp(
             )
         }
     }
+
 }
 
 const val APP_TEST_TAG = "app"

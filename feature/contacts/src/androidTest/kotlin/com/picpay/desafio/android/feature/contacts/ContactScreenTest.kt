@@ -42,7 +42,7 @@ class ContactScreenTest {
     @Test
     fun testContactScreen_displaysTitleInitially() {
         rule.compose.setContent {
-            ContactScreen()
+            ContactScreen({})
         }
 
         rule.compose
@@ -60,7 +60,7 @@ class ContactScreenTest {
     @Test
     fun testContactScreen_initialState_shouldDisplay_SearchField() {
         rule.compose.setContent {
-            ContactScreen()
+            ContactScreen({})
         }
 
         rule.compose
@@ -87,6 +87,7 @@ class ContactScreenTest {
         rule.compose.setContent {
             ContactsScreenContent(
                 uiState = uiState,
+                launchGame = { },
                 onEvent = { }
             )
         }
@@ -121,6 +122,7 @@ class ContactScreenTest {
         rule.compose.setContent {
             ContactsScreenContent(
                 uiState = uiState,
+                launchGame = { },
                 onEvent = { }
             )
         }
@@ -151,6 +153,7 @@ class ContactScreenTest {
         rule.compose.setContent {
             ContactsScreenContent(
                 uiState = uiState,
+                launchGame = { },
                 onEvent = { }
             )
         }
@@ -180,6 +183,7 @@ class ContactScreenTest {
         rule.compose.setContent {
             ContactsScreenContent(
                 uiState = uiState,
+                launchGame = { },
                 onEvent = { }
             )
         }

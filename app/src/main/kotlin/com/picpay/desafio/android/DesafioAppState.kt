@@ -20,7 +20,7 @@ class DesafioAppState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
     val windowSizeClass: WindowSizeClass,
-    networkMonitor: NetworkMonitor
+    networkMonitor: NetworkMonitor,
 ) {
     fun navigateTo(route: String) = navController.navigate(route) { launchSingleTop = true }
 
@@ -60,7 +60,7 @@ fun rememberDesafioAppState(
         navController,
         coroutineScope,
         windowSizeClass,
-        networkMonitor
+        networkMonitor,
     ) {
         DesafioAppState(
             navController,

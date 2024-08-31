@@ -27,6 +27,7 @@ include(":core:design")
 include(":core:testing")
 
 include(":feature:contacts")
+include(":feature:dinogame")
 
 include (":sync:work")
 include (":sync:sync-test")

@@ -1,5 +1,6 @@
 package com.picpay.desafio.android.feature.contacts
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.picpay.desafio.android.feature.contacts.components.ContactsScreenTitle
+import com.picpay.desafio.android.feature.contacts.components.NoInternetAlertWithEasterEgg
 import com.picpay.desafio.android.feature.contacts.components.contactlist.ContactsList
 import com.picpay.desafio.android.feature.contacts.components.searchbar.ContactsSearchBar
 import com.picpay.desafio.android.feature.contacts.viewmodel.ContactUiEvent
@@ -30,18 +32,19 @@ import com.picpay.desafio.android.feature.contacts.viewmodel.NoResultsOnSearch
 import com.picpay.desafio.android.feature.contacts.viewmodel.ShowContactList
 import com.picpay.desafio.android.ui.util.showShortToast
 import com.picpay.desafio.android.ui.widgets.ProgressIndicator
-import com.picpay.desafio.android.ui.widgets.alerts.NoInternetAlert
 import com.picpay.desafio.android.ui.widgets.alerts.NoResultsOnSearchAlert
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ContactScreen() {
-
+fun ContactScreen(
+    launchGame: () -> Unit
+) {
     val viewModel: ContactsScreenViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
     ContactsScreenContent(
         uiState = uiState,
+        launchGame = launchGame,
         onEvent = viewModel::onEvent
     )
 }
@@ -49,8 +52,10 @@ fun ContactScreen() {
 @Composable
 fun ContactsScreenContent(
     uiState: ContactsScreenUiState,
+    launchGame: () -> Unit,
     onEvent: (ContactUiEvent) -> Unit
 ) {
+
     val context = LocalContext.current
     LaunchedEffect(uiState.isSyncing) {
         if (uiState.isSyncing) showShortToast(R.string.synchronizing, context)
@@ -60,7 +65,8 @@ fun ContactsScreenContent(
         Modifier
             .animateContentSize()
             .fillMaxSize()
-            .padding(horizontal = 24.dp)) {
+            .padding(horizontal = 24.dp)
+    ) {
 
         val isSearchFieldFocused = remember { mutableStateOf(false) }
 
@@ -88,7 +94,7 @@ fun ContactsScreenContent(
         )
 
         when (uiState.condition) {
-            NoInternet -> NoInternetAlert()
+            NoInternet -> NoInternetAlertWithEasterEgg { launchGame() }
             IsLoading -> ProgressIndicator(Modifier.fillMaxSize())
             NoResultsOnSearch -> NoResultsOnSearchAlert()
             ShowContactList -> {
@@ -99,13 +105,17 @@ fun ContactsScreenContent(
             }
         }
     }
+
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 private fun ContactsScreenContentPreview() {
+
     ContactsScreenContent(
         uiState = ContactsScreenUiState(),
+        launchGame = { },
         onEvent = { }
     )
 }
