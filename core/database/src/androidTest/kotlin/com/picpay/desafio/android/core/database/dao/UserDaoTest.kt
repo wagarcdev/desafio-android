@@ -1,7 +1,5 @@
 package com.picpay.desafio.android.core.database.dao
 
-import com.picpay.desafio.android.core.data.di.test.testingDataModule
-import com.picpay.desafio.android.core.database.DesafioDatabase
 import com.picpay.desafio.android.core.database.di.testingDatabaseModule
 import com.picpay.desafio.android.core.database.fake.FakeDatabase
 import com.picpay.desafio.android.core.database.model.UserEntity

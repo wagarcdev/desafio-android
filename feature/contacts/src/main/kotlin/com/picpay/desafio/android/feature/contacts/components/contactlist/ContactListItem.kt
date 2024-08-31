@@ -19,7 +19,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.model.UserModel
 import com.picpay.desafio.android.ui.theme.colorDetail
 import com.picpay.desafio.android.ui.theme.picPayGreen
 

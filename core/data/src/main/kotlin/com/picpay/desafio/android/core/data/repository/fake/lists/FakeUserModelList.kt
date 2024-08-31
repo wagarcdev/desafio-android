@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.repository.fake.lists
 
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.model.UserModel
 
 val fakeUserModelList = listOf(
     UserModel(

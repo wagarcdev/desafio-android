@@ -1,8 +1,8 @@
 package com.picpay.desafio.android.core.data.repository.fake
 
-import com.picpay.desafio.android.core.common.util.ApiResponse
+import com.picpay.desafio.android.core.model.ApiResponse
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.model.UserModel
 import com.picpay.desafio.android.core.data.mappers.toDomainModel
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.Synchronizer

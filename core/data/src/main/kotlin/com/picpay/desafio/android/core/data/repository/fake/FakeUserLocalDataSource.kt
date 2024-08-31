@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.data.repository.fake
 
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.model.UserModel
 import com.picpay.desafio.android.core.data.repository.UserLocalDataSource
 import com.picpay.desafio.android.core.data.util.OrderDirection
 import com.picpay.desafio.android.core.data.util.SortBy

@@ -12,7 +12,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
-        testInstrumentationRunner = libs.versions.testInstrumentationRunner.get()
     }
 
     compileOptions {
@@ -42,11 +41,4 @@ android {
 
 }
 
-dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:network"))
-    implementation(project(":core:testing"))
-    implementation(project(":core:datastore"))
-    testImplementation(project(":core:datastore"))
-    testImplementation(project(":core:database"))
-}
+dependencies {  }

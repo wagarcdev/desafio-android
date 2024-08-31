@@ -44,10 +44,10 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:network"))
-    implementation(project(":core:testing"))
+    implementation(project(":core:database"))
     implementation(project(":core:datastore"))
     implementation(project(":core:model"))
-    testImplementation(project(":core:datastore"))
-    testImplementation(project(":core:database"))
+    implementation(project(":core:network"))
+
+    implementation(project(":core:testing"))
 }

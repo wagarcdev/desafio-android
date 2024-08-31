@@ -42,9 +42,6 @@ android {
 
 dependencies {
 
-//    implementation(project(":feature:contacts"))
-
-
     api(libs.junit)
     api(libs.mockk)
     api(libs.mockitoCore)
@@ -55,7 +52,6 @@ dependencies {
     api(libs.androidx.test.coreKtx)
 
     api(libs.androidx.junit)
-    api(libs.androidx.espresso.core)
     api(libs.androidx.ui.test.junit4.android)
     api(libs.androidx.ui.test.manifest)
     api(libs.androidx.navigation.testing)
@@ -66,10 +62,9 @@ dependencies {
     api(libs.koin.android.testJU4)
     api(libs.koin.androidx.compose)
     api(libs.koin.core)
-    api(libs.koin.workmanager)
 
     api(libs.testRunner)
-    androidTestApi(libs.androidx.espresso.core)
+
     androidTestImplementation(project(":core:network"))
     androidTestImplementation(project(":core:common"))
     androidTestImplementation(project(":core:domain"))

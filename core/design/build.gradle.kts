@@ -46,6 +46,14 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
     implementation(project(":core:testing"))
+
+    api(libs.androidx.ui)
+    api(libs.androidx.ui.graphics)
+    api(libs.androidx.ui.tooling.preview)
+    api(libs.androidx.compose.material3.windowSizeClass)
+    api(libs.androidx.material3)
+    api(libs.navigation.compose)
+    api(libs.coil.compose)
+    debugApi(libs.androidx.ui.tooling)
 }

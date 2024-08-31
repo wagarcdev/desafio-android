@@ -49,7 +49,5 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:model"))
-
     testImplementation(project(":core:testing"))
-    testImplementation(project(":core:datastore"))
 }

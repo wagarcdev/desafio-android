@@ -17,16 +17,6 @@ class WorkManagerSyncManager(
         WorkManager.getInstance(context).getWorkInfosForUniqueWorkFlow(SyncWorkName)
             .map(List<WorkInfo>::anyRunning)
             .conflate()
-
-//    override fun requestSync() {
-//        val workManager = WorkManager.getInstance(context)
-//
-//        workManager.enqueueUniqueWork(
-//            SyncWorkName,
-//            ExistingWorkPolicy.KEEP,
-//            SyncWorker.startUpSyncWork(),
-//        )
-//    }
 }
 
 private fun List<WorkInfo>.anyRunning() = any { it.state == State.RUNNING }

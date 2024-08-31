@@ -44,31 +44,13 @@ dependencies {
 
     api(libs.androidx.core.ktx)
     api(libs.androidx.lifecycle.runtime.ktx)
-
     api(libs.androidx.activity.compose)
 
-    api(libs.androidx.ui)
-    api(libs.androidx.ui.graphics)
-    api(libs.androidx.ui.tooling.preview)
-    debugApi(libs.androidx.ui.tooling)
-    api(libs.androidx.material3)
-    api(libs.androidx.compose.material3.windowSizeClass)
-    api(libs.navigation.compose)
-    api(libs.coil.compose)
-
     api(libs.kotlinx.coroutines.android)
-
-    api(libs.dagger)
-    api(libs.daggerCompiler)
 
     api(libs.koin.androidx.compose)
     api(libs.koin.android)
 
-    api(libs.retrofit)
-    api(libs.retrofitConverterGson)
-    api(libs.okhttp)
-    api(libs.okhttp.interceptor)
-    api(libs.okhttpMockwebserver)
-
+    api(libs.androidx.work.ktx)
     api(libs.koin.workmanager)
 }

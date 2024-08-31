@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.picpay.desafio.android.core.data.model.UserModel
 
 @Entity(
     tableName = "user_tbl",
@@ -42,19 +41,3 @@ data class UserEntity(
         return result
     }
 }
-
-fun UserModel.toEntity() =
-    UserEntity(
-        id = externalId,
-        imgBytes = imgBytes,
-        name = name,
-        username = username
-    )
-
-fun UserEntity.toModel() =
-    UserModel(
-        externalId = id,
-        imgBytes = imgBytes,
-        name = name,
-        username = username
-    )
