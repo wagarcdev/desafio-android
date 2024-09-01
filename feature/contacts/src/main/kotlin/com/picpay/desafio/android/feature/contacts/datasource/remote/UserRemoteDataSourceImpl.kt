@@ -1,11 +1,10 @@
 package com.picpay.desafio.android.feature.contacts.datasource.remote
 
-import com.picpay.desafio.android.core.common.util.ApiResponse
-import com.picpay.desafio.android.core.common.util.safeApiCall
+import com.picpay.desafio.android.core.model.ApiResponse
+import com.picpay.desafio.android.core.network.util.safeApiCall
 import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
 import com.picpay.desafio.android.core.network.model.UserResponse
 import com.picpay.desafio.android.core.network.services.UserService
-import com.picpay.desafio.android.core.network.services.UserServiceImpl
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.core.domain.usecase
 
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.model.UserModel
 import kotlinx.coroutines.flow.Flow
 
 interface SearchLocalUsersFlowUseCase {

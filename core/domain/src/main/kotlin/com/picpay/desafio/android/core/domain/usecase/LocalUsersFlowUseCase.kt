@@ -1,10 +1,8 @@
 package com.picpay.desafio.android.core.domain.usecase
 
-import com.picpay.desafio.android.core.data.repository.UsersRepository
+import com.picpay.desafio.android.core.model.UserModel
+import kotlinx.coroutines.flow.Flow
 
-class LocalUsersFlowUseCase(
-    private val usersRepository: UsersRepository
-) {
-
-    operator fun invoke() = usersRepository.getLocalUsers()
+interface LocalUsersFlowUseCase {
+    operator fun invoke(): Flow<List<UserModel>>
 }

@@ -3,10 +3,11 @@ plugins {
         alias(jetbrains.kotlin.android)
         alias(android.library)
     }
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = libs.versions.appId.get() + ".core.domain"
+    namespace = libs.versions.appId.get() + ".core.model"
     compileSdk = libs.versions.androidApiCompile.get().toInt()
 
     defaultConfig {
@@ -29,13 +30,6 @@ android {
         )
     }
 
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotinExtensionVersion.get()
-    }
-
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -43,11 +37,8 @@ android {
             merges += "META-INF/LICENSE-notice.md"
         }
     }
+
+
 }
 
-dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:data"))
-    implementation(project(":core:model"))
-    testImplementation(project(":core:testing"))
-}
+dependencies {  }

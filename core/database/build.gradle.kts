@@ -46,11 +46,9 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:domain"))
     implementation(project(":core:testing"))
 
     api(libs.roomKtx)
     api(libs.roomRuntime)
-    implementation(project(":core:data"))
     kapt(libs.roomCompiler)
 }

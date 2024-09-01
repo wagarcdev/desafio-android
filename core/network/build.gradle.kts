@@ -51,5 +51,12 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":core:model"))
     implementation(project(":core:testing"))
+
+    api(libs.retrofit)
+    api(libs.retrofitConverterGson)
+    api(libs.okhttp)
+    api(libs.okhttp.interceptor)
+    api(libs.okhttpMockwebserver)
 }

@@ -9,7 +9,7 @@ import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.core.database.dao.UserDao
-import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
+import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCaseImpl
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCaseImpl
 import com.picpay.desafio.android.core.network.services.UserServiceImpl
 import kotlinx.coroutines.CoroutineDispatcher
@@ -27,7 +27,7 @@ class FeatureContactsModuleTest {
             extraTypes = listOf(
                 Retrofit::class,
                 UserServiceImpl::class,
-                LocalUsersFlowUseCase::class,
+                LocalUsersFlowUseCaseImpl::class,
                 SearchLocalUsersFlowUseCaseImpl::class,
                 UserLocalDataSource::class,
                 UserRemoteDataSource::class,

@@ -11,7 +11,7 @@ import com.picpay.desafio.android.core.data.repository.UserRemoteDataSource
 import com.picpay.desafio.android.core.data.repository.UsersRepository
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.core.database.dao.UserDao
-import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
+import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCaseImpl
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCaseImpl
 import com.picpay.desafio.android.core.network.services.UserServiceImpl
 import com.picpay.desafio.android.feature.contacts.di.test.testingFeatureContactsModule
@@ -32,7 +32,7 @@ class TestFeatureContactsModuleTest {
                 Context::class,
                 Retrofit::class,
                 UserServiceImpl::class,
-                LocalUsersFlowUseCase::class,
+                LocalUsersFlowUseCaseImpl::class,
                 SearchLocalUsersFlowUseCaseImpl::class,
                 UserLocalDataSource::class,
                 UserRemoteDataSource::class,
