@@ -1,6 +1,6 @@
 package com.picpay.desafio.android.feature.contacts.viewmodel
 
-import com.picpay.desafio.android.core.data.model.UserModel
+import com.picpay.desafio.android.core.model.UserModel
 
 data class ContactsScreenUiState(
     var searchUiState: SearchUiState = SearchUiState(),
@@ -8,6 +8,8 @@ data class ContactsScreenUiState(
     var isNetworkAvailable: Boolean? = null,
     var displayMessage: String? = null,
     var users: List<UserModel> = emptyList(),
+    var filteredUsers: List<UserModel> = emptyList(),
+    var userListIsStored: Boolean = false
 ) {
     private val isOfflineAndUsersIsEmpty =
         users.isEmpty() && isNetworkAvailable == false
@@ -16,7 +18,8 @@ data class ContactsScreenUiState(
         isSyncing && users.isEmpty()
 
     private val noResultsOnSearch =
-        searchUiState.searchQuery.isNotEmpty() && users.isEmpty() && isNetworkAvailable == true
+        searchUiState.searchQuery.isNotEmpty() &&
+                filteredUsers.isEmpty() && users.isNotEmpty()
 
     val condition: ContactsUiStateCondition
         get() = when {

@@ -40,10 +40,9 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-
-    api(libs.androidx.work.ktx)
     implementation(project(":core:data"))
-    implementation(project(":feature:contacts"))
     implementation(project(":core:datastore"))
     implementation(project(":core:network"))
+
+    implementation(project(":feature:contacts"))
 }

@@ -61,7 +61,7 @@ fun ContactsList(
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         itemsIndexed(
-            items = uiState.users,
+            items = uiState.filteredUsers,
             key = { _, it -> it.externalId }
         ) { index, user ->
 
@@ -76,7 +76,7 @@ fun ContactsList(
                 searchString = searchString
             )
 
-            if (index == uiState.users.size - 1) {
+            if (index == uiState.filteredUsers.size - 1) {
                 Spacer(modifier = Modifier.height(24.dp))
 
                 // TRANSPARENT - FOR UI TEST ONLY

@@ -5,7 +5,7 @@ import com.picpay.desafio.android.core.data.image.fake.FakeAppImageCompressor
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageDecoder
 import com.picpay.desafio.android.core.data.image.fake.FakeAppImageProcessor
 import com.picpay.desafio.android.core.data.image.model.ImageSize
-import com.picpay.desafio.android.core.data.model.mappers.toDomainModel
+import com.picpay.desafio.android.core.data.mappers.toDomainModel
 import com.picpay.desafio.android.core.network.model.UserResponse
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest

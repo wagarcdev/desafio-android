@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.picpay.desafio.android.core.data.network.NetworkMonitor
 import com.picpay.desafio.android.core.data.sync.SyncManager
+import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCase
+import com.picpay.desafio.android.core.domain.usecase.LocalUsersFlowUseCaseImpl
 import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCase
-import com.picpay.desafio.android.core.domain.usecase.SearchLocalUsersFlowUseCaseImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.update
 class ContactsScreenViewModel(
     syncManager: SyncManager,
     searchLocalUsersFlowUseCase: SearchLocalUsersFlowUseCase,
+    localUsersFlowUseCaseImpl: LocalUsersFlowUseCase,
     networkMonitor: NetworkMonitor
 ) : ViewModel() {
 
@@ -32,17 +34,21 @@ class ContactsScreenViewModel(
     }
 
     val uiState = combine(
+        localUsersFlowUseCaseImpl(),
         usersFilteredBySearch,
         networkMonitor.isOnline,
         syncManager.isSyncing,
         searchUiState
-    ) { usersFiltered,
+    ) {
+        localUsers,
+        usersFiltered,
         isOnline,
         isSyncing,
         searchUiState ->
         ContactsScreenUiState(
             isNetworkAvailable = isOnline,
-            users = usersFiltered,
+            users = localUsers,
+            filteredUsers = usersFiltered,
             isSyncing = isSyncing,
             searchUiState = searchUiState
         )

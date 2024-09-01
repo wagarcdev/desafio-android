@@ -17,13 +17,14 @@ rootProject.name = "desafio-android"
 
 include (":app")
 
-include (":core:network")
-include (":core:data")
-include (":core:datastore")
-include (":core:database")
 include(":core:common")
-include(":core:domain")
+include (":core:data")
+include (":core:database")
+include (":core:datastore")
 include(":core:design")
+include(":core:domain")
+include(":core:model")
+include (":core:network")
 include(":core:testing")
 
 include(":feature:contacts")

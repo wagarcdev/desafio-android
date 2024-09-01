@@ -31,7 +31,7 @@ class ContactsScreenViewModelTest: KoinTest {
         //Given
         val expectedState = ContactsScreenUiState(
             isNetworkAvailable = true,
-            users = emptyList(),
+            filteredUsers = emptyList(),
             isSyncing = false,
             searchUiState = SearchUiState()
         )

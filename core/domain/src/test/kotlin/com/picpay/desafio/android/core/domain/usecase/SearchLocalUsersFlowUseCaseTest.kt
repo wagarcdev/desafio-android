@@ -20,7 +20,7 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
-class SearchLocalUsersFlowUseCaseImplTest: KoinTest {
+class SearchLocalUsersFlowUseCaseTest: KoinTest {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {

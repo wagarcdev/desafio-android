@@ -1,5 +1,6 @@
-package com.picpay.desafio.android.core.common.util
+package com.picpay.desafio.android.core.network.util
 
+import com.picpay.desafio.android.core.model.ApiResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -60,7 +61,7 @@ class SafeApiCallTest {
         val apiCall: suspend () -> Response<String> = { throw IOException("Network Error") }
 
         // When
-        val result = safeApiCall(dispatcher, apiCall)
+        val result = com.picpay.desafio.android.core.network.util.safeApiCall(dispatcher, apiCall)
 
         // Then
         assertTrue(result is ApiResponse.Error)

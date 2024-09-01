@@ -11,7 +11,7 @@ import com.picpay.desafio.android.core.data.repository.fake.FakeUserRemoteDataSo
 import com.picpay.desafio.android.core.data.repository.fake.FakeUsersRepository
 import com.picpay.desafio.android.core.data.sync.SyncManager
 import com.picpay.desafio.android.core.data.sync.test.TestSynchronizer
-import com.picpay.desafio.android.core.datastore.test.FakePreferencesDataSource
+import com.picpay.desafio.android.core.domain.usecase.test.FakeLocalUsersFlowUseCase
 import com.picpay.desafio.android.core.domain.usecase.test.FakeSearchLocalUsersFlowUseCase
 import org.junit.Test
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -27,9 +27,9 @@ class TestDomainModuleTest {
             extraTypes = listOf(
                 Context::class,
                 UsersRepository::class,
+                FakeLocalUsersFlowUseCase::class,
                 FakeSearchLocalUsersFlowUseCase::class,
                 SyncManager::class,
-                FakePreferencesDataSource::class,
                 TestSynchronizer::class,
                 TestNetworkMonitor::class,
                 FakeAppImageProcessor::class,
