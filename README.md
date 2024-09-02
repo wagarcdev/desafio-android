@@ -77,11 +77,11 @@ Um resumo cronológico das principais etapas que se desenrolaram no desenvolvime
 💉 Koin configurado para injeção de dependências.  
 🏗️ Migração para Arquitetura Multi-Modular.  
 🎨 Migração de XML para Jetpack Compose.  
-🏛️ Implementado padrões de repositório e casos de uso com Kotlin Coroutines.  
+🏛️ Implementado padrões de repositório e 'use cases' com Kotlin Coroutines.  
 🌐 Otimização de chamadas do Retrofit e tratamento de erros.  
 📶 Implementado suporte offline-first usando Room para cache local.  
 🖥️ Melhorado o gerenciamento de estado com AppState customizado e Kotlin Flows.  
-🔍 Adicionada funcionalidade de busca com gerenciamento eficiente de estado da UI.  
+🔍 Adicionada funcionalidade de busca.  
 🔄 Delegação da sincronização para o WorkManager, para sincronização em segundo plano.  
 🖼️ Implementação de compressão das imagens salvas para otimizar o armazenamento.  
 🔄 Adicionada sincronização condicional usando “diffing” com “checksums” de resposta da API.  
