@@ -34,7 +34,8 @@ import com.picpay.desafio.android.ui.theme.picPayGreen
 @Composable
 fun RowScope.ContactsSearchField(
     modifier: Modifier = Modifier,
-    isSearchFieldFocused: MutableState<Boolean>,
+    isSearchFieldFocused: Boolean,
+    onSearchFieldFocusChange: (Boolean) -> Unit,
     search: String,
     onEvent: (ContactUiEvent) -> Unit
 ) {
@@ -47,7 +48,7 @@ fun RowScope.ContactsSearchField(
         modifier = modifier then Modifier
             .height(70.dp)
             .padding(bottom = 12.dp)
-            .onFocusChanged { focusState -> isSearchFieldFocused.value = focusState.isFocused },
+            .onFocusChanged { focusState -> onSearchFieldFocusChange(focusState.isFocused) },
         shape = RoundedCornerShape(10.dp),
         colors = searchFieldColors(),
         placeholder = { SearchFieldPlaceholder() },
@@ -61,10 +62,10 @@ fun RowScope.ContactsSearchField(
 @Composable
 private fun SearchFieldTrailingIcon(
     search: String,
-    isSearchFieldFocused: MutableState<Boolean>,
+    isSearchFieldFocused: Boolean,
     onEvent: (ContactUiEvent) -> Unit
 ) {
-    if (search.isNotEmpty() && isSearchFieldFocused.value) {
+    if (search.isNotEmpty() && isSearchFieldFocused) {
         Card(
             colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
             modifier = Modifier

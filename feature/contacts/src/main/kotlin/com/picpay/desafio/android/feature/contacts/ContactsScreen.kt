@@ -55,7 +55,6 @@ fun ContactsScreenContent(
     launchGame: () -> Unit,
     onEvent: (ContactUiEvent) -> Unit
 ) {
-
     val context = LocalContext.current
     LaunchedEffect(uiState.isSyncing) {
         if (uiState.isSyncing) showShortToast(R.string.synchronizing, context)
@@ -67,11 +66,10 @@ fun ContactsScreenContent(
             .fillMaxSize()
             .padding(horizontal = 24.dp)
     ) {
-
-        val isSearchFieldFocused = remember { mutableStateOf(false) }
+        var isSearchFieldFocused by remember { mutableStateOf(false) }
 
         val titleIsHidden =
-            isSearchFieldFocused.value || uiState.searchUiState.searchQuery.isNotEmpty()
+            isSearchFieldFocused || uiState.searchUiState.searchQuery.isNotEmpty()
 
         AnimatedVisibility(!titleIsHidden) {
             ContactsScreenTitle()
@@ -82,6 +80,7 @@ fun ContactsScreenContent(
             search = searchString,
             searchUiState = uiState.searchUiState,
             isSearchFieldFocused = isSearchFieldFocused,
+            onSearchFieldFocusChange = { isSearchFieldFocused = it },
             onEvent = { event ->
                 when (event) {
                     is EventSearchChange -> {
@@ -105,14 +104,12 @@ fun ContactsScreenContent(
             }
         }
     }
-
 }
 
 @SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 private fun ContactsScreenContentPreview() {
-
     ContactsScreenContent(
         uiState = ContactsScreenUiState(),
         launchGame = { },
