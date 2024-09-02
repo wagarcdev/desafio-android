@@ -244,7 +244,7 @@ ViewModels recebem fluxos de dados como "cold flows" de um ou mais use cases. El
 ### Pré-requisitos
 
 > [!WARNING]
-> *(certifique-se de estar usando a versão estável mais recente disponível [aqui](https://developer.android.com/studio))*
+> *(certifique-se de estar usando a versão estável mais recente do Android Studio disponível [aqui](https://developer.android.com/studio))*
 
 -   Kotlin 1.9+
 -   Gradle 8.5.2+
