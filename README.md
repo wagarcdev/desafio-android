@@ -4,7 +4,7 @@ Bem-vindo ao meu **Desafio PicPay**!
 
 Este repositório contém minha sugetão de solução para o desafio técnico Android proposto pelo PicPay.
 
-> [!NOTE]  
+> [!IMPORTANT]  
 >Esse aplicativo não faz parte de um processo seletivo e foi desenvolvido de livre e espontânea vontade por mim, Wagner Arcieri. Foi inteiramente desenvolvido com Kotlin e Jetpack Compose e segue as melhores práticas de design e desenvolvimento do Android. Contruído com objetivos de estudos pessoais, assim como contribuir com a comunidade, pode ser usado como repositório aberto para consultas, em Português, de quaisquer desenvolvedores que se interessarem. *
 
 > [!NOTE]  
@@ -243,7 +243,8 @@ ViewModels recebem fluxos de dados como "cold flows" de um ou mais use cases. El
 ##  Ambiente de desenvolvimento
 ### Pré-requisitos
 
-*(certifique-se de estar usando a versão estável mais recente disponível [aqui](https://developer.android.com/studio))*
+> [!WARNING]
+> *(certifique-se de estar usando a versão estável mais recente disponível [aqui](https://developer.android.com/studio))*
 
 -   Kotlin 1.9+
 -   Gradle 8.5.2+
