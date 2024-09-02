@@ -158,12 +158,12 @@ Esse aplicativo segue o guia fornecido pela documentação oficial do Google par
 > [!NOTE]  
 > A arquitetura oficial do Android é diferente de outras arquiteturas, como a "Clean Architecture". Conceitos de outras arquiteturas podem não se aplicar aqui, ou ser aplicados de maneiras diferentes.
 
-**Quais são os benefícios da orientação oficial do Android em relação à Arquitetura Limpa?**
+**Quais são os benefícios da orientação oficial do Android em relação à "Clean Architecture"?**
 
 * Menos rígida. Você pode começar apenas com camadas de UI e dados, introduzindo a camada de domínio somente quando for necessário que o aplicativo seja escalado.
 * Mais fácil alterar onde os dados são armazenados (por exemplo, movendo de 'preferences' para um banco de dados como 'Room' ou para a nuvem), pois a camada de dados não depende de nenhuma outra camada.
 
-**Quais são os benefícios da Arquitetura Limpa em relação à orientação oficial do Android?**
+**Quais são os benefícios da "Clean Architecture" em relação à orientação oficial do Android?**
 
 * Mais fácil alterar a lógica de negócios. Encapsulamento claro dessa lógica desde o início. Nenhuma lógica de negócios na IU ou camadas de dados.
 * Em aplicativos Android que seguem estritamente a Arquitetura Limpa, a lógica de negócios geralmente está contida em módulos baseados em bibliotecas JVM "puras" (que não têm dependência do Android). Isso pode ser útil em aplicativos multiplataforma.
