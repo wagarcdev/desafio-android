@@ -94,9 +94,9 @@ Um resumo cronológico das principais etapas que se desenrolaram no desenvolvime
 
 ###  Curiosidades
 
-Durante o desenvolvimento desse projeto, me deparei com um erro em testes instrumentados, utilizando um "test rule" customizada fornecida pela documentação do Koin, aonde quando se realizava testes em conjutos, os testes subsequestes ao primeiro sempre quebravam.
+Durante o desenvolvimento desse projeto, me deparei com um erro em testes instrumentados, utilizando uma "test rule" customizada fornecida pela documentação do Koin, aonde quando se realizava testes em conjutos, os testes subsequestes ao primeiro sempre quebravam.
 
-Não consegui encontrar nenhuma solução para a questão, somente mais referências de pessoas com o mesmo problema, assim como uma [Issue(#1557)](https://github.com/InsertKoinIO/koin/issues/1557) relativa no repositório do Koin.
+Não consegui encontrar na internet nenhuma solução já disponível para a questão, somente mais referências de pessoas com o mesmo problema, assim como uma [Issue(#1557)](https://github.com/InsertKoinIO/koin/issues/1557) relativa no repositório do Koin.
 
 Incomodado com a questão, busquei debugar o problema até encontrar uma possível solução.
 
