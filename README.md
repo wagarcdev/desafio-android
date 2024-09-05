@@ -165,8 +165,8 @@ Esse aplicativo segue o guia fornecido pela documentação oficial do Google par
 
 **Quais são os benefícios da "Clean Architecture" em relação à orientação oficial do Android?**
 
-* Mais fácil alterar a lógica de negócios. Encapsulamento claro dessa lógica desde o início. Nenhuma lógica de negócios na IU ou camadas de dados.
-* Em aplicativos Android que seguem estritamente a Arquitetura Limpa, a lógica de negócios geralmente está contida em módulos baseados em bibliotecas JVM "puras" (que não têm dependência do Android). Isso pode ser útil em aplicativos multiplataforma.
+* Mais fácil alterar a lógica de negócios. Encapsulamento claro dessa lógica desde o início. Nenhuma lógica de negócios na UI ou camadas de dados.
+* Em aplicativos Android que seguem estritamente a "Clean Architecture", a lógica de negócios geralmente está contida em módulos baseados em bibliotecas JVM "puras" (que não têm dependência do Android). Isso pode ser útil em aplicativos multiplataforma.
 
 
 As diferenças são destacadas em vermelho abaixo:
